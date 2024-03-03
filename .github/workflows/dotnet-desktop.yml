@@ -99,4 +99,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Launcher.exe
-        path: D:\a\Launcher_GF_3157\Launcher_GF_3157
+        path: ${{ matrix.configuration }}
