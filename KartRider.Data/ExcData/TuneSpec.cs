@@ -165,22 +165,6 @@ namespace ExcData
 				}
 			}
 			TuneSpec.Reset_Tune_SpecData();
-
-			//else
-			//{
-			//	if (SetRiderItem.Set_Kart == 701 || SetRiderItem.Set_Kart == 750 || SetRiderItem.Set_Kart == 788)
-			//	{
-			//		TuneSpec.Tune_TypeC();
-			//	}
-			//	else if (SetRiderItem.Set_Kart == 671 || SetRiderItem.Set_Kart == 787)
-			//	{
-			//		TuneSpec.Tune_TypeH();
-			//	}
-			//	else
-			//	{
-			//		TuneSpec.Reset_Tune_SpecData();
-			//	}
-			//}
 		}
 
 		public static void Use_PlantSpec()
