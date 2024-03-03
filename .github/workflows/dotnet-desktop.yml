@@ -98,5 +98,5 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: MSIX Package
-        path: ${{ env.Wap_Project_Directory }}\AppPackages
+        name: Launcher.exe
+        path: D:\a\Launcher_GF_3157\KartRider_GF_3157
