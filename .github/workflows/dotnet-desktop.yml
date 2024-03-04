@@ -61,4 +61,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Launcher.exe
-        path: D:\a\Launcher_GF\Launcher_GF
+        path: D:\a\Launcher_GF\Launcher_GF\Launcher.exe
