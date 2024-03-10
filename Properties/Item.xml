@@ -2903,6 +2903,14 @@
 	<V1BoosterEffectData id='21' />
 	<V1BoosterEffectData id='22' />
 	<V1BoosterEffectData id='23' />
+	<!--item itemCatId='14' itemName='改装部件'-->
+	<upgradeKit id='22' />
+	<upgradeKit id='23' />
+	<upgradeKit id='31' />
+	<upgradeKit id='37' />
+	<upgradeKit id='53' />
+	<upgradeKit id='57' />
+	<upgradeKit id='79' />
 	<!--itemName='徽章'-->
 	<emblem id='8196' />
 	<emblem id='8206' />
