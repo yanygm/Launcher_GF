@@ -53,9 +53,9 @@ namespace RiderData
 			NewRider.V1NormalPartsData();
 			NewRider.V1EffectData();
 			NewRider.V1BoosterEffectData();
+			NewRider.upgradeKit();
 			NewRider.Kart();
 			NewRider.NewRiderData();//라이더 인식
-			NewRider.upgradeKit();
 			Launcher.OpenGetItem = true;
 		}
 
