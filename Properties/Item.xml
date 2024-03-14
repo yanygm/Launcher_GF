@@ -469,6 +469,9 @@
 	<Character id='453' />
 	<Character id='454' />
 	<Character id='455' />
+	<Character id='456' />
+	<Character id='457' />
+	<Character id='458' />
 	<!--item itemCatId='21' itemName='宠物'-->
 	<Pet id='30000' />
 	<Pet id='30002' />
@@ -722,6 +725,7 @@
 	<FlyingPet id='90' />
 	<FlyingPet id='91' />
 	<FlyingPet id='92' />
+	<FlyingPet id='93' />
 	<!--item itemCatId='18' itemName='服饰'-->
 	<Uniform id='30000' />
 	<Uniform id='12' />
@@ -1062,6 +1066,7 @@
 	<Plate id='240' />
 	<Plate id='243' />
 	<Plate id='244' />
+	<Plate id='245' />
 	<!--item itemCatId='9' itemName='气球'-->
 	<Balloon id='30000' />
 	<Balloon id='30003' />
@@ -1916,6 +1921,9 @@
 	<Balloon id='1387' />
 	<Balloon id='1388' />
 	<Balloon id='1389' />
+	<Balloon id='1390' />
+	<Balloon id='1391' />
+	<Balloon id='1392' />
 	<!--item itemCatId='8' itemName='护目镜'-->
 	<Goggle id='30000' />
 	<Goggle id='30001' />
@@ -2508,6 +2516,8 @@
 	<HeadBand id='645' />
 	<HeadBand id='646' />
 	<HeadBand id='647' />
+	<HeadBand id='648' />
+	<HeadBand id='649' />
 	<!--item itemCatId='16' itemName='手杖'-->
 	<HandGearL id='30000' />
 	<HandGearL id='30001' />
@@ -2794,6 +2804,7 @@
 	<HandGearL id='436' />
 	<HandGearL id='437' />
 	<HandGearL id='438' />
+	<HandGearL id='439' />
 	<!--item itemCatId='28' itemName='小屋背景'-->
 	<MyRoom id='30000' />
 	<MyRoom id='2' />
@@ -3264,10 +3275,13 @@
 	<emblem id='8814' />
 	<emblem id='8815' />
 	<emblem id='8816' />
+	<emblem id='8817' />
 	<emblem id='8819' />
 	<emblem id='8820' />
 	<emblem id='8821' />
 	<emblem id='8823' />
+	<emblem id='8824' />
+	<emblem id='8825' />
 	<emblem id='30001' />
 	<emblem id='30002' />
 	<emblem id='30004' />
