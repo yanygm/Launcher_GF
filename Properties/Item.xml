@@ -472,6 +472,8 @@
 	<Character id='456' />
 	<Character id='457' />
 	<Character id='458' />
+	<Character id='459' />
+	<Character id='460' />
 	<!--item itemCatId='21' itemName='宠物'-->
 	<Pet id='30000' />
 	<Pet id='30002' />
@@ -907,6 +909,7 @@
 	<SkidMark id='46' />
 	<SkidMark id='47' />
 	<SkidMark id='48' />
+	<SkidMark id='49' />
 	<!--item itemCatId='4' itemName='车牌'-->
 	<Plate id='30000' />
 	<Plate id='30001' />
@@ -1924,6 +1927,8 @@
 	<Balloon id='1390' />
 	<Balloon id='1391' />
 	<Balloon id='1392' />
+	<Balloon id='1393' />
+	<Balloon id='1394' />
 	<!--item itemCatId='8' itemName='护目镜'-->
 	<Goggle id='30000' />
 	<Goggle id='30001' />
@@ -2518,6 +2523,7 @@
 	<HeadBand id='647' />
 	<HeadBand id='648' />
 	<HeadBand id='649' />
+	<HeadBand id='650' />
 	<!--item itemCatId='16' itemName='手杖'-->
 	<HandGearL id='30000' />
 	<HandGearL id='30001' />
@@ -2861,6 +2867,7 @@
 	<!--item itemCatId='71' itemName='车手栏背景'-->
 	<slotBg id='2' />
 	<slotBg id='3' />
+	<slotBg id='4' />
 	<!--item itemCatId='23' itemName='更名卡'-->
 	<RenameRid id='1' />
 	<!--item itemCatId='13' itemName='回放观赏券'-->
