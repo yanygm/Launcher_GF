@@ -23,7 +23,7 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build -c Release --no-restore --runtime win-x64  --output app --project Launcher.cn.csproj
+        run: dotnet build -c Release --no-restore --runtime win-x64 --output app
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
