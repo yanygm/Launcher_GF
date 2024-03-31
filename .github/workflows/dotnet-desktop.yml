@@ -21,10 +21,10 @@ jobs:
       run: msbuild Launcher.cn.sln /t:Restore /p:Configuration=Release
 
     - name: Build Solution
-      run: msbuild Launcher.cn.sln /p:Configuration=Release /p:Appx_Bundle_Platforms="x64" /p:OutputPath=Launcher
+      run: msbuild Launcher.cn.sln /p:Configuration=Release /p:Appx_Bundle_Platforms="x64"
 
     - name: Archive Artifacts
       uses: actions/upload-artifact@v4.3.1
       with:
         name: Launcher
-        path: Launcher\Launcher.exe
+        path: Launcher.exe
