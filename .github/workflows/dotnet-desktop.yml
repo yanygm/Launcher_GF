@@ -1,32 +1,33 @@
-name: MSBuild Build
+name: .NET Framework 4.8 Build
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
 
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '8.0.x'
+    - name: Setup MSBuild
+      uses: microsoft/msbuild@v1
+      with:
+        msbuild-architecture: x64
 
-      - name: Restore dependencies
-        run: dotnet restore
+    - name: Restore NuGet Packages
+      run: nuget restore Launcher.cn.sln
 
-      - name: Build
-        run: dotnet build -c Release --no-restore --runtime win-x64 --output app
+    - name: Build Solution
+      run: msbuild Launcher.cn.sln /p:Configuration=Release /p:Platform="Any CPU" /verbosity:minimal
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: Launcher
-          path: app\Launcher.exe
+    - name: Archive Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-output
+        path: |
+          **/bin/Release/*
