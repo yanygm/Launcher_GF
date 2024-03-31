@@ -16,14 +16,12 @@ jobs:
 
     - name: Setup MSBuild
       uses: microsoft/msbuild@v1
-      with:
-        msbuild-architecture: x86
 
-    - name: Restore NuGet Packages
-      run: nuget restore Launcher.cn.sln
+    - name: Restore the application
+      run: msbuild Launcher.cn.sln /t:Restore /p:Configuration=Release
 
     - name: Build Solution
-      run: msbuild Launcher.cn.sln /p:Configuration=Release /p:Platform="Any CPU" /verbosity:minimal
+      run: msbuild Launcher.cn.sln /p:Configuration=Release /p:Appx_Bundle_Platforms="x64"
 
     - name: Archive Artifacts
       uses: actions/upload-artifact@v2
