@@ -17,7 +17,7 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/msbuild@v1
       with:
-        msbuild-architecture: x64
+        msbuild-architecture: x86
 
     - name: Restore NuGet Packages
       run: nuget restore Launcher.cn.sln
