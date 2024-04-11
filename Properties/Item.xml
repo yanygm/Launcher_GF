@@ -474,6 +474,7 @@
 	<Character id='458' />
 	<Character id='459' />
 	<Character id='460' />
+	<Character id='461' />
 	<!--item itemCatId='21' itemName='宠物'-->
 	<Pet id='30000' />
 	<Pet id='30002' />
@@ -1929,6 +1930,8 @@
 	<Balloon id='1392' />
 	<Balloon id='1393' />
 	<Balloon id='1394' />
+	<Balloon id='1395' />
+	<Balloon id='1396' />
 	<!--item itemCatId='8' itemName='护目镜'-->
 	<Goggle id='30000' />
 	<Goggle id='30001' />
