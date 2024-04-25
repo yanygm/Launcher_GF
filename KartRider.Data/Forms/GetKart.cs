@@ -56,6 +56,10 @@ namespace KartRider
 								}
 								XmlElement newElement = doc.CreateElement("Kart");
 								newElement.SetAttribute("id", GetKart.Item_Code.ToString());
+								if(sn == 0)
+								{
+									sn = 1;
+								}
 								newElement.SetAttribute("sn", sn.ToString());
 								XmlElement NewKart = doc.DocumentElement;
 								NewKart.AppendChild(newElement);
