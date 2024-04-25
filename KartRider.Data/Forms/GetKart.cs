@@ -8,6 +8,7 @@ using KartRider.IO;
 using System.Threading;
 using System.IO;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace KartRider
 {

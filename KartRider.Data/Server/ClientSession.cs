@@ -14,6 +14,7 @@ using KartRider_SN;
 using ExcData;
 using Set_Data;
 using RiderData;
+using System.Xml;
 namespace KartRider
 {
 	public class ClientSession : Session
