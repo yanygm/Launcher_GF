@@ -55,7 +55,7 @@ namespace KartRider
 								}
 								XmlElement newElement = doc.CreateElement("Kart");
 								newElement.SetAttribute("id", GetKart.Item_Code.ToString());
-								newElement.SetAttribute("sn", previous_sn.ToString());
+								newElement.SetAttribute("sn", sn++.ToString());
 								XmlElement NewKart = doc.DocumentElement;
 								NewKart.AppendChild(newElement);
 								doc.Save(@"Profile\NewKart.xml");
@@ -68,7 +68,7 @@ namespace KartRider
 							outPacket.WriteInt(1);
 							outPacket.WriteShort(GetKart.Item_Type);
 							outPacket.WriteShort(GetKart.Item_Code);
-							outPacket.WriteShort(previous_sn);
+							outPacket.WriteShort(sn);
 							outPacket.WriteShort(1);//수량
 							outPacket.WriteShort(0);
 							outPacket.WriteShort(-1);
