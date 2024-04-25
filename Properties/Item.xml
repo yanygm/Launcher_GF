@@ -475,6 +475,8 @@
 	<Character id='459' />
 	<Character id='460' />
 	<Character id='461' />
+	<Character id='462' />
+	<Character id='463' />
 	<!--item itemCatId='21' itemName='宠物'-->
 	<Pet id='30000' />
 	<Pet id='30002' />
@@ -729,6 +731,8 @@
 	<FlyingPet id='91' />
 	<FlyingPet id='92' />
 	<FlyingPet id='93' />
+	<FlyingPet id='94' />
+	<FlyingPet id='95' />
 	<!--item itemCatId='18' itemName='服饰'-->
 	<Uniform id='30000' />
 	<Uniform id='12' />
@@ -1933,6 +1937,9 @@
 	<Balloon id='1394' />
 	<Balloon id='1395' />
 	<Balloon id='1396' />
+	<Balloon id='1397' />
+	<Balloon id='1398' />
+	<Balloon id='1399' />
 	<!--item itemCatId='8' itemName='护目镜'-->
 	<Goggle id='30000' />
 	<Goggle id='30001' />
@@ -2872,6 +2879,7 @@
 	<slotBg id='2' />
 	<slotBg id='3' />
 	<slotBg id='4' />
+	<slotBg id='5' />
 	<!--item itemCatId='23' itemName='更名卡'-->
 	<RenameRid id='1' />
 	<!--item itemCatId='13' itemName='回放观赏券'-->
@@ -3294,6 +3302,7 @@
 	<emblem id='8823' />
 	<emblem id='8824' />
 	<emblem id='8825' />
+	<emblem id='8826' />
 	<emblem id='30001' />
 	<emblem id='30002' />
 	<emblem id='30004' />
