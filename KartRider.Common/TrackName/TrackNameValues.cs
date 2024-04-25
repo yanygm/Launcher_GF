@@ -194,6 +194,7 @@ namespace KartRider_TrackName
 		china_I09 = 570819348,
 		china_I10 = 569901836,
 		china_I11 = 570032909,
+		china_I12 = 570163982,
 		castle_R01 = 723387278,
 		castle_I01 = 719848325,
 		castle_I02 = 719979398,
