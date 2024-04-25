@@ -83,4 +83,6 @@
 	<id91 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='100' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='1000' StartForwardAccelForceSpeed='1000' />
 	<id92 DragFactor='0' ForwardAccelForce='5.0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
 	<id93 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0.002' NormalBoosterTime='0' ItemBoosterTime='250' TeamBoosterTime='0' StartForwardAccelForceItem='0' StartForwardAccelForceSpeed='0' />
+	<id94 DragFactor='0' ForwardAccelForce='5.0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
+	<id95 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='100' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
 </FlyingPetSpec>
