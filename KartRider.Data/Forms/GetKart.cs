@@ -31,17 +31,50 @@ namespace KartRider
 				{
 					button1.Enabled = false;
 					Thread.Sleep(300);
+					short sn = 1;
 					if (GetKart.Item_Type == 3)
 					{
-						Launcher.KartSN++;
-						Console.WriteLine("NewKart: {0}:{1}", GetKart.Item_Code, Launcher.KartSN);
+						if (File.Exists(@"Profile\NewKart.xml"))
+						{
+							XmlDocument doc = new XmlDocument();
+							doc.Load(@"Profile\NewKart.xml");
+							if (!(doc.GetElementsByTagName("Kart") == null))
+							{
+								XmlNodeList lis = doc.GetElementsByTagName("Kart");
+								foreach (XmlNode xn in lis)
+								{
+									XmlElement xe = (XmlElement)xn;
+									short i = short.Parse(xe.GetAttribute("id"));
+									if (i == GetKart.Item_Code)
+									{
+										//sn = short.Parse(xe.GetAttribute("sn"));
+										sn ++;
+									}
+								}
+								XmlElement newElement = doc.CreateElement("Kart");
+								newElement.SetAttribute("id", GetKart.Item_Code.ToString());
+								if(sn > 1)
+								{
+									newElement.SetAttribute("sn", sn.ToString());
+								}
+								else
+								{
+									newElement.SetAttribute("sn", "1");
+									sn = 1;
+								}
+								XmlElement NewKart = doc.DocumentElement;
+								NewKart.AppendChild(newElement);
+								doc.Save(@"Profile\NewKart.xml");
+							}
+						}
+						Console.WriteLine("NewKart: {0}:{1}", GetKart.Item_Code, sn);
 						using (OutPacket outPacket = new OutPacket("PrRequestKartInfoPacket"))
 						{
 							outPacket.WriteByte(1);
 							outPacket.WriteInt(1);
 							outPacket.WriteShort(GetKart.Item_Type);
 							outPacket.WriteShort(GetKart.Item_Code);
-							outPacket.WriteShort(Launcher.KartSN);
+							outPacket.WriteShort(sn);
 							outPacket.WriteShort(1);//수량
 							outPacket.WriteShort(0);
 							outPacket.WriteShort(-1);
