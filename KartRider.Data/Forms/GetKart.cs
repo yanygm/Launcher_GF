@@ -32,7 +32,7 @@ namespace KartRider
 				{
 					button1.Enabled = false;
 					Thread.Sleep(300);
-					short sn = 1;
+					short sn = 0, previous_sn;
 					if (GetKart.Item_Type == 3)
 					{
 						if (File.Exists(@"Profile\NewKart.xml"))
@@ -48,13 +48,14 @@ namespace KartRider
 									short i = short.Parse(xe.GetAttribute("id"));
 									if (i == GetKart.Item_Code)
 									{
-										//sn = short.Parse(xe.GetAttribute("sn"));
-										sn ++;
+										previous_sn = sn;
+										sn = short.Parse(xe.GetAttribute("sn"));
+										if(previous_sn > sn) sn = previous_sn;
 									}
 								}
 								XmlElement newElement = doc.CreateElement("Kart");
 								newElement.SetAttribute("id", GetKart.Item_Code.ToString());
-								if(sn > 1)
+								if(sn == 0)
 								{
 									newElement.SetAttribute("sn", sn.ToString());
 								}
