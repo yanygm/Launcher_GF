@@ -48,14 +48,15 @@ namespace KartRider
 									short i = short.Parse(xe.GetAttribute("id"));
 									if (i == GetKart.Item_Code)
 									{
-										previous_sn = sn;
+										previous_sn = sn--;
 										sn = short.Parse(xe.GetAttribute("sn"));
 										if(previous_sn > sn) sn = previous_sn;
+										sn++;
 									}
 								}
 								XmlElement newElement = doc.CreateElement("Kart");
 								newElement.SetAttribute("id", GetKart.Item_Code.ToString());
-								newElement.SetAttribute("sn", sn++.ToString());
+								newElement.SetAttribute("sn", sn.ToString());
 								XmlElement NewKart = doc.DocumentElement;
 								NewKart.AppendChild(newElement);
 								doc.Save(@"Profile\NewKart.xml");
