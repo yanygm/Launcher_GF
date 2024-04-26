@@ -243,18 +243,25 @@ namespace KartRider
 					string str = this.profilePath;
 					string[] text2 = new string[] { "<?xml version='1.0' encoding='UTF-16'?>\r\n<profile>\r\n<username>", SetRider.UserID, "</username>\r\n</profile>" };
 					File.WriteAllText(str, string.Concat(text2));
-					Process process = new Process()
+					ProcessStartInfo startInfo = new ProcessStartInfo(Launcher.KartRider, "TGC -region:3 -passport:556O5Yeg5oqK55yL5ZWl")
 					{
-						StartInfo = new ProcessStartInfo(Launcher.KartRider, "TGC -region:3 -passport:556O5Yeg5oqK55yL5ZWl")
-						{
-							WorkingDirectory = this.kartRiderDirectory
-						}
+					    WorkingDirectory = this.kartRiderDirectory,
+					    UseShellExecute = true,
+					    Verb = "runas"
 					};
-					process.Start();
-					Thread.Sleep(1000);
-					Start_Button.Enabled = true;
-					Launcher.GetKart = true;
-					Launcher.Options = true;
+					try
+					{
+						Process.Start(startInfo);
+						Thread.Sleep(1000);
+						Start_Button.Enabled = true;
+						Launcher.GetKart = true;
+						Launcher.Options = true;
+					}
+					catch (System.ComponentModel.Win32Exception ex)
+					{
+						// 用户取消了UAC提示或没有权限
+						Console.WriteLine(ex.Message);
+					}
 				})).Start();
 			}
 		}
