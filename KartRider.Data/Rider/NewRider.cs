@@ -188,10 +188,10 @@ namespace RiderData
 						add.Add(sn);
 						add.Add(num);
 						item.Add(add);
-						XmlDocument doc = new XmlDocument();
+						XmlDocument PartsData = new XmlDocument();
 						doc.Load(@"Profile\PartsData.xml");
-						XmlElement elementToRemove = doc.SelectSingleNode("//Kart[@id='" + i + "' and @sn='" + sn + "']") as XmlElement;
-						if (elementToRemove == null)
+						XmlElement AddPartsData = PartsData.SelectSingleNode("//Kart[@id='" + i + "' and @sn='" + sn + "']") as XmlElement;
+						if (AddPartsData == null)
 						{
 							KartExcData.AddPartsList(i, sn, 63, 0, 0, 0);
 						}
