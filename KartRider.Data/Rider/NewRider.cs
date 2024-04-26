@@ -8,6 +8,7 @@ using KartRider;
 using ExcData;
 using Set_Data;
 using System.Xml;
+
 namespace RiderData
 {
 	public static class NewRider
@@ -187,6 +188,13 @@ namespace RiderData
 						add.Add(sn);
 						add.Add(num);
 						item.Add(add);
+						XmlDocument doc = new XmlDocument();
+						doc.Load(@"Profile\PartsData.xml");
+						XmlElement elementToRemove = doc.SelectSingleNode("//Kart[@id='" + i + "' and @sn='" + sn + "']") as XmlElement;
+						if (elementToRemove == null)
+						{
+							KartExcData.AddPartsList(i, sn, 63, 0, 0, 0);
+						}
 					}
 					LoRpGetRiderItemPacket(3, item);
 				}

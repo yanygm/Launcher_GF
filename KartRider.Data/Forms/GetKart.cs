@@ -9,6 +9,7 @@ using System.Threading;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
+using ExcData;
 
 namespace KartRider
 {
@@ -56,6 +57,7 @@ namespace KartRider
 							doc.Save(@"Profile\NewKart.xml");
 						}
 						Console.WriteLine("NewKart: {0}:{1}", GetKart.Item_Code, sn);
+						KartExcData.AddPartsList(GetKart.Item_Code, sn, 63, 0, 0, 0);
 						using (OutPacket outPacket = new OutPacket("PrRequestKartInfoPacket"))
 						{
 							outPacket.WriteByte(1);

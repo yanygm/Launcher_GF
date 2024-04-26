@@ -704,6 +704,11 @@ namespace KartRider
 							outPacket.WriteHexString("22 00 4C 00 01 00 01 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00");
 							this.Parent.Client.Send(outPacket);
 						}
+						KartExcData.AddPartsList(Kart, KartSN, 63, 0, 0, 0);
+						KartExcData.AddPartsList(Kart, KartSN, 64, 0, 0, 0);
+						KartExcData.AddPartsList(Kart, KartSN, 65, 0, 0, 0);
+						KartExcData.AddPartsList(Kart, KartSN, 66, 0, 0, 0);
+						PartSpec.PartSpecData();
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqEquipTuningExPacket", 0))
