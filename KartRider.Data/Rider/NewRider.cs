@@ -191,7 +191,7 @@ namespace RiderData
 						XmlDocument PartsData = new XmlDocument();
 						doc.Load(@"Profile\PartsData.xml");
 						XmlElement AddPartsData = PartsData.SelectSingleNode("//Kart[@id='" + i + "' and @sn='" + sn + "']") as XmlElement;
-						if (AddPartsData == null)
+						if (AddPartsData == null && i > 0)
 						{
 							KartExcData.AddPartsList(i, sn, 63, 0, 0, 0);
 						}
