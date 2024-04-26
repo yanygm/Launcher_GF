@@ -39,32 +39,21 @@ namespace KartRider
 						{
 							XmlDocument doc = new XmlDocument();
 							doc.Load(@"Profile\NewKart.xml");
-							if (!(doc.GetElementsByTagName("Kart") == null))
+							XmlNodeList lis = doc.SelectNodes("//Kart[@id='" + GetKart.Item_Code + "']");
+							foreach (XmlNode xn in lis)
 							{
-								XmlNodeList lis = doc.GetElementsByTagName("Kart");
-								foreach (XmlNode xn in lis)
-								{
-									XmlElement xe = (XmlElement)xn;
-									short i = short.Parse(xe.GetAttribute("id"));
-									if (i == GetKart.Item_Code)
-									{
-										previous_sn = sn--;
-										sn = short.Parse(xe.GetAttribute("sn"));
-										if(previous_sn > sn) sn = previous_sn;
-										sn++;
-									}
-								}
-								XmlElement newElement = doc.CreateElement("Kart");
-								newElement.SetAttribute("id", GetKart.Item_Code.ToString());
-								if(sn == 0)
-								{
-									sn = 1;
-								}
-								newElement.SetAttribute("sn", sn.ToString());
-								XmlElement NewKart = doc.DocumentElement;
-								NewKart.AppendChild(newElement);
-								doc.Save(@"Profile\NewKart.xml");
+								XmlElement xe = (XmlElement)xn;
+								previous_sn = sn;
+								sn = short.Parse(xe.GetAttribute("sn"));
+								if(previous_sn > sn) sn = previous_sn;
 							}
+							XmlElement newElement = doc.CreateElement("Kart");
+							newElement.SetAttribute("id", GetKart.Item_Code.ToString());
+							sn += 1;
+							newElement.SetAttribute("sn", sn.ToString());
+							XmlElement NewKart = doc.DocumentElement;
+							NewKart.AppendChild(newElement);
+							doc.Save(@"Profile\NewKart.xml");
 						}
 						Console.WriteLine("NewKart: {0}:{1}", GetKart.Item_Code, sn);
 						using (OutPacket outPacket = new OutPacket("PrRequestKartInfoPacket"))

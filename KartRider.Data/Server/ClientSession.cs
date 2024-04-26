@@ -1501,6 +1501,10 @@ namespace KartRider
 						short ItemType = iPacket.ReadShort();
 						short ItemID = iPacket.ReadShort();
 						short SN = iPacket.ReadShort();
+						using (OutPacket outPacket = new OutPacket("LoRpDeleteItemPacket"))
+						{
+							this.Parent.Client.Send(outPacket);
+						}
 						if (ItemType == 3)
 						{
 							XmlDocument doc = new XmlDocument();
@@ -1511,10 +1515,6 @@ namespace KartRider
 								elementToRemove.ParentNode.RemoveChild(elementToRemove);
 							}
 							doc.Save(@"Profile\NewKart.xml");
-						}
-						using (OutPacket outPacket = new OutPacket("LoRpDeleteItemPacket"))
-						{
-							this.Parent.Client.Send(outPacket);
 						}
 						return;
 					}
