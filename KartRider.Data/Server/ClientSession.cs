@@ -540,9 +540,31 @@ namespace KartRider
 						}
 						return;
 					}
-					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqExChangePacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqKartLevelPointClear", 0))
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqExChangePacket", 0))
 					{
 						GameSupport.OnDisconnect();
+						return;
+					}
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqKartLevelPointClear", 0))
+					{
+						short Kart = iPacket.ReadShort();
+						short SN = iPacket.ReadShort();
+						using (OutPacket outPacket = new OutPacket("PrKartLevelPointClear"))
+						{
+							outPacket.WriteInt(1);
+							outPacket.WriteShort(Kart);
+							outPacket.WriteShort(SN);
+							outPacket.WriteShort(5);
+							outPacket.WriteShort(35);
+							outPacket.WriteShort(0);
+							outPacket.WriteShort(0);
+							outPacket.WriteShort(0);
+							outPacket.WriteShort(0);
+							outPacket.WriteShort(0);
+							outPacket.WriteInt(10000);
+							this.Parent.Client.Send(outPacket);
+						}
+						KartExcData.AddLevelList(Kart, SN, 5, 35, 0, 0, 0, 0);
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqDisassembleXPartsItem", 0))
