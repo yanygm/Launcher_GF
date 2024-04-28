@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using KartRider.IO;
-using System.Net;
 using Set_Data;
 
 namespace KartRider

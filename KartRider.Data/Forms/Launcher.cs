@@ -1,15 +1,7 @@
-﻿using KartRider.Common.Network;
-using KartRider.Common.Utilities;
-using KartRider.IO;
-using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Net;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using Set_Data;
@@ -245,9 +237,9 @@ namespace KartRider
 					File.WriteAllText(str, string.Concat(text2));
 					ProcessStartInfo startInfo = new ProcessStartInfo(Launcher.KartRider, "TGC -region:3 -passport:556O5Yeg5oqK55yL5ZWl")
 					{
-					    WorkingDirectory = this.kartRiderDirectory,
-					    UseShellExecute = true,
-					    Verb = "runas"
+						WorkingDirectory = this.kartRiderDirectory,
+						UseShellExecute = true,
+						Verb = "runas"
 					};
 					try
 					{
@@ -316,9 +308,15 @@ namespace KartRider
 						XmlElement xe = (XmlElement)xn;
 						short i = short.Parse(xe.GetAttribute("id"));
 						short sn = short.Parse(xe.GetAttribute("sn"));
+						short tune1 = short.Parse(xe.GetAttribute("tune1"));
+						short tune2 = short.Parse(xe.GetAttribute("tune2"));
+						short tune3 = short.Parse(xe.GetAttribute("tune3"));
 						List<short> AddList = new List<short>();
 						AddList.Add(i);
 						AddList.Add(sn);
+						AddList.Add(tune1);
+						AddList.Add(tune2);
+						AddList.Add(tune3);
 						KartExcData.TuneList.Add(AddList);
 					}
 				}
@@ -336,9 +334,25 @@ namespace KartRider
 						XmlElement xe = (XmlElement)xn;
 						short i = short.Parse(xe.GetAttribute("id"));
 						short sn = short.Parse(xe.GetAttribute("sn"));
+						short item1 = short.Parse(xe.GetAttribute("item1"));
+						short item_id1 = short.Parse(xe.GetAttribute("item_id1"));
+						short item2 = short.Parse(xe.GetAttribute("item2"));
+						short item_id2 = short.Parse(xe.GetAttribute("item_id2"));
+						short item3 = short.Parse(xe.GetAttribute("item3"));
+						short item_id3 = short.Parse(xe.GetAttribute("item_id3"));
+						short item4 = short.Parse(xe.GetAttribute("item4"));
+						short item_id4 = short.Parse(xe.GetAttribute("item_id4"));
 						List<short> AddList = new List<short>();
 						AddList.Add(i);
 						AddList.Add(sn);
+						AddList.Add(item1);
+						AddList.Add(item_id1);
+						AddList.Add(item2);
+						AddList.Add(item_id2);
+						AddList.Add(item3);
+						AddList.Add(item_id3);
+						AddList.Add(item4);
+						AddList.Add(item_id4);
 						KartExcData.PlantList.Add(AddList);
 					}
 				}
@@ -356,9 +370,21 @@ namespace KartRider
 						XmlElement xe = (XmlElement)xn;
 						short i = short.Parse(xe.GetAttribute("id"));
 						short sn = short.Parse(xe.GetAttribute("sn"));
+						short level = short.Parse(xe.GetAttribute("level"));
+						short pointleft = short.Parse(xe.GetAttribute("pointleft"));
+						short v1 = short.Parse(xe.GetAttribute("v1"));
+						short v2 = short.Parse(xe.GetAttribute("v2"));
+						short v3 = short.Parse(xe.GetAttribute("v3"));
+						short v4 = short.Parse(xe.GetAttribute("v4"));
 						List<short> AddList = new List<short>();
 						AddList.Add(i);
 						AddList.Add(sn);
+						AddList.Add(level);
+						AddList.Add(pointleft);
+						AddList.Add(v1);
+						AddList.Add(v2);
+						AddList.Add(v3);
+						AddList.Add(v4);
 						KartExcData.LevelList.Add(AddList);
 					}
 				}

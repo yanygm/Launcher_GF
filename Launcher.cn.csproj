@@ -38,7 +38,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>.\</OutputPath>
+    <OutputPath>F:\nexon\KartRider_GF\</OutputPath>
     <DebugSymbols>false</DebugSymbols>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -96,10 +96,6 @@
     </Compile>
     <Compile Include="KartRider.Data\GameDataReset.cs" />
     <Compile Include="KartRider.Data\GameType.cs" />
-    <Compile Include="KartRider.Data\KartParts_SN\KartSN_Parts.cs" />
-    <Compile Include="KartRider.Data\KartParts_SN\PartsDataReset.cs" />
-    <Compile Include="KartRider.Data\ExcData\PartSpec.cs" />
-    <Compile Include="KartRider.Data\KartParts_SN\Spec\Count.cs" />
     <Compile Include="KartRider.Data\ExcData\SpeedType.cs" />
     <Compile Include="KartRider.Data\KartSpec\FlyingPet.cs" />
     <Compile Include="KartRider.Data\KartSpec\Kart.cs" />

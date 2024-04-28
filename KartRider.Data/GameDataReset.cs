@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KartRider_SN;
-using RiderData;
 using ExcData;
 using Set_Data;
 
@@ -173,7 +167,7 @@ namespace KartRider
 			GameDataReset.SpeedType_DataReset();
 			GameDataReset.FlyingPet_DataReset();
 			GameDataReset.Kart_DataReset();
-			PartsDataReset.PartsSpecReset();
+			TuneSpec.Reset_PartSpec_SpecData();
 			TuneSpec.Reset_Tune_SpecData();
 			TuneSpec.Reset_Plant_SpecData();
 			TuneSpec.Reset_KartLevel_SpecData();

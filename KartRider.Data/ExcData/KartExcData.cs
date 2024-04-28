@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Xml;
 using KartRider;
 using KartRider.IO;
-using RiderData;
-using Set_Data;
-using System.Diagnostics;
+
 namespace ExcData
 {
 	public static class KartExcData
@@ -38,9 +33,9 @@ namespace ExcData
 					oPacket.WriteShort(TuneList[i][1]);
 					oPacket.WriteShort(0);
 					oPacket.WriteShort(0);
-					oPacket.WriteShort(603);
-					oPacket.WriteShort(703);
-					oPacket.WriteShort(903);
+					oPacket.WriteShort(TuneList[i][2]);
+					oPacket.WriteShort(TuneList[i][3]);
+					oPacket.WriteShort(TuneList[i][4]);
 					oPacket.WriteShort(0);
 					oPacket.WriteShort(0);
 					oPacket.WriteShort(0);
@@ -73,14 +68,14 @@ namespace ExcData
 					oPacket.WriteShort(PlantList[i][0]);
 					oPacket.WriteShort(PlantList[i][1]);
 					oPacket.WriteInt(4);
-					oPacket.WriteShort(43);
-					oPacket.WriteShort(23);
-					oPacket.WriteShort(44);
-					oPacket.WriteShort(2);
-					oPacket.WriteShort(45);
-					oPacket.WriteShort(23);
-					oPacket.WriteShort(46);
-					oPacket.WriteShort(1);
+					oPacket.WriteShort(PlantList[i][2]);
+					oPacket.WriteShort(PlantList[i][3]);
+					oPacket.WriteShort(PlantList[i][4]);
+					oPacket.WriteShort(PlantList[i][5]);
+					oPacket.WriteShort(PlantList[i][6]);
+					oPacket.WriteShort(PlantList[i][7]);
+					oPacket.WriteShort(PlantList[i][8]);
+					oPacket.WriteShort(PlantList[i][9]);
 				}
 				oPacket.WriteInt(0);
 				oPacket.WriteInt(0);
@@ -108,12 +103,12 @@ namespace ExcData
 				{
 					oPacket.WriteShort(LevelList[i][0]);
 					oPacket.WriteShort(LevelList[i][1]);
-					oPacket.WriteShort(5);
-					oPacket.WriteShort(0);
-					oPacket.WriteShort(10);
-					oPacket.WriteShort(5);
-					oPacket.WriteShort(10);
-					oPacket.WriteShort(10);
+					oPacket.WriteShort(LevelList[i][2]);
+					oPacket.WriteShort(LevelList[i][3]);
+					oPacket.WriteShort(LevelList[i][4]);
+					oPacket.WriteShort(LevelList[i][5]);
+					oPacket.WriteShort(LevelList[i][6]);
+					oPacket.WriteShort(LevelList[i][7]);
 					oPacket.WriteShort(0); //코팅
 				}
 				oPacket.WriteInt(0);
@@ -173,7 +168,7 @@ namespace ExcData
 			}
 		}
 
-		public static void AddTuneList(short id, short sn)
+		public static void AddTuneList(short id, short sn, short tune1, short tune2, short tune3)
 		{
 			int Add = -1;
 			for (var i = 0; i < TuneList.Count; i++)
@@ -188,7 +183,17 @@ namespace ExcData
 				List<short> AddList = new List<short>();
 				AddList.Add(id);
 				AddList.Add(sn);
+				AddList.Add(tune1);
+				AddList.Add(tune2);
+				AddList.Add(tune3);
 				TuneList.Add(AddList);
+				SaveTuneList(TuneList);
+			}
+			else if (Add > -1)
+			{
+				TuneList[Add][2] = tune1;
+				TuneList[Add][3] = tune2;
+				TuneList[Add][4] = tune3;
 				SaveTuneList(TuneList);
 			}
 		}
@@ -227,12 +232,15 @@ namespace ExcData
 				XmlElement xe1 = xmlDoc.CreateElement("Kart");
 				xe1.SetAttribute("id", List[i][0].ToString());
 				xe1.SetAttribute("sn", List[i][1].ToString());
+				xe1.SetAttribute("tune1", List[i][2].ToString());
+				xe1.SetAttribute("tune2", List[i][3].ToString());
+				xe1.SetAttribute("tune3", List[i][4].ToString());
 				root.AppendChild(xe1);
 				xmlDoc.Save(@"Profile\TuneData.xml");
 			}
 		}
 
-		public static void AddPlantList(short id, short sn)
+		public static void AddPlantList(short id, short sn, short item, short item_id)
 		{
 			int Add = -1;
 			for (var i = 0; i < PlantList.Count; i++)
@@ -247,7 +255,59 @@ namespace ExcData
 				List<short> AddList = new List<short>();
 				AddList.Add(id);
 				AddList.Add(sn);
+				AddList.Add(0);
+				AddList.Add(0);
+				AddList.Add(0);
+				AddList.Add(0);
+				AddList.Add(0);
+				AddList.Add(0);
+				AddList.Add(0);
+				AddList.Add(0);
+				if (item == 43)
+				{
+					AddList[2] = item;
+					AddList[3] = item_id;
+				}
+				else if (item == 44)
+				{
+					AddList[4] = item;
+					AddList[5] = item_id;
+				}
+				else if (item == 45)
+				{
+					AddList[6] = item;
+					AddList[7] = item_id;
+				}
+				else if (item == 46)
+				{
+					AddList[8] = item;
+					AddList[9] = item_id;
+				}
 				PlantList.Add(AddList);
+				SavePlantList(PlantList);
+			}
+			else if (Add > -1)
+			{
+				if (item == 43)
+				{
+					PlantList[Add][2] = item;
+					PlantList[Add][3] = item_id;
+				}
+				else if (item == 44)
+				{
+					PlantList[Add][4] = item;
+					PlantList[Add][5] = item_id;
+				}
+				else if (item == 45)
+				{
+					PlantList[Add][6] = item;
+					PlantList[Add][7] = item_id;
+				}
+				else if (item == 46)
+				{
+					PlantList[Add][8] = item;
+					PlantList[Add][9] = item_id;
+				}
 				SavePlantList(PlantList);
 			}
 		}
@@ -269,12 +329,20 @@ namespace ExcData
 				XmlElement xe1 = xmlDoc.CreateElement("Kart");
 				xe1.SetAttribute("id", List[i][0].ToString());
 				xe1.SetAttribute("sn", List[i][1].ToString());
+				xe1.SetAttribute("item1", List[i][2].ToString());
+				xe1.SetAttribute("item_id1", List[i][3].ToString());
+				xe1.SetAttribute("item2", List[i][4].ToString());
+				xe1.SetAttribute("item_id2", List[i][5].ToString());
+				xe1.SetAttribute("item3", List[i][6].ToString());
+				xe1.SetAttribute("item_id3", List[i][7].ToString());
+				xe1.SetAttribute("item4", List[i][8].ToString());
+				xe1.SetAttribute("item_id4", List[i][9].ToString());
 				root.AppendChild(xe1);
 				xmlDoc.Save(@"Profile\PlantData.xml");
 			}
 		}
 
-		public static void AddLevelList(short id, short sn)
+		public static void AddLevelList(short id, short sn, short level, short pointleft, short v1, short v2, short v3, short v4)
 		{
 			int Add = -1;
 			for (var i = 0; i < LevelList.Count; i++)
@@ -289,7 +357,22 @@ namespace ExcData
 				List<short> AddList = new List<short>();
 				AddList.Add(id);
 				AddList.Add(sn);
+				AddList.Add(level);
+				AddList.Add(pointleft);
+				AddList.Add(v1);
+				AddList.Add(v2);
+				AddList.Add(v3);
+				AddList.Add(v4);
 				LevelList.Add(AddList);
+				SaveLevelList(LevelList);
+			}
+			else if (Add > -1)
+			{
+				LevelList[Add][3] = pointleft;
+				LevelList[Add][4] = v1;
+				LevelList[Add][5] = v2;
+				LevelList[Add][6] = v3;
+				LevelList[Add][7] = v4;
 				SaveLevelList(LevelList);
 			}
 		}
@@ -311,6 +394,12 @@ namespace ExcData
 				XmlElement xe1 = xmlDoc.CreateElement("Kart");
 				xe1.SetAttribute("id", List[i][0].ToString());
 				xe1.SetAttribute("sn", List[i][1].ToString());
+				xe1.SetAttribute("level", List[i][2].ToString());
+				xe1.SetAttribute("pointleft", List[i][3].ToString());
+				xe1.SetAttribute("v1", List[i][4].ToString());
+				xe1.SetAttribute("v2", List[i][5].ToString());
+				xe1.SetAttribute("v3", List[i][6].ToString());
+				xe1.SetAttribute("v4", List[i][7].ToString());
 				root.AppendChild(xe1);
 				xmlDoc.Save(@"Profile\LevelData.xml");
 			}

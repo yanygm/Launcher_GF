@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using KartRider.IO;
 using KartRider;
@@ -736,18 +734,21 @@ namespace RiderData
 			{
 				oPacket.WriteInt(1);
 				oPacket.WriteInt(1);
-				oPacket.WriteInt(1);
-				oPacket.WriteShort(43);
-				oPacket.WriteShort(23);
-				oPacket.WriteShort(0);
-				oPacket.WriteShort(SetRider.SlotChanger);
-				oPacket.WriteByte(0);
-				oPacket.WriteByte(0);
-				oPacket.WriteShort(-1);
-				oPacket.WriteShort(0);
-				oPacket.WriteByte(0);
-				oPacket.WriteByte(0);
-				oPacket.WriteShort(0);
+				oPacket.WriteInt(23);
+				for (short i = 1; i <= 23; i++)
+				{
+					oPacket.WriteShort(43);
+					oPacket.WriteShort(i);
+					oPacket.WriteShort(0);
+					oPacket.WriteShort(SetRider.SlotChanger);
+					oPacket.WriteByte(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteShort(-1);
+					oPacket.WriteShort(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteShort(0);
+				}
 				RouterListener.MySession.Client.Send(oPacket);
 			}
 		}
@@ -758,18 +759,21 @@ namespace RiderData
 			{
 				oPacket.WriteInt(1);
 				oPacket.WriteInt(1);
-				oPacket.WriteInt(1);
-				oPacket.WriteShort(44);
-				oPacket.WriteShort(2);
-				oPacket.WriteShort(0);
-				oPacket.WriteShort(SetRider.SlotChanger);
-				oPacket.WriteByte(0);
-				oPacket.WriteByte(0);
-				oPacket.WriteShort(-1);
-				oPacket.WriteShort(0);
-				oPacket.WriteByte(0);
-				oPacket.WriteByte(0);
-				oPacket.WriteShort(0);
+				oPacket.WriteInt(15);
+				for (short i = 1; i <= 15; i++)
+				{
+					oPacket.WriteShort(44);
+					oPacket.WriteShort(i);
+					oPacket.WriteShort(0);
+					oPacket.WriteShort(SetRider.SlotChanger);
+					oPacket.WriteByte(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteShort(-1);
+					oPacket.WriteShort(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteShort(0);
+				}
 				RouterListener.MySession.Client.Send(oPacket);
 			}
 		}
@@ -780,18 +784,21 @@ namespace RiderData
 			{
 				oPacket.WriteInt(1);
 				oPacket.WriteInt(1);
-				oPacket.WriteInt(1);
-				oPacket.WriteShort(45);
-				oPacket.WriteShort(23);
-				oPacket.WriteShort(0);
-				oPacket.WriteShort(SetRider.SlotChanger);
-				oPacket.WriteByte(0);
-				oPacket.WriteByte(0);
-				oPacket.WriteShort(-1);
-				oPacket.WriteShort(0);
-				oPacket.WriteByte(0);
-				oPacket.WriteByte(0);
-				oPacket.WriteShort(0);
+				oPacket.WriteInt(23);
+				for (short i = 1; i <= 23; i++)
+				{
+					oPacket.WriteShort(45);
+					oPacket.WriteShort(i);
+					oPacket.WriteShort(0);
+					oPacket.WriteShort(SetRider.SlotChanger);
+					oPacket.WriteByte(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteShort(-1);
+					oPacket.WriteShort(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteShort(0);
+				}
 				RouterListener.MySession.Client.Send(oPacket);
 			}
 		}
@@ -802,18 +809,21 @@ namespace RiderData
 			{
 				oPacket.WriteInt(1);
 				oPacket.WriteInt(1);
-				oPacket.WriteInt(1);
-				oPacket.WriteShort(46);
-				oPacket.WriteShort(1);
-				oPacket.WriteShort(0);
-				oPacket.WriteShort(SetRider.SlotChanger);
-				oPacket.WriteByte(0);
-				oPacket.WriteByte(0);
-				oPacket.WriteShort(-1);
-				oPacket.WriteShort(0);
-				oPacket.WriteByte(0);
-				oPacket.WriteByte(0);
-				oPacket.WriteShort(0);
+				oPacket.WriteInt(30);
+				for (short i = 1; i <= 30; i++)
+				{
+					oPacket.WriteShort(46);
+					oPacket.WriteShort(i);
+					oPacket.WriteShort(0);
+					oPacket.WriteShort(SetRider.SlotChanger);
+					oPacket.WriteByte(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteShort(-1);
+					oPacket.WriteShort(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteShort(0);
+				}
 				RouterListener.MySession.Client.Send(oPacket);
 			}
 		}

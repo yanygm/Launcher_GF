@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using KartRider.IO;
 using ExcData;
 using Set_Data;
@@ -60,9 +56,9 @@ namespace KartRider
 
 		public static void PrStartTimeAttack()
 		{
-			float DriftEscapeForce = FlyingPet.DriftEscapeForce + TuneSpec.Tune_DriftEscapeForce + TuneSpec.Plant_DriftEscapeForce + TuneSpec.KartLevel_DriftEscapeForce + SpeedPatch.DriftEscapeForce;
-			float NormalBoosterTime = FlyingPet.NormalBoosterTime + TuneSpec.Plant_NormalBoosterTime;
-			float TransAccelFactor = TuneSpec.Tune_TransAccelFactor + TuneSpec.Plant_TransAccelFactor + TuneSpec.KartLevel_TransAccelFactor + SpeedPatch.TransAccelFactor;
+			float DriftEscapeForce = FlyingPet.DriftEscapeForce + TuneSpec.Tune_DriftEscapeForce + TuneSpec.Plant45_DriftEscapeForce + TuneSpec.KartLevel_DriftEscapeForce + SpeedPatch.DriftEscapeForce;
+			float NormalBoosterTime = FlyingPet.NormalBoosterTime + TuneSpec.Plant46_NormalBoosterTime;
+			float TransAccelFactor = TuneSpec.Tune_TransAccelFactor + TuneSpec.Plant43_TransAccelFactor + TuneSpec.KartLevel_TransAccelFactor + SpeedPatch.TransAccelFactor;
 			using (OutPacket oPacket = new OutPacket("PrStartTimeAttack"))
 			{
 				oPacket.WriteInt(StartGameData.StartTimeAttack_Unk1);
@@ -73,42 +69,42 @@ namespace KartRider
 				oPacket.WriteEncFloat(Kart.driftBoostMulAccelFactor);
 				oPacket.WriteEncInt(Kart.driftBoostTick);
 				oPacket.WriteEncFloat(Kart.chargeBoostBySpeed);
-				oPacket.WriteEncByte(Kart.SpeedSlotCapacity);
-				oPacket.WriteEncByte(Kart.ItemSlotCapacity);
+				oPacket.WriteEncByte((byte)(Kart.SpeedSlotCapacity + TuneSpec.Plant46_SpeedSlotCapacity));
+				oPacket.WriteEncByte((byte)(Kart.ItemSlotCapacity + TuneSpec.Plant46_ItemSlotCapacity));
 				oPacket.WriteEncByte(Kart.SpecialSlotCapacity);
 				oPacket.WriteEncByte(Kart.UseTransformBooster);
 				oPacket.WriteEncByte(Kart.motorcycleType);
 				oPacket.WriteEncByte(Kart.BikeRearWheel);
 				oPacket.WriteEncFloat(Kart.Mass);
 				oPacket.WriteEncFloat(Kart.AirFriction);
-				oPacket.WriteEncFloat(SpeedType.DragFactor + Kart.DragFactor + FlyingPet.DragFactor + SpeedPatch.DragFactor);
-				oPacket.WriteEncFloat(SpeedType.ForwardAccelForce + Kart.ForwardAccelForce + FlyingPet.ForwardAccelForce + TuneSpec.Plant_ForwardAccelForce + TuneSpec.KartLevel_ForwardAccelForce + SpeedPatch.ForwardAccelForce);
+				oPacket.WriteEncFloat(SpeedType.DragFactor + Kart.DragFactor + FlyingPet.DragFactor + SpeedPatch.DragFactor + TuneSpec.Plant43_DragFactor + TuneSpec.Plant45_DragFactor + TuneSpec.KartLevel_DragFactor);
+				oPacket.WriteEncFloat(SpeedType.ForwardAccelForce + Kart.ForwardAccelForce + FlyingPet.ForwardAccelForce + TuneSpec.Plant43_ForwardAccel + TuneSpec.Plant46_ForwardAccel + TuneSpec.KartLevel_ForwardAccel + SpeedPatch.ForwardAccelForce);
 				oPacket.WriteEncFloat(SpeedType.BackwardAccelForce + Kart.BackwardAccelForce);
-				oPacket.WriteEncFloat(SpeedType.GripBrakeForce + Kart.GripBrakeForce + TuneSpec.Plant_GripBrakeForce);
-				oPacket.WriteEncFloat(SpeedType.SlipBrakeForce + Kart.SlipBrakeForce);
+				oPacket.WriteEncFloat(SpeedType.GripBrakeForce + Kart.GripBrakeForce + TuneSpec.Plant44_GripBrake + TuneSpec.Plant46_GripBrake);
+				oPacket.WriteEncFloat(SpeedType.SlipBrakeForce + Kart.SlipBrakeForce + TuneSpec.Plant44_SlipBrake + TuneSpec.Plant45_SlipBrake + TuneSpec.Plant46_SlipBrake);
 				oPacket.WriteEncFloat(Kart.MaxSteerAngle);
-				if (PartSpec.SteerConstraint == 0f)
+				if (TuneSpec.PartSpec_SteerConstraint == 0f)
 				{
-					oPacket.WriteEncFloat(SpeedType.SteerConstraint + Kart.SteerConstraint);
+					oPacket.WriteEncFloat(SpeedType.SteerConstraint + Kart.SteerConstraint + TuneSpec.Plant44_SteerConstraint + TuneSpec.KartLevel_SteerConstraint);
 				}
 				else
 				{
-					oPacket.WriteEncFloat(PartSpec.SteerConstraint + SpeedType.AddSpec_SteerConstraint);
+					oPacket.WriteEncFloat(TuneSpec.PartSpec_SteerConstraint + SpeedType.AddSpec_SteerConstraint + TuneSpec.Plant44_SteerConstraint + TuneSpec.KartLevel_SteerConstraint);
 				}
-				oPacket.WriteEncFloat(Kart.FrontGripFactor + TuneSpec.Plant_FrontGripFactor);
-				oPacket.WriteEncFloat(Kart.RearGripFactor + TuneSpec.Plant_RearGripFactor);
+				oPacket.WriteEncFloat(Kart.FrontGripFactor + TuneSpec.Plant44_FrontGripFactor);
+				oPacket.WriteEncFloat(Kart.RearGripFactor + TuneSpec.Plant44_RearGripFactor);
 				oPacket.WriteEncFloat(Kart.DriftTriggerFactor);
 				oPacket.WriteEncFloat(Kart.DriftTriggerTime);
-				oPacket.WriteEncFloat(Kart.DriftSlipFactor);
-				if (PartSpec.DriftEscapeForce == 0f)
+				oPacket.WriteEncFloat(Kart.DriftSlipFactor + TuneSpec.Plant46_DriftSlipFactor);
+				if (TuneSpec.PartSpec_DriftEscapeForce == 0f)
 				{
 					oPacket.WriteEncFloat(SpeedType.DriftEscapeForce + Kart.DriftEscapeForce + DriftEscapeForce);
 				}
 				else
 				{
-					oPacket.WriteEncFloat(PartSpec.DriftEscapeForce + SpeedType.AddSpec_DriftEscapeForce + DriftEscapeForce);
+					oPacket.WriteEncFloat(TuneSpec.PartSpec_DriftEscapeForce + SpeedType.AddSpec_DriftEscapeForce + DriftEscapeForce);
 				}
-				oPacket.WriteEncFloat(SpeedType.CornerDrawFactor + Kart.CornerDrawFactor + FlyingPet.CornerDrawFactor + TuneSpec.Plant_CornerDrawFactor + TuneSpec.KartLevel_CornerDrawFactor + SpeedPatch.CornerDrawFactor);
+				oPacket.WriteEncFloat(SpeedType.CornerDrawFactor + Kart.CornerDrawFactor + FlyingPet.CornerDrawFactor + TuneSpec.Plant44_CornerDrawFactor + TuneSpec.Plant45_CornerDrawFactor + TuneSpec.KartLevel_CornerDrawFactor + SpeedPatch.CornerDrawFactor);
 				oPacket.WriteEncFloat(Kart.DriftLeanFactor);
 				oPacket.WriteEncFloat(Kart.SteerLeanFactor);
 				if (StartGameData.StartTimeAttack_SpeedType == 4 || StartGameData.StartTimeAttack_SpeedType == 6)
@@ -117,7 +113,7 @@ namespace KartRider
 				}
 				else
 				{
-					oPacket.WriteEncFloat(SpeedType.DriftMaxGauge + Kart.DriftMaxGauge + TuneSpec.Plant_DriftMaxGauge + SpeedPatch.DriftMaxGauge);
+					oPacket.WriteEncFloat(SpeedType.DriftMaxGauge + Kart.DriftMaxGauge + TuneSpec.Plant45_DriftMaxGauge + TuneSpec.Plant46_DriftMaxGauge + SpeedPatch.DriftMaxGauge);
 				}
 				if (StartGameData.StartTimeAttack_SpeedType == 6)
 				{
@@ -125,13 +121,13 @@ namespace KartRider
 				}
 				else
 				{
-					if (PartSpec.NormalBoosterTime == 0f)
+					if (TuneSpec.PartSpec_NormalBoosterTime == 0f)
 					{
 						oPacket.WriteEncFloat(Kart.NormalBoosterTime + NormalBoosterTime);
 					}
 					else
 					{
-						oPacket.WriteEncFloat(PartSpec.NormalBoosterTime + NormalBoosterTime);
+						oPacket.WriteEncFloat(TuneSpec.PartSpec_NormalBoosterTime + NormalBoosterTime);
 					}
 				}
 				oPacket.WriteEncFloat(Kart.ItemBoosterTime + FlyingPet.ItemBoosterTime);
@@ -141,27 +137,27 @@ namespace KartRider
 				}
 				else
 				{
-					oPacket.WriteEncFloat(Kart.TeamBoosterTime + FlyingPet.TeamBoosterTime);
+					oPacket.WriteEncFloat(Kart.TeamBoosterTime + FlyingPet.TeamBoosterTime + TuneSpec.Plant46_TeamBoosterTime);
 				}
-				oPacket.WriteEncFloat(Kart.AnimalBoosterTime);
+				oPacket.WriteEncFloat(Kart.AnimalBoosterTime + TuneSpec.Plant45_AnimalBoosterTime + TuneSpec.Plant46_AnimalBoosterTime);
 				oPacket.WriteEncFloat(Kart.SuperBoosterTime);
-				if (PartSpec.TransAccelFactor == 0f)
+				if (TuneSpec.PartSpec_TransAccelFactor == 0f)
 				{
 					oPacket.WriteEncFloat(SpeedType.TransAccelFactor + Kart.TransAccelFactor + TransAccelFactor);
 				}
 				else
 				{
-					oPacket.WriteEncFloat(PartSpec.TransAccelFactor + SpeedType.AddSpec_TransAccelFactor + TransAccelFactor);
+					oPacket.WriteEncFloat(TuneSpec.PartSpec_TransAccelFactor + SpeedType.AddSpec_TransAccelFactor + TransAccelFactor);
 				}
 				oPacket.WriteEncFloat(SpeedType.BoostAccelFactor + Kart.BoostAccelFactor + SpeedPatch.BoostAccelFactor);
-				oPacket.WriteEncFloat(Kart.StartBoosterTimeItem + TuneSpec.KartLevel_StartBoosterTimeItem);
-				oPacket.WriteEncFloat(Kart.StartBoosterTimeSpeed + TuneSpec.Tune_StartBoosterTimeSpeed + TuneSpec.Plant_StartBoosterTimeSpeed + TuneSpec.KartLevel_StartBoosterTimeSpeed);
-				oPacket.WriteEncFloat(SpeedType.StartForwardAccelForceItem + Kart.StartForwardAccelForceItem + FlyingPet.StartForwardAccelForceItem + SpeedPatch.StartForwardAccelForceItem);
-				oPacket.WriteEncFloat(SpeedType.StartForwardAccelForceSpeed + Kart.StartForwardAccelForceSpeed + FlyingPet.StartForwardAccelForceSpeed + SpeedPatch.StartForwardAccelForceSpeed);
+				oPacket.WriteEncFloat(Kart.StartBoosterTimeItem + TuneSpec.KartLevel_StartBoosterTimeItem + TuneSpec.Plant46_StartBoosterTimeItem);
+				oPacket.WriteEncFloat(Kart.StartBoosterTimeSpeed + TuneSpec.Tune_StartBoosterTimeSpeed + TuneSpec.Plant43_StartBoosterTimeSpeed + TuneSpec.Plant46_StartBoosterTimeSpeed + TuneSpec.KartLevel_StartBoosterTimeSpeed);
+				oPacket.WriteEncFloat(SpeedType.StartForwardAccelForceItem + Kart.StartForwardAccelForceItem + FlyingPet.StartForwardAccelForceItem + SpeedPatch.StartForwardAccelForceItem + TuneSpec.Plant46_StartForwardAccelItem);
+				oPacket.WriteEncFloat(SpeedType.StartForwardAccelForceSpeed + Kart.StartForwardAccelForceSpeed + FlyingPet.StartForwardAccelForceSpeed + SpeedPatch.StartForwardAccelForceSpeed + TuneSpec.Plant43_StartForwardAccelSpeed + TuneSpec.Plant46_StartForwardAccelSpeed);
 				oPacket.WriteEncFloat(Kart.DriftGaguePreservePercent);
 				oPacket.WriteEncByte(Kart.UseExtendedAfterBooster);
-				oPacket.WriteEncFloat(Kart.BoostAccelFactorOnlyItem);
-				oPacket.WriteEncFloat(Kart.antiCollideBalance);
+				oPacket.WriteEncFloat(Kart.BoostAccelFactorOnlyItem + TuneSpec.KartLevel_BoostAccelFactorOnlyItem);
+				oPacket.WriteEncFloat(Kart.antiCollideBalance + TuneSpec.Plant45_AntiCollideBalance);
 				oPacket.WriteEncByte(Kart.dualBoosterSetAuto);
 				oPacket.WriteEncInt(Kart.dualBoosterTickMin);
 				oPacket.WriteEncInt(Kart.dualBoosterTickMax);
@@ -203,9 +199,9 @@ namespace KartRider
 
 		public static void PrchallengerKartSpec()
 		{
-			float DriftEscapeForce = FlyingPet.DriftEscapeForce + TuneSpec.Tune_DriftEscapeForce + TuneSpec.Plant_DriftEscapeForce + TuneSpec.KartLevel_DriftEscapeForce + SpeedPatch.DriftEscapeForce;
-			float NormalBoosterTime = FlyingPet.NormalBoosterTime + TuneSpec.Plant_NormalBoosterTime;
-			float TransAccelFactor = TuneSpec.Tune_TransAccelFactor + TuneSpec.Plant_TransAccelFactor + TuneSpec.KartLevel_TransAccelFactor + SpeedPatch.TransAccelFactor;
+			float DriftEscapeForce = FlyingPet.DriftEscapeForce + TuneSpec.Tune_DriftEscapeForce + TuneSpec.Plant45_DriftEscapeForce + TuneSpec.KartLevel_DriftEscapeForce + SpeedPatch.DriftEscapeForce;
+			float NormalBoosterTime = FlyingPet.NormalBoosterTime + TuneSpec.Plant46_NormalBoosterTime;
+			float TransAccelFactor = TuneSpec.Tune_TransAccelFactor + TuneSpec.Plant43_TransAccelFactor + TuneSpec.KartLevel_TransAccelFactor + SpeedPatch.TransAccelFactor;
 			using (OutPacket oPacket = new OutPacket("PrchallengerKartSpec"))
 			{
 				oPacket.WriteByte(1);
@@ -215,42 +211,42 @@ namespace KartRider
 				oPacket.WriteEncFloat(Kart.driftBoostMulAccelFactor);
 				oPacket.WriteEncInt(Kart.driftBoostTick);
 				oPacket.WriteEncFloat(Kart.chargeBoostBySpeed);
-				oPacket.WriteEncByte(Kart.SpeedSlotCapacity);
-				oPacket.WriteEncByte(Kart.ItemSlotCapacity);
+				oPacket.WriteEncByte((byte)(Kart.SpeedSlotCapacity + TuneSpec.Plant46_SpeedSlotCapacity));
+				oPacket.WriteEncByte((byte)(Kart.ItemSlotCapacity + TuneSpec.Plant46_ItemSlotCapacity));
 				oPacket.WriteEncByte(Kart.SpecialSlotCapacity);
 				oPacket.WriteEncByte(Kart.UseTransformBooster);
 				oPacket.WriteEncByte(Kart.motorcycleType);
 				oPacket.WriteEncByte(Kart.BikeRearWheel);
 				oPacket.WriteEncFloat(Kart.Mass);
 				oPacket.WriteEncFloat(Kart.AirFriction);
-				oPacket.WriteEncFloat(SpeedType.DragFactor + Kart.DragFactor + FlyingPet.DragFactor + SpeedPatch.DragFactor);
-				oPacket.WriteEncFloat(SpeedType.ForwardAccelForce + Kart.ForwardAccelForce + FlyingPet.ForwardAccelForce + TuneSpec.Plant_ForwardAccelForce + TuneSpec.KartLevel_ForwardAccelForce + SpeedPatch.ForwardAccelForce);
+				oPacket.WriteEncFloat(SpeedType.DragFactor + Kart.DragFactor + FlyingPet.DragFactor + SpeedPatch.DragFactor + TuneSpec.Plant43_DragFactor + TuneSpec.Plant45_DragFactor + TuneSpec.KartLevel_DragFactor);
+				oPacket.WriteEncFloat(SpeedType.ForwardAccelForce + Kart.ForwardAccelForce + FlyingPet.ForwardAccelForce + TuneSpec.Plant43_ForwardAccel + TuneSpec.Plant46_ForwardAccel + TuneSpec.KartLevel_ForwardAccel + SpeedPatch.ForwardAccelForce);
 				oPacket.WriteEncFloat(SpeedType.BackwardAccelForce + Kart.BackwardAccelForce);
-				oPacket.WriteEncFloat(SpeedType.GripBrakeForce + Kart.GripBrakeForce + TuneSpec.Plant_GripBrakeForce);
-				oPacket.WriteEncFloat(SpeedType.SlipBrakeForce + Kart.SlipBrakeForce);
+				oPacket.WriteEncFloat(SpeedType.GripBrakeForce + Kart.GripBrakeForce + TuneSpec.Plant44_GripBrake + TuneSpec.Plant46_GripBrake);
+				oPacket.WriteEncFloat(SpeedType.SlipBrakeForce + Kart.SlipBrakeForce + TuneSpec.Plant44_SlipBrake + TuneSpec.Plant45_SlipBrake + TuneSpec.Plant46_SlipBrake);
 				oPacket.WriteEncFloat(Kart.MaxSteerAngle);
-				if (PartSpec.SteerConstraint == 0f)
+				if (TuneSpec.PartSpec_SteerConstraint == 0f)
 				{
-					oPacket.WriteEncFloat(SpeedType.SteerConstraint + Kart.SteerConstraint);
+					oPacket.WriteEncFloat(SpeedType.SteerConstraint + Kart.SteerConstraint + TuneSpec.Plant44_SteerConstraint + TuneSpec.KartLevel_SteerConstraint);
 				}
 				else
 				{
-					oPacket.WriteEncFloat(PartSpec.SteerConstraint + SpeedType.AddSpec_SteerConstraint);
+					oPacket.WriteEncFloat(TuneSpec.PartSpec_SteerConstraint + SpeedType.AddSpec_SteerConstraint + TuneSpec.Plant44_SteerConstraint + TuneSpec.KartLevel_SteerConstraint);
 				}
-				oPacket.WriteEncFloat(Kart.FrontGripFactor + TuneSpec.Plant_FrontGripFactor);
-				oPacket.WriteEncFloat(Kart.RearGripFactor + TuneSpec.Plant_RearGripFactor);
+				oPacket.WriteEncFloat(Kart.FrontGripFactor + TuneSpec.Plant44_FrontGripFactor);
+				oPacket.WriteEncFloat(Kart.RearGripFactor + TuneSpec.Plant44_RearGripFactor);
 				oPacket.WriteEncFloat(Kart.DriftTriggerFactor);
 				oPacket.WriteEncFloat(Kart.DriftTriggerTime);
-				oPacket.WriteEncFloat(Kart.DriftSlipFactor);
-				if (PartSpec.DriftEscapeForce == 0f)
+				oPacket.WriteEncFloat(Kart.DriftSlipFactor + TuneSpec.Plant46_DriftSlipFactor);
+				if (TuneSpec.PartSpec_DriftEscapeForce == 0f)
 				{
 					oPacket.WriteEncFloat(SpeedType.DriftEscapeForce + Kart.DriftEscapeForce + DriftEscapeForce);
 				}
 				else
 				{
-					oPacket.WriteEncFloat(PartSpec.DriftEscapeForce + SpeedType.AddSpec_DriftEscapeForce + DriftEscapeForce);
+					oPacket.WriteEncFloat(TuneSpec.PartSpec_DriftEscapeForce + SpeedType.AddSpec_DriftEscapeForce + DriftEscapeForce);
 				}
-				oPacket.WriteEncFloat(SpeedType.CornerDrawFactor + Kart.CornerDrawFactor + FlyingPet.CornerDrawFactor + TuneSpec.Plant_CornerDrawFactor + TuneSpec.KartLevel_CornerDrawFactor + SpeedPatch.CornerDrawFactor);
+				oPacket.WriteEncFloat(SpeedType.CornerDrawFactor + Kart.CornerDrawFactor + FlyingPet.CornerDrawFactor + TuneSpec.Plant44_CornerDrawFactor + TuneSpec.Plant45_CornerDrawFactor + TuneSpec.KartLevel_CornerDrawFactor + SpeedPatch.CornerDrawFactor);
 				oPacket.WriteEncFloat(Kart.DriftLeanFactor);
 				oPacket.WriteEncFloat(Kart.SteerLeanFactor);
 				if (StartGameData.StartTimeAttack_SpeedType == 4 || StartGameData.StartTimeAttack_SpeedType == 6)
@@ -259,7 +255,7 @@ namespace KartRider
 				}
 				else
 				{
-					oPacket.WriteEncFloat(SpeedType.DriftMaxGauge + Kart.DriftMaxGauge + TuneSpec.Plant_DriftMaxGauge + SpeedPatch.DriftMaxGauge);
+					oPacket.WriteEncFloat(SpeedType.DriftMaxGauge + Kart.DriftMaxGauge + TuneSpec.Plant45_DriftMaxGauge + TuneSpec.Plant46_DriftMaxGauge + SpeedPatch.DriftMaxGauge);
 				}
 				if (StartGameData.StartTimeAttack_SpeedType == 6)
 				{
@@ -267,13 +263,13 @@ namespace KartRider
 				}
 				else
 				{
-					if (PartSpec.NormalBoosterTime == 0f)
+					if (TuneSpec.PartSpec_NormalBoosterTime == 0f)
 					{
 						oPacket.WriteEncFloat(Kart.NormalBoosterTime + NormalBoosterTime);
 					}
 					else
 					{
-						oPacket.WriteEncFloat(PartSpec.NormalBoosterTime + NormalBoosterTime);
+						oPacket.WriteEncFloat(TuneSpec.PartSpec_NormalBoosterTime + NormalBoosterTime);
 					}
 				}
 				oPacket.WriteEncFloat(Kart.ItemBoosterTime + FlyingPet.ItemBoosterTime);
@@ -283,27 +279,27 @@ namespace KartRider
 				}
 				else
 				{
-					oPacket.WriteEncFloat(Kart.TeamBoosterTime + FlyingPet.TeamBoosterTime);
+					oPacket.WriteEncFloat(Kart.TeamBoosterTime + FlyingPet.TeamBoosterTime + TuneSpec.Plant46_TeamBoosterTime);
 				}
-				oPacket.WriteEncFloat(Kart.AnimalBoosterTime);
+				oPacket.WriteEncFloat(Kart.AnimalBoosterTime + TuneSpec.Plant45_AnimalBoosterTime + TuneSpec.Plant45_AnimalBoosterTime);
 				oPacket.WriteEncFloat(Kart.SuperBoosterTime);
-				if (PartSpec.TransAccelFactor == 0f)
+				if (TuneSpec.PartSpec_TransAccelFactor == 0f)
 				{
 					oPacket.WriteEncFloat(SpeedType.TransAccelFactor + Kart.TransAccelFactor + TransAccelFactor);
 				}
 				else
 				{
-					oPacket.WriteEncFloat(PartSpec.TransAccelFactor + SpeedType.AddSpec_TransAccelFactor + TransAccelFactor);
+					oPacket.WriteEncFloat(TuneSpec.PartSpec_TransAccelFactor + SpeedType.AddSpec_TransAccelFactor + TransAccelFactor);
 				}
 				oPacket.WriteEncFloat(SpeedType.BoostAccelFactor + Kart.BoostAccelFactor + SpeedPatch.BoostAccelFactor);
-				oPacket.WriteEncFloat(Kart.StartBoosterTimeItem + TuneSpec.KartLevel_StartBoosterTimeItem);
-				oPacket.WriteEncFloat(Kart.StartBoosterTimeSpeed + TuneSpec.Tune_StartBoosterTimeSpeed + TuneSpec.Plant_StartBoosterTimeSpeed + TuneSpec.KartLevel_StartBoosterTimeSpeed);
-				oPacket.WriteEncFloat(SpeedType.StartForwardAccelForceItem + Kart.StartForwardAccelForceItem + FlyingPet.StartForwardAccelForceItem + SpeedPatch.StartForwardAccelForceItem);
-				oPacket.WriteEncFloat(SpeedType.StartForwardAccelForceSpeed + Kart.StartForwardAccelForceSpeed + FlyingPet.StartForwardAccelForceSpeed + SpeedPatch.StartForwardAccelForceSpeed);
+				oPacket.WriteEncFloat(Kart.StartBoosterTimeItem + TuneSpec.KartLevel_StartBoosterTimeItem + TuneSpec.Plant46_StartBoosterTimeItem);
+				oPacket.WriteEncFloat(Kart.StartBoosterTimeSpeed + TuneSpec.Tune_StartBoosterTimeSpeed + TuneSpec.Plant43_StartBoosterTimeSpeed + TuneSpec.Plant46_StartBoosterTimeSpeed + TuneSpec.KartLevel_StartBoosterTimeSpeed);
+				oPacket.WriteEncFloat(SpeedType.StartForwardAccelForceItem + Kart.StartForwardAccelForceItem + FlyingPet.StartForwardAccelForceItem + SpeedPatch.StartForwardAccelForceItem + TuneSpec.Plant46_StartForwardAccelItem);
+				oPacket.WriteEncFloat(SpeedType.StartForwardAccelForceSpeed + Kart.StartForwardAccelForceSpeed + FlyingPet.StartForwardAccelForceSpeed + SpeedPatch.StartForwardAccelForceSpeed + TuneSpec.Plant43_StartForwardAccelSpeed + TuneSpec.Plant46_StartForwardAccelSpeed);
 				oPacket.WriteEncFloat(Kart.DriftGaguePreservePercent);
 				oPacket.WriteEncByte(Kart.UseExtendedAfterBooster);
-				oPacket.WriteEncFloat(Kart.BoostAccelFactorOnlyItem);
-				oPacket.WriteEncFloat(Kart.antiCollideBalance);
+				oPacket.WriteEncFloat(Kart.BoostAccelFactorOnlyItem + TuneSpec.KartLevel_BoostAccelFactorOnlyItem);
+				oPacket.WriteEncFloat(Kart.antiCollideBalance + TuneSpec.Plant45_AntiCollideBalance);
 				oPacket.WriteEncByte(Kart.dualBoosterSetAuto);
 				oPacket.WriteEncInt(Kart.dualBoosterTickMin);
 				oPacket.WriteEncInt(Kart.dualBoosterTickMax);
@@ -557,36 +553,36 @@ namespace KartRider
 
 		public static void KartSpecLog()
 		{
-			float DriftEscapeForce = FlyingPet.DriftEscapeForce + TuneSpec.Tune_DriftEscapeForce + TuneSpec.Plant_DriftEscapeForce + TuneSpec.KartLevel_DriftEscapeForce + SpeedPatch.DriftEscapeForce;
-			float NormalBoosterTime = FlyingPet.NormalBoosterTime + TuneSpec.Plant_NormalBoosterTime;
-			float TransAccelFactor = TuneSpec.Tune_TransAccelFactor + TuneSpec.Plant_TransAccelFactor + TuneSpec.KartLevel_TransAccelFactor + SpeedPatch.TransAccelFactor;
+			float DriftEscapeForce = FlyingPet.DriftEscapeForce + TuneSpec.Tune_DriftEscapeForce + TuneSpec.Plant45_DriftEscapeForce + TuneSpec.KartLevel_DriftEscapeForce + SpeedPatch.DriftEscapeForce;
+			float NormalBoosterTime = FlyingPet.NormalBoosterTime + TuneSpec.Plant46_NormalBoosterTime;
+			float TransAccelFactor = TuneSpec.Tune_TransAccelFactor + TuneSpec.Plant43_TransAccelFactor + TuneSpec.KartLevel_TransAccelFactor + SpeedPatch.TransAccelFactor;
 			Console.WriteLine();
-			Console.WriteLine("DragFactor: {0}", SpeedType.DragFactor + Kart.DragFactor + FlyingPet.DragFactor + SpeedPatch.DragFactor);
-			Console.WriteLine("ForwardAccelForce: {0}", SpeedType.ForwardAccelForce + Kart.ForwardAccelForce + FlyingPet.ForwardAccelForce + TuneSpec.Plant_ForwardAccelForce + TuneSpec.KartLevel_ForwardAccelForce + SpeedPatch.ForwardAccelForce);
+			Console.WriteLine("DragFactor: {0}", SpeedType.DragFactor + Kart.DragFactor + FlyingPet.DragFactor + SpeedPatch.DragFactor + TuneSpec.Plant43_DragFactor + TuneSpec.Plant45_DragFactor + TuneSpec.KartLevel_DragFactor);
+			Console.WriteLine("ForwardAccelForce: {0}", SpeedType.ForwardAccelForce + Kart.ForwardAccelForce + FlyingPet.ForwardAccelForce + TuneSpec.Plant43_ForwardAccel + TuneSpec.Plant46_ForwardAccel + TuneSpec.KartLevel_ForwardAccel + SpeedPatch.ForwardAccelForce);
 			Console.WriteLine("BackwardAccelForce: {0}", SpeedType.BackwardAccelForce + Kart.BackwardAccelForce);
-			Console.WriteLine("GripBrakeForce: {0}", SpeedType.GripBrakeForce + Kart.GripBrakeForce + TuneSpec.Plant_GripBrakeForce);
-			Console.WriteLine("SlipBrakeForce: {0}", SpeedType.SlipBrakeForce + Kart.SlipBrakeForce);
+			Console.WriteLine("GripBrakeForce: {0}", SpeedType.GripBrakeForce + Kart.GripBrakeForce + TuneSpec.Plant44_GripBrake + TuneSpec.Plant46_GripBrake);
+			Console.WriteLine("SlipBrakeForce: {0}", SpeedType.SlipBrakeForce + Kart.SlipBrakeForce + TuneSpec.Plant44_SlipBrake + TuneSpec.Plant45_SlipBrake + TuneSpec.Plant46_SlipBrake);
 			Console.WriteLine();
-			if (PartSpec.SteerConstraint == 0f)
+			if (TuneSpec.PartSpec_SteerConstraint == 0f)
 			{
-				Console.WriteLine("SteerConstraint: {0}", SpeedType.SteerConstraint + Kart.SteerConstraint);
+				Console.WriteLine("SteerConstraint: {0}", SpeedType.SteerConstraint + Kart.SteerConstraint + TuneSpec.Plant44_SteerConstraint + TuneSpec.KartLevel_SteerConstraint);
 			}
 			else
 			{
-				Console.WriteLine("SteerConstraint: {0}", PartSpec.SteerConstraint + SpeedType.AddSpec_SteerConstraint);
+				Console.WriteLine("PartSpec_SteerConstraint: {0}", TuneSpec.PartSpec_SteerConstraint + SpeedType.AddSpec_SteerConstraint + TuneSpec.Plant44_SteerConstraint + TuneSpec.KartLevel_SteerConstraint);
 			}
 			Console.WriteLine();
-			if (PartSpec.DriftEscapeForce == 0f)
+			if (TuneSpec.PartSpec_DriftEscapeForce == 0f)
 			{
 				Console.Write("DriftEscapeForce: {0}", SpeedType.DriftEscapeForce + Kart.DriftEscapeForce + DriftEscapeForce);
 			}
 			else
 			{
-				Console.Write("DriftEscapeForce: {0}", PartSpec.DriftEscapeForce + SpeedType.AddSpec_DriftEscapeForce + DriftEscapeForce);
+				Console.Write("PartSpec_DriftEscapeForce: {0}", TuneSpec.PartSpec_DriftEscapeForce + SpeedType.AddSpec_DriftEscapeForce + DriftEscapeForce);
 			}
-			Console.Write(" (T:{0} P:{1} K:{2})", TuneSpec.Tune_DriftEscapeForce, TuneSpec.Plant_DriftEscapeForce, TuneSpec.KartLevel_DriftEscapeForce);
+			Console.Write(" (T:{0} P:{1} K:{2})", TuneSpec.Tune_DriftEscapeForce, TuneSpec.Plant45_DriftEscapeForce, TuneSpec.KartLevel_DriftEscapeForce);
 			Console.WriteLine();
-			Console.WriteLine("CornerDrawFactor: {0}", SpeedType.CornerDrawFactor + Kart.CornerDrawFactor + FlyingPet.CornerDrawFactor + TuneSpec.Plant_CornerDrawFactor + TuneSpec.KartLevel_CornerDrawFactor + SpeedPatch.CornerDrawFactor);
+			Console.WriteLine("CornerDrawFactor: {0}", SpeedType.CornerDrawFactor + Kart.CornerDrawFactor + FlyingPet.CornerDrawFactor + TuneSpec.Plant44_CornerDrawFactor + TuneSpec.Plant45_CornerDrawFactor + TuneSpec.KartLevel_CornerDrawFactor + SpeedPatch.CornerDrawFactor);
 			Console.WriteLine();
 			if (StartGameData.StartTimeAttack_SpeedType == 4 || StartGameData.StartTimeAttack_SpeedType == 6)
 			{
@@ -594,7 +590,7 @@ namespace KartRider
 			}
 			else
 			{
-				Console.WriteLine("DriftMaxGauge: {0}", SpeedType.DriftMaxGauge + Kart.DriftMaxGauge + TuneSpec.Plant_DriftMaxGauge + SpeedPatch.DriftMaxGauge);
+				Console.WriteLine("DriftMaxGauge: {0}", SpeedType.DriftMaxGauge + Kart.DriftMaxGauge + TuneSpec.Plant45_DriftMaxGauge + TuneSpec.Plant46_DriftMaxGauge + SpeedPatch.DriftMaxGauge);
 			}
 			if (StartGameData.StartTimeAttack_SpeedType == 6)
 			{
@@ -602,32 +598,32 @@ namespace KartRider
 			}
 			else
 			{
-				if (PartSpec.NormalBoosterTime == 0f)
+				if (TuneSpec.PartSpec_NormalBoosterTime == 0f)
 				{
 					Console.Write("NormalBoosterTime: {0}", Kart.NormalBoosterTime + NormalBoosterTime);
 				}
 				else
 				{
-					Console.Write("NormalBoosterTime: {0}", PartSpec.NormalBoosterTime + NormalBoosterTime);
+					Console.Write("PartSpec_NormalBoosterTime: {0}", TuneSpec.PartSpec_NormalBoosterTime + NormalBoosterTime);
 				}
-				Console.Write(" (P:{0})", TuneSpec.Plant_NormalBoosterTime);
+				Console.Write(" (P:{0})", TuneSpec.Plant46_NormalBoosterTime);
 				Console.WriteLine();
 			}
 			Console.WriteLine();
-			if (PartSpec.TransAccelFactor == 0f)
+			if (TuneSpec.PartSpec_TransAccelFactor == 0f)
 			{
 				Console.Write("TransAccelFactor: {0}", SpeedType.TransAccelFactor + Kart.TransAccelFactor + TransAccelFactor);
 			}
 			else
 			{
-				Console.Write("TransAccelFactor: {0}", PartSpec.TransAccelFactor + SpeedType.AddSpec_TransAccelFactor + TransAccelFactor);
+				Console.Write("PartSpec_TransAccelFactor: {0}", TuneSpec.PartSpec_TransAccelFactor + SpeedType.AddSpec_TransAccelFactor + TransAccelFactor);
 			}
-			Console.Write(" (T:{0} P:{1} K:{2})", TuneSpec.Tune_TransAccelFactor, TuneSpec.Plant_TransAccelFactor, TuneSpec.KartLevel_TransAccelFactor);
+			Console.Write(" (T:{0} P:{1} K:{2})", TuneSpec.Tune_TransAccelFactor, TuneSpec.Plant43_TransAccelFactor, TuneSpec.KartLevel_TransAccelFactor);
 			Console.WriteLine();
 			Console.WriteLine("BoostAccelFactor: {0}", SpeedType.BoostAccelFactor + Kart.BoostAccelFactor + SpeedPatch.BoostAccelFactor);
 			Console.WriteLine();
-			Console.WriteLine("StartForwardAccelForceItem: {0}", SpeedType.StartForwardAccelForceItem + Kart.StartForwardAccelForceItem + FlyingPet.StartForwardAccelForceItem + SpeedPatch.StartForwardAccelForceItem);
-			Console.WriteLine("StartForwardAccelForceSpeed: {0}", SpeedType.StartForwardAccelForceSpeed + Kart.StartForwardAccelForceSpeed + FlyingPet.StartForwardAccelForceSpeed + SpeedPatch.StartForwardAccelForceSpeed);
+			Console.WriteLine("StartForwardAccelForceItem: {0}", SpeedType.StartForwardAccelForceItem + Kart.StartForwardAccelForceItem + FlyingPet.StartForwardAccelForceItem + SpeedPatch.StartForwardAccelForceItem + TuneSpec.Plant46_StartForwardAccelItem);
+			Console.WriteLine("StartForwardAccelForceSpeed: {0}", SpeedType.StartForwardAccelForceSpeed + Kart.StartForwardAccelForceSpeed + FlyingPet.StartForwardAccelForceSpeed + SpeedPatch.StartForwardAccelForceSpeed + TuneSpec.Plant43_StartForwardAccelSpeed + TuneSpec.Plant46_StartForwardAccelSpeed);
 			Console.WriteLine();
 		}
 	}

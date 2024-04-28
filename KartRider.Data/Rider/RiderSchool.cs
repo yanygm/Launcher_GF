@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using KartRider.IO;
 using KartRider;
 using ExcData;
@@ -11,21 +7,6 @@ namespace RiderData
 {
 	public static class RiderSchool
 	{
-		/*
-		public static void PrRiderSchoolData()
-		{
-			using (OutPacket oPacket = new OutPacket("PrRiderSchoolDataPacket"))
-			{
-				oPacket.WriteByte(6);//라이센스 등급
-				oPacket.WriteByte(38);//마지막 클리어
-				oPacket.WriteHexString(Program.DataTime);
-				oPacket.WriteInt(0);
-				oPacket.WriteByte(0);
-				RouterListener.MySession.Client.Send(oPacket);
-			}
-		}
-		*/
-
 		public static void PrRiderSchoolPro()
 		{
 			using (OutPacket oPacket = new OutPacket("PrRiderSchoolProPacket"))

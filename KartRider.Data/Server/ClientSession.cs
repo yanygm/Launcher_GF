@@ -4,13 +4,8 @@ using KartRider.IO;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Net.Sockets;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.IO;
-using KartRider_PacketName;
 using KartRider_TrackName;
-using KartRider_SN;
 using ExcData;
 using Set_Data;
 using RiderData;
@@ -183,11 +178,10 @@ namespace KartRider
 						iPacket.ReadByte();
 						SetRiderItem.Set_slotBg = iPacket.ReadByte();
 						SetRiderItem.Save_SetRiderItem();
-						KartSN_Parts.KartSN_Data();
 						TuneSpec.Use_PartsSpec(SetRiderItem.Set_Kart, SetRiderItem.Set_KartSN);
-						TuneSpec.Use_TuneSpec();
-						TuneSpec.Use_PlantSpec();
-						TuneSpec.Use_KartLevelSpec();
+						TuneSpec.Use_TuneSpec(SetRiderItem.Set_Kart, SetRiderItem.Set_KartSN);
+						TuneSpec.Use_PlantSpec(SetRiderItem.Set_Kart, SetRiderItem.Set_KartSN);
+						TuneSpec.Use_KartLevelSpec(SetRiderItem.Set_Kart, SetRiderItem.Set_KartSN);
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqGetRiderInfo", 0))
@@ -562,7 +556,7 @@ namespace KartRider
 						KartExcData.AddPartsList(Kart, SN, 64, 0, 0, 0);
 						KartExcData.AddPartsList(Kart, SN, 65, 0, 0, 0);
 						KartExcData.AddPartsList(Kart, SN, 66, 0, 0, 0);
-						PartSpec.PartSpecData();
+						TuneSpec.Use_PartsSpec(Kart, SN);
 						GameSupport.OnDisconnect();
 						MessageBox.Show("已重置该车辆部件，请重新启动游戏！", "重置车辆部件", MessageBoxButtons.OK, MessageBoxIcon.Information);
 						return;
@@ -586,8 +580,7 @@ namespace KartRider
 						short SN = iPacket.ReadShort();
 						short Kart2 = iPacket.ReadShort();
 						short SN2 = iPacket.ReadShort();
-						KartExcData.AddLevelList(Kart, SN);
-						TuneSpec.Use_KartLevelSpec();
+						KartExcData.AddLevelList(Kart, SN, 5, 35, 0, 0, 0, 0);
 						using (OutPacket outPacket = new OutPacket("PrKartLevelUp"))
 						{
 							outPacket.WriteUShort(DataTime()[0]);
@@ -596,12 +589,12 @@ namespace KartRider
 							outPacket.WriteShort(Kart);
 							outPacket.WriteShort(SN);
 							outPacket.WriteShort(5);
+							outPacket.WriteShort(35);
 							outPacket.WriteShort(0);
-							outPacket.WriteShort(10);
-							outPacket.WriteShort(5);
-							outPacket.WriteShort(10);
-							outPacket.WriteShort(10);
-							outPacket.WriteInt(0);
+							outPacket.WriteShort(0);
+							outPacket.WriteShort(0);
+							outPacket.WriteShort(0);
+							outPacket.WriteInt();
 							outPacket.WriteShort(Kart2);
 							outPacket.WriteShort(SN2);
 							outPacket.WriteInt(10000);
@@ -614,21 +607,48 @@ namespace KartRider
 					{
 						short Kart = iPacket.ReadShort();
 						short SN = iPacket.ReadShort();
-						short Effect = iPacket.ReadShort();
+						short v1 = iPacket.ReadShort();
+						short v2 = iPacket.ReadShort();
+						short v3 = iPacket.ReadShort();
+						short v4 = iPacket.ReadShort();
+						short pointleft = 0;
+						int Add = -1;
+						for (var i = 0; i < KartExcData.LevelList.Count; i++)
+						{
+							if (KartExcData.LevelList[i][0] == Kart && KartExcData.LevelList[i][1] == SN)
+							{
+								Add = i;
+							}
+						}
+						if (Add == -1)
+						{
+							pointleft = (short)(35 - v1 - v2 - v3 - v4);
+							KartExcData.AddLevelList(Kart, SN, 5, pointleft, v1, v2, v3, v4);
+						}
+						else if (Add > -1)
+						{
+							pointleft = (short)(KartExcData.LevelList[Add][3] - v1 - v2 - v3 - v4);
+							v1 = (short)(KartExcData.LevelList[Add][4] + v1);
+							v2 = (short)(KartExcData.LevelList[Add][5] + v2);
+							v3 = (short)(KartExcData.LevelList[Add][6] + v3);
+							v4 = (short)(KartExcData.LevelList[Add][7] + v4);
+							KartExcData.AddLevelList(Kart, SN, 5, pointleft, v1, v2, v3, v4);
+						}
 						using (OutPacket outPacket = new OutPacket("PrKartLevelPointUpdate"))
 						{
 							outPacket.WriteInt(1);
 							outPacket.WriteShort(Kart);
 							outPacket.WriteShort(SN);
 							outPacket.WriteShort(5);
+							outPacket.WriteShort(pointleft);
+							outPacket.WriteShort(v1);
+							outPacket.WriteShort(v2);
+							outPacket.WriteShort(v3);
+							outPacket.WriteShort(v4);
 							outPacket.WriteShort(0);
-							outPacket.WriteShort(10);
-							outPacket.WriteShort(5);
-							outPacket.WriteShort(10);
-							outPacket.WriteShort(10);
-							outPacket.WriteShort(Effect);
 							this.Parent.Client.Send(outPacket);
 						}
+						TuneSpec.Use_KartLevelSpec(Kart, SN);
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("SpRqGetMaxGiftIdPacket", 0))
@@ -684,8 +704,18 @@ namespace KartRider
 						short Kart = iPacket.ReadShort();
 						iPacket.ReadShort();
 						short KartSN = iPacket.ReadShort();
-						KartExcData.AddTuneList(Kart, KartSN);
-						TuneSpec.Use_TuneSpec();
+						Random random = new Random();
+						List<string> numbers = new List<string>();
+						while (numbers.Count < 3)
+						{
+							string number = random.Next(1, 10).ToString() + "03";
+							if (!numbers.Contains(number))
+							{
+								numbers.Add(number);
+							}
+						}
+						KartExcData.AddTuneList(Kart, KartSN, short.Parse(numbers[0]), short.Parse(numbers[1]), short.Parse(numbers[2]));
+						TuneSpec.Use_TuneSpec(Kart, KartSN);
 						using (OutPacket outPacket = new OutPacket("PrUseTuneItem"))
 						{
 							outPacket.WriteInt(0);
@@ -694,9 +724,9 @@ namespace KartRider
 							outPacket.WriteShort(Kart);
 							outPacket.WriteShort(KartSN);
 							outPacket.WriteShort(0);
-							outPacket.WriteShort(603);
-							outPacket.WriteShort(703);
-							outPacket.WriteShort(903);
+							outPacket.WriteShort(short.Parse(numbers[0]));
+							outPacket.WriteShort(short.Parse(numbers[1]));
+							outPacket.WriteShort(short.Parse(numbers[2]));
 							outPacket.WriteHexString("00 00 00 00 00 00 00 00");
 							this.Parent.Client.Send(outPacket);
 						}
@@ -710,7 +740,7 @@ namespace KartRider
 						iPacket.ReadShort();
 						short KartSN = iPacket.ReadShort();
 						KartExcData.DelTuneList(Kart, KartSN);
-						TuneSpec.Use_TuneSpec();
+						TuneSpec.Use_TuneSpec(Kart, KartSN);
 						using (OutPacket outPacket = new OutPacket("PrUseResetSocketItem"))
 						{
 							outPacket.WriteInt(0);
@@ -730,8 +760,8 @@ namespace KartRider
 						short Kart = iPacket.ReadShort();
 						short Kart_Id = iPacket.ReadShort();
 						short SN = iPacket.ReadShort();
-						KartExcData.AddPlantList(Kart_Id, SN);
-						TuneSpec.Use_PlantSpec();
+						KartExcData.AddPlantList(Kart_Id, SN, Item, Item_Id);
+						TuneSpec.Use_PlantSpec(Kart_Id, SN);
 						using (OutPacket outPacket = new OutPacket("PrEquipTuningPacket"))
 						{
 							outPacket.WriteInt(0);
@@ -768,32 +798,32 @@ namespace KartRider
 					{
 						short Kart = iPacket.ReadShort();
 						short KartSN = iPacket.ReadShort();
-						PartSpec.Item_Cat_Id = iPacket.ReadShort();
-						PartSpec.Item_Id = iPacket.ReadShort();
+						short Item_Cat_Id = iPacket.ReadShort();
+						short Item_Id = iPacket.ReadShort();
 						short Quantity = iPacket.ReadShort();
 						short Unk1 = iPacket.ReadShort();
-						PartSpec.Grade = iPacket.ReadByte();
+						byte Grade = iPacket.ReadByte();
 						byte Unk2 = iPacket.ReadByte();
-						PartSpec.PartsValue = iPacket.ReadShort();
+						short PartsValue = iPacket.ReadShort();
 						short Unk3 = iPacket.ReadShort();
 						using (OutPacket outPacket = new OutPacket("PrEquipXPartsItem"))
 						{
 							outPacket.WriteInt(0);
 							outPacket.WriteShort(Kart);
 							outPacket.WriteShort(KartSN);
-							outPacket.WriteShort(PartSpec.Item_Cat_Id);
-							outPacket.WriteShort(PartSpec.Item_Id);
+							outPacket.WriteShort(Item_Cat_Id);
+							outPacket.WriteShort(Item_Id);
 							outPacket.WriteShort(Quantity);
 							outPacket.WriteShort(Unk1);
-							outPacket.WriteByte(PartSpec.Grade);
+							outPacket.WriteByte(Grade);
 							outPacket.WriteByte(Unk2);
-							outPacket.WriteShort(PartSpec.PartsValue);
+							outPacket.WriteShort(PartsValue);
 							outPacket.WriteShort(Unk3);
 							this.Parent.Client.Send(outPacket);
 						}
-						KartExcData.AddPartsList(Kart, KartSN, PartSpec.Item_Cat_Id, PartSpec.Item_Id, PartSpec.Grade, PartSpec.PartsValue);
-						Console.WriteLine("ClientSession : Kart: {0}, KartSN: {1}, Item: {2}:{3}, Quantity: {4}, Grade: {5}, PartsValue: {6}", Kart, KartSN, PartSpec.Item_Cat_Id, PartSpec.Item_Id, Quantity, PartSpec.Grade, PartSpec.PartsValue);
-						PartSpec.PartSpecData();
+						KartExcData.AddPartsList(Kart, KartSN, Item_Cat_Id, Item_Id, Grade, PartsValue);
+						Console.WriteLine("ClientSession : Kart: {0}, KartSN: {1}, Item: {2}:{3}, Quantity: {4}, Grade: {5}, PartsValue: {6}", Kart, KartSN, Item_Cat_Id,Item_Id, Quantity, Grade, PartsValue);
+						TuneSpec.Use_PartsSpec(Kart, KartSN);
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqGetTrainingMission", 0))
