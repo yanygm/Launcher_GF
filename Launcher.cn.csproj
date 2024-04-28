@@ -38,7 +38,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>F:\nexon\KartRider_GF\</OutputPath>
+    <OutputPath>.\</OutputPath>
     <DebugSymbols>false</DebugSymbols>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
