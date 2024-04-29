@@ -1,4 +1,5 @@
-﻿using KartRider.IO;
+﻿using System;
+using KartRider.IO;
 using KartRider;
 using System.Xml;
 
