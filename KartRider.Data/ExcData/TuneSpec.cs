@@ -182,7 +182,7 @@ namespace ExcData
 				{
 					TuneSpec.Tune_TransAccelFactor = 0.018f;
 				}
-				else if (KartExcData.TuneList[select][2] == 803 || KartExcData.TuneList[select][3] == 8103 || KartExcData.TuneList[select][4] == 803)
+				else if (KartExcData.TuneList[select][2] == 803 || KartExcData.TuneList[select][3] == 803 || KartExcData.TuneList[select][4] == 803)
 				{
 					TuneSpec.Tune_DriftMaxGauge = -200f;
 				}
