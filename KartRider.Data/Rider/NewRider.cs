@@ -97,6 +97,7 @@ namespace RiderData
 					if (KartExcData.PlantList[i][0] == SetRiderItem.Set_Kart && KartExcData.PlantList[i][1] == SetRiderItem.Set_KartSN)
 					{
 						Plant = i;
+						break;
 					}
 				}
 				if (Plant > -1)
@@ -124,6 +125,7 @@ namespace RiderData
 					if (KartExcData.LevelList[i][0] == SetRiderItem.Set_Kart && KartExcData.LevelList[i][1] == SetRiderItem.Set_KartSN)
 					{
 						Level = i;
+						break;
 					}
 				}
 				if (Level > -1)
@@ -139,6 +141,7 @@ namespace RiderData
 						if (KartExcData.PartsList[i][2] == 2 || KartExcData.PartsList[i][5] == 2 || KartExcData.PartsList[i][8] == 2 || KartExcData.PartsList[i][11] == 2)
 						{
 							Parts = i;
+							break;
 						}
 					}
 					if (Parts > -1)

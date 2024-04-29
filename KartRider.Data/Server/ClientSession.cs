@@ -640,6 +640,7 @@ namespace KartRider
 							if (KartExcData.LevelList[i][0] == Kart && KartExcData.LevelList[i][1] == SN)
 							{
 								Add = i;
+								break;
 							}
 						}
 						if (Add == -1)

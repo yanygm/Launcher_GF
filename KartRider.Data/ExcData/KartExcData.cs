@@ -176,6 +176,7 @@ namespace ExcData
 				if (TuneList[i][0] == id && TuneList[i][1] == sn)
 				{
 					Add = i;
+					break;
 				}
 			}
 			if (Add == -1)
@@ -206,6 +207,7 @@ namespace ExcData
 				if (TuneList[i][0] == id && TuneList[i][1] == sn)
 				{
 					Dell = i;
+					break;
 				}
 			}
 			if (Dell > -1)
@@ -248,6 +250,7 @@ namespace ExcData
 				if (PlantList[i][0] == id && PlantList[i][1] == sn)
 				{
 					Add = i;
+					break;
 				}
 			}
 			if (Add == -1)
@@ -350,6 +353,7 @@ namespace ExcData
 				if (LevelList[i][0] == id && LevelList[i][1] == sn)
 				{
 					Add = i;
+					break;
 				}
 			}
 			if (Add == -1)
@@ -413,6 +417,7 @@ namespace ExcData
 				if (PartsList[i][0] == id && PartsList[i][1] == sn)
 				{
 					Add = i;
+					break;
 				}
 			}
 			if (Add == -1)

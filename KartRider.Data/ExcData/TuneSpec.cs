@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ExcData
 {
@@ -150,6 +150,7 @@ namespace ExcData
 				if (KartExcData.TuneList[i][0] == Set_Kart && KartExcData.TuneList[i][1] == Set_KartSN)
 				{
 					select = i;
+					break;
 				}
 			}
 			if (select > -1)
@@ -205,6 +206,7 @@ namespace ExcData
 				if (KartExcData.PlantList[i][0] == Set_Kart && KartExcData.PlantList[i][1] == Set_KartSN)
 				{
 					select = i;
+					break;
 				}
 			}
 			if (select > -1)
@@ -235,15 +237,7 @@ namespace ExcData
 						TuneSpec.Plant43_ForwardAccel = 0f;
 						TuneSpec.Plant43_StartBoosterTimeSpeed = 15f;
 					}
-					else if (KartExcData.PlantList[select][3] == 4)
-					{
-						TuneSpec.Plant43_TransAccelFactor = 0f;
-						TuneSpec.Plant43_DragFactor = 0f;
-						TuneSpec.Plant43_StartForwardAccelSpeed = 0.04f;
-						TuneSpec.Plant43_ForwardAccel = 0f;
-						TuneSpec.Plant43_StartBoosterTimeSpeed = 0f;
-					}
-					else if (KartExcData.PlantList[select][3] == 5)
+					else if (KartExcData.PlantList[select][3] == 4 || KartExcData.PlantList[select][3] == 5)
 					{
 						TuneSpec.Plant43_TransAccelFactor = 0f;
 						TuneSpec.Plant43_DragFactor = 0f;
@@ -1094,6 +1088,7 @@ namespace ExcData
 				if (KartExcData.LevelList[i][0] == Set_Kart && KartExcData.LevelList[i][1] == Set_KartSN)
 				{
 					select = i;
+					break;
 				}
 			}
 			if (select > -1)
@@ -1344,6 +1339,7 @@ namespace ExcData
 				if (KartExcData.PartsList[i][0] == id && KartExcData.PartsList[i][1] == sn)
 				{
 					select = i;
+					break;
 				}
 			}
 			if (select > -1)
