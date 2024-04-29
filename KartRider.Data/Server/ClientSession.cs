@@ -616,7 +616,7 @@ namespace KartRider
 							outPacket.WriteShort(0);
 							outPacket.WriteShort(0);
 							outPacket.WriteShort(0);
-							outPacket.WriteInt();
+							outPacket.WriteInt(0);
 							outPacket.WriteShort(Kart2);
 							outPacket.WriteShort(SN2);
 							outPacket.WriteInt(10000);
