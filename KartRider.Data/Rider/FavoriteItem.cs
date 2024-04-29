@@ -63,6 +63,7 @@ namespace RiderData
 				if (FavoriteItemList[i][0] == item && FavoriteItemList[i][1] == id && FavoriteItemList[i][2] == sn)
 				{
 					Add = i;
+					break;
 				}
 			}
 			if (Add == -1)
@@ -84,6 +85,7 @@ namespace RiderData
 				if (FavoriteItemList[i][0] == item && FavoriteItemList[i][1] == id && FavoriteItemList[i][2] == sn)
 				{
 					Dell = i;
+					break;
 				}
 			}
 			if (Dell > -1)
@@ -204,6 +206,7 @@ namespace RiderData
 				if (FavoriteTrackList[i][0] == "theme" + theme.ToString() && FavoriteTrackList[i][1] == track.ToString())
 				{
 					Add = i;
+					break;
 				}
 			}
 			if (Add == -1)
@@ -224,6 +227,7 @@ namespace RiderData
 				if (FavoriteTrackList[i][0] == "theme" + theme.ToString() && FavoriteTrackList[i][1] == track.ToString())
 				{
 					Dell = i;
+					break;
 				}
 			}
 			if (Dell > -1)
