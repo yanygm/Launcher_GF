@@ -1532,13 +1532,13 @@ namespace RiderData
 			for (int i = 0; i < times; i++)
 			{
 				var tempList = item.GetRange(i * range, (i + 1) * range > item.Count ? (item.Count - i * range) : range);
-				for (int f = 0; f < tempList.Count; f++)
+				using (OutPacket oPacket = new OutPacket("LoRpGetRiderItemPacket"))
 				{
-					using (OutPacket oPacket = new OutPacket("LoRpGetRiderItemPacket"))
+					oPacket.WriteInt(1);
+					oPacket.WriteInt(1);
+					oPacket.WriteInt(tempList.Count);
+					for (int f = 0; f < tempList.Count; f++)
 					{
-						oPacket.WriteInt(1);
-						oPacket.WriteInt(1);
-						oPacket.WriteInt(1);
 						oPacket.WriteShort(itemCat);
 						oPacket.WriteShort(tempList[f][0]);
 						oPacket.WriteShort(tempList[f][1]);
@@ -1550,8 +1550,8 @@ namespace RiderData
 						oPacket.WriteByte(0);
 						oPacket.WriteByte(0);
 						oPacket.WriteShort(0);
-						RouterListener.MySession.Client.Send(oPacket);
 					}
+					RouterListener.MySession.Client.Send(oPacket);
 				}
 			}
 		}

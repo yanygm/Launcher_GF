@@ -4,6 +4,7 @@ using System.IO;
 using KartRider.IO;
 using KartRider;
 using System.Xml;
+using System.Linq;
 
 namespace RiderData
 {
@@ -127,30 +128,24 @@ namespace RiderData
 				if (!(doc.DocumentElement == null))
 				{
 					XmlNode rootNode = doc.DocumentElement;
-					List<string> Name = new List<string>();
+					HashSet<string> uniqueNames = new HashSet<string>();
 					FavoriteTrackList = new List<List<string>>();
 					foreach (XmlNode node in rootNode.ChildNodes)
 					{
-						XmlElement xe = (XmlElement)node;
-						List<string> AddList = new List<string>();
-						AddList.Add(node.Name);
-						AddList.Add(xe.GetAttribute("track"));
-						FavoriteTrackList.Add(AddList);
-						if (Name.Count == 0)
+						XmlElement xe = node as XmlElement;
+						if (xe != null)
 						{
-							Name.Add(node.Name);
-						}
-						else
-						{
-							for (int i = 0; i < Name.Count; i++)
+							List<string> addList = new List<string>();
+							addList.Add(node.Name);
+							addList.Add(xe.GetAttribute("track"));
+							FavoriteTrackList.Add(addList);
+							if (!uniqueNames.Contains(node.Name))
 							{
-								if (node.Name != Name[i])
-								{
-									Name.Add(node.Name);
-								}
+								uniqueNames.Add(node.Name);
 							}
 						}
 					}
+					List<string> Name = uniqueNames.ToList<string>();
 					using (OutPacket outPacket = new OutPacket("PrFavoriteTrackMapGet"))
 					{
 						outPacket.WriteInt(Name.Count); //主题数量
