@@ -5,7 +5,7 @@
 	<id3 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
 	<id4 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
 	<id5 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
-	<id6 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
+	<id6 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='1800' StartForwardAccelForceSpeed='1800' />
 	<id7 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='100' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='0' StartForwardAccelForceSpeed='0' />
 	<id8 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='100' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='0' StartForwardAccelForceSpeed='0' />
 	<id9 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='100' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='0' StartForwardAccelForceSpeed='0' />
@@ -17,7 +17,7 @@
 	<id15 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
 	<id16 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
 	<id17 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
-	<id18 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
+	<id18 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='1800' StartForwardAccelForceSpeed='1800' />
 	<id19 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='560' StartForwardAccelForceSpeed='560' />
 	<id25 DragFactor='0' ForwardAccelForce='3.5' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
 	<id26 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='100' CornerDrawFactor='0.002' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='0' StartForwardAccelForceSpeed='0' />
@@ -82,7 +82,7 @@
 	<id90 DragFactor='0' ForwardAccelForce='5.0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='250' TeamBoosterTime='0' StartForwardAccelForceItem='0' StartForwardAccelForceSpeed='0' />
 	<id91 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='100' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='1000' StartForwardAccelForceSpeed='1000' />
 	<id92 DragFactor='0' ForwardAccelForce='5.0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
-	<id93 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0.002' NormalBoosterTime='0' ItemBoosterTime='250' TeamBoosterTime='0' StartForwardAccelForceItem='0' StartForwardAccelForceSpeed='0' />
-	<id94 DragFactor='0' ForwardAccelForce='5.0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
+	<id93 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0.002' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='250' StartForwardAccelForceItem='0' StartForwardAccelForceSpeed='0' />
+	<id94 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='0' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='1300' StartForwardAccelForceSpeed='1300' />
 	<id95 DragFactor='0' ForwardAccelForce='0' DriftEscapeForce='100' CornerDrawFactor='0' NormalBoosterTime='0' ItemBoosterTime='0' TeamBoosterTime='0' StartForwardAccelForceItem='800' StartForwardAccelForceSpeed='800' />
 </FlyingPetSpec>
