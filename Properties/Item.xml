@@ -647,6 +647,7 @@
 	<Pet id='176' />
 	<Pet id='177' />
 	<Pet id='178' />
+	<Pet id='179' />
 	<!--item itemCatId='52' itemName='飞行宠物'-->
 	<FlyingPet id='1' />
 	<FlyingPet id='2' />
@@ -733,6 +734,8 @@
 	<FlyingPet id='93' />
 	<FlyingPet id='94' />
 	<FlyingPet id='95' />
+	<FlyingPet id='96' />
+	<FlyingPet id='97' />
 	<!--item itemCatId='18' itemName='服饰'-->
 	<Uniform id='30000' />
 	<Uniform id='12' />
@@ -768,6 +771,7 @@
 	<Uniform id='98' />
 	<Uniform id='105' />
 	<Uniform id='106' />
+	<Uniform id='109' />
 	<!--item itemCatId='26' itemName='炫光'-->
 	<Aura id='30000' />
 	<Aura id='1' />
@@ -1940,6 +1944,8 @@
 	<Balloon id='1397' />
 	<Balloon id='1398' />
 	<Balloon id='1399' />
+	<Balloon id='1400' />
+	<Balloon id='1401' />
 	<!--item itemCatId='8' itemName='护目镜'-->
 	<Goggle id='30000' />
 	<Goggle id='30001' />
@@ -2535,6 +2541,7 @@
 	<HeadBand id='648' />
 	<HeadBand id='649' />
 	<HeadBand id='650' />
+	<HeadBand id='651' />
 	<!--item itemCatId='16' itemName='手杖'-->
 	<HandGearL id='30000' />
 	<HandGearL id='30001' />
@@ -3303,6 +3310,7 @@
 	<emblem id='8824' />
 	<emblem id='8825' />
 	<emblem id='8826' />
+	<emblem id='8827' />
 	<emblem id='30001' />
 	<emblem id='30002' />
 	<emblem id='30004' />
