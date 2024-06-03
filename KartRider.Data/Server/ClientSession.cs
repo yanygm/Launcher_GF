@@ -602,7 +602,6 @@ namespace KartRider
 						short SN = iPacket.ReadShort();
 						short Kart2 = iPacket.ReadShort();
 						short SN2 = iPacket.ReadShort();
-						KartExcData.AddLevelList(Kart, SN, 5, 35, 0, 0, 0, 0);
 						using (OutPacket outPacket = new OutPacket("PrKartLevelUp"))
 						{
 							outPacket.WriteUShort(DataTime()[0]);
@@ -621,8 +620,10 @@ namespace KartRider
 							outPacket.WriteShort(SN2);
 							outPacket.WriteInt(10000);
 							outPacket.WriteInt(1000000);
+							outPacket.WriteInt(0);
 							this.Parent.Client.Send(outPacket);
 						}
+						KartExcData.AddLevelList(Kart, SN, 5, 35, 0, 0, 0, 0);
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqKartLevelPointUpdate", 0))
