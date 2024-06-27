@@ -648,6 +648,7 @@
 	<Pet id='177' />
 	<Pet id='178' />
 	<Pet id='179' />
+	<Pet id='180' />
 	<!--item itemCatId='52' itemName='飞行宠物'-->
 	<FlyingPet id='1' />
 	<FlyingPet id='2' />
@@ -772,6 +773,8 @@
 	<Uniform id='105' />
 	<Uniform id='106' />
 	<Uniform id='109' />
+	<Uniform id='110' />
+	<Uniform id='111' />
 	<!--item itemCatId='26' itemName='炫光'-->
 	<Aura id='30000' />
 	<Aura id='1' />
@@ -1946,6 +1949,7 @@
 	<Balloon id='1399' />
 	<Balloon id='1400' />
 	<Balloon id='1401' />
+	<Balloon id='1402' />
 	<!--item itemCatId='8' itemName='护目镜'-->
 	<Goggle id='30000' />
 	<Goggle id='30001' />
@@ -2129,6 +2133,7 @@
 	<Goggle id='238' />
 	<Goggle id='239' />
 	<Goggle id='240' />
+	<Goggle id='241' />
 	<!--item itemCatId='11' itemName='头饰'-->
 	<HeadBand id='30000' />
 	<HeadBand id='30001' />
@@ -2829,6 +2834,7 @@
 	<HandGearL id='437' />
 	<HandGearL id='438' />
 	<HandGearL id='439' />
+	<HandGearL id='440' />
 	<!--item itemCatId='28' itemName='小屋背景'-->
 	<MyRoom id='30000' />
 	<MyRoom id='2' />
