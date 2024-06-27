@@ -1953,6 +1953,15 @@ namespace KartRider
 					{
 						return;
 					}
+					else if (hash == 2788231999)
+					{
+						System.Diagnostics.Process[] process = System.Diagnostics.Process.GetProcessesByName("KartRider");
+						foreach (System.Diagnostics.Process p in process)
+						{
+							p.Kill();
+						}
+						return;
+					}
 				}
 				if (hash == Adler32Helper.GenerateAdler32_ASCII("PqCnAuthenLogin", 0))
 				{
