@@ -1,8 +1,7 @@
 name: .NET Framework 4.8
 
 on:
-  push:
-    branches: [ "master" ]
+  workflow_dispatch:
 
 jobs:
   build:
