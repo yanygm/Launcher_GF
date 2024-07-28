@@ -477,6 +477,7 @@
 	<Character id='461' />
 	<Character id='462' />
 	<Character id='463' />
+	<Character id='464' />
 	<!--item itemCatId='21' itemName='宠物'-->
 	<Pet id='30000' />
 	<Pet id='30002' />
@@ -737,6 +738,8 @@
 	<FlyingPet id='95' />
 	<FlyingPet id='96' />
 	<FlyingPet id='97' />
+	<FlyingPet id='98' />
+	<FlyingPet id='99' />
 	<!--item itemCatId='18' itemName='服饰'-->
 	<Uniform id='30000' />
 	<Uniform id='12' />
@@ -1950,6 +1953,8 @@
 	<Balloon id='1400' />
 	<Balloon id='1401' />
 	<Balloon id='1402' />
+	<Balloon id='1403' />
+	<Balloon id='1404' />
 	<!--item itemCatId='8' itemName='护目镜'-->
 	<Goggle id='30000' />
 	<Goggle id='30001' />
@@ -2547,6 +2552,7 @@
 	<HeadBand id='649' />
 	<HeadBand id='650' />
 	<HeadBand id='651' />
+	<HeadBand id='652' />
 	<!--item itemCatId='16' itemName='手杖'-->
 	<HandGearL id='30000' />
 	<HandGearL id='30001' />
@@ -2922,6 +2928,8 @@
 	<V1EffectData id='18' />
 	<V1EffectData id='19' />
 	<V1EffectData id='20' />
+	<V1EffectData id='21' />
+	<V1EffectData id='22' />
 	<!--item itemCatId='69' itemName='车灯部件'-->
 	<V1BoosterEffectData id='1' />
 	<V1BoosterEffectData id='2' />
@@ -3318,6 +3326,7 @@
 	<emblem id='8826' />
 	<emblem id='8827' />
 	<emblem id='8828' />
+	<emblem id='8829' />
 	<emblem id='30001' />
 	<emblem id='30002' />
 	<emblem id='30004' />
