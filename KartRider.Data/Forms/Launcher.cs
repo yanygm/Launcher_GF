@@ -8,6 +8,7 @@ using Set_Data;
 using System.Xml;
 using ExcData;
 using LauncherFile.Properties;
+using KartRider.Common.Data;
 
 namespace KartRider
 {
