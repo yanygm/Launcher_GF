@@ -68,6 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KartRider.Common\KartNew.Utilities\TimeUtil.cs" />
+    <Compile Include="KartRider.Common\KartRider\Common.Data\BmlObject.cs" />
+    <Compile Include="KartRider.Common\KartRider\Common.Data\PINFile.cs" />
     <Compile Include="KartRider.Common\KartRider\Common.Network\SocketInfo.cs" />
     <Compile Include="KartRider.Common\KartRider\Common.Security\KRCrypto.cs" />
     <Compile Include="KartRider.Common\KartRider\Common.Security\KREncodedBlock.cs" />
