@@ -20,10 +20,11 @@ namespace KartRider
 		private string kartRiderDirectory = null;
 		private string profilePath = null;
 		public static string KartRider = "KartRider.exe";
+		PINFile pinFile = new PINFile(@"KartRider.pin");
 		private Button Start_Button;
 		private Button GetKart_Button;
 		private Label label_DeveloperName;
-		private TextBox Version;
+		private TextBox MinorVersion;
 		private Button Options_Button;
 
 		public Launcher()
@@ -38,7 +39,7 @@ namespace KartRider
 			this.GetKart_Button = new System.Windows.Forms.Button();
 			this.Options_Button = new System.Windows.Forms.Button();
 			this.label_DeveloperName = new System.Windows.Forms.Label();
-			this.Version = new System.Windows.Forms.TextBox();
+			this.MinorVersion = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// Start_Button
@@ -83,16 +84,15 @@ namespace KartRider
 			this.label_DeveloperName.TabIndex = 367;
 			this.label_DeveloperName.Text = "Version:";
 			// 
-			// Version
+			// MinorVersion
 			// 
-			this.Version.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.Version.ForeColor = System.Drawing.Color.Red;
-			this.Version.Location = new System.Drawing.Point(55, 159);
-			this.Version.Name = "Version";
-			this.Version.Size = new System.Drawing.Size(70, 14);
-			this.Version.TabIndex = 368;
-			this.Version.WordWrap = false;
-			this.Version.TextChanged += new System.EventHandler(this.Version_TextChanged);
+			this.MinorVersion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.MinorVersion.ForeColor = System.Drawing.Color.Red;
+			this.MinorVersion.Location = new System.Drawing.Point(55, 159);
+			this.MinorVersion.Name = "MinorVersion";
+			this.MinorVersion.Size = new System.Drawing.Size(70, 14);
+			this.MinorVersion.TabIndex = 368;
+			this.MinorVersion.WordWrap = false;
 			// 
 			// Launcher
 			// 
@@ -100,7 +100,7 @@ namespace KartRider
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Control;
 			this.ClientSize = new System.Drawing.Size(257, 180);
-			this.Controls.Add(this.Version);
+			this.Controls.Add(this.MinorVersion);
 			this.Controls.Add(this.label_DeveloperName);
 			this.Controls.Add(this.Options_Button);
 			this.Controls.Add(this.GetKart_Button);
@@ -191,11 +191,9 @@ namespace KartRider
 				StartingLoad_ALL.StartingLoad();
 				if (Program.Developer_Name)
 				{
-					Version.Text = SetGameOption.Version.ToString();
-				}
-				else
-				{
-					Version.Text = "";
+					MinorVersion.Text = Convert.ToString(pinFile.Header.MinorVersion);
+					SetGameOption.Version = ushort.Parse(MinorVersion.Text);
+					SetGameOption.Save_SetGameOption();
 				}
 				this.profilePath = Path.Combine(str, "launcher.xml");
 				Console.WriteLine("Process: {0}", this.kartRiderDirectory + "\\" + Launcher.KartRider);
@@ -285,12 +283,6 @@ namespace KartRider
 					//Options_Button.Enabled = true;
 				}
 			}
-		}
-
-		private void Version_TextChanged(object sender, EventArgs e)
-		{
-			SetGameOption.Version = ushort.Parse(Version.Text);
-			SetGameOption.Save_SetGameOption();
 		}
 
 		public static void Load_KartExcData()
