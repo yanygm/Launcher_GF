@@ -1549,5 +1549,7 @@ namespace KartRider_PacketName
 		PrEventBuyCount = 780076541,
 		PqUnLockedItem = 666895717,
 		PrUnLockedItem = 667747686,
+		PqTcCashEventUserInfoPacket = 2415659644,
+		PrTcCashEventUserInfoPacket = 2417363581,
 	}
 }
