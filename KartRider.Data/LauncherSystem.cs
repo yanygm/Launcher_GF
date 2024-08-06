@@ -27,7 +27,7 @@ namespace KartRider
 
 		public static void MessageBoxType3()
 		{
-			MessageBox.Show(Launcher.KartRider + " 找不到文件！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			MessageBox.Show(Launcher.KartRider + " 或 " + Launcher.pinFile + " 找不到文件！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			Environment.Exit(1);
 		}
 	}
