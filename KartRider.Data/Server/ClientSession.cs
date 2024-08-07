@@ -465,7 +465,14 @@ namespace KartRider
 					{
 						using (OutPacket outPacket = new OutPacket("PrChapterInfoPacket"))
 						{
-							outPacket.WriteInt(0);
+							outPacket.WriteInt(56);
+							for (int i = 1; i <= 56; i++)
+							{
+								outPacket.WriteInt(i | 0x1000000);
+								outPacket.WriteInt((int)(Math.Pow(2, 20) - 1));
+								outPacket.WriteInt(0);
+								outPacket.WriteByte(0);
+							}
 							this.Parent.Client.Send(outPacket);
 						}
 						return;
