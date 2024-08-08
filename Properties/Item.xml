@@ -478,6 +478,7 @@
 	<Character id='462' />
 	<Character id='463' />
 	<Character id='464' />
+	<Character id='465' />
 	<!--item itemCatId='21' itemName='宠物'-->
 	<Pet id='30000' />
 	<Pet id='30002' />
@@ -650,6 +651,7 @@
 	<Pet id='178' />
 	<Pet id='179' />
 	<Pet id='180' />
+	<Pet id='181' />
 	<!--item itemCatId='52' itemName='飞行宠物'-->
 	<FlyingPet id='1' />
 	<FlyingPet id='2' />
@@ -1955,6 +1957,7 @@
 	<Balloon id='1402' />
 	<Balloon id='1403' />
 	<Balloon id='1404' />
+	<Balloon id='1405' />
 	<!--item itemCatId='8' itemName='护目镜'-->
 	<Goggle id='30000' />
 	<Goggle id='30001' />
