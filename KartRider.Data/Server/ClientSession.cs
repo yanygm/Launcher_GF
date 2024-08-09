@@ -49,7 +49,7 @@ namespace KartRider
 				iPacket.Position = 0;
 				uint hash = iPacket.ReadUInt();
 				//Console.WriteLine(hash);
-				if ((hash == Adler32Helper.GenerateAdler32(Encoding.ASCII.GetBytes("PcReportRaidOccur"), 0) ? false : hash != 1340475309))
+				if ((hash == Adler32Helper.GenerateAdler32(Encoding.ASCII.GetBytes("PcReportRaidOccur"), 0) ? false : hash != 1340475309))//PqGameReportMyBadUdp
 				{
 					if (hash == Adler32Helper.GenerateAdler32_ASCII("GrRiderTalkPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqEnterMagicHatPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("LoPingRequestPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqGetRiderQuestUX2ndData", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqAddTimeEventInitPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqCountdownBoxPeriodPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqServerSideUdpBindCheck", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqVipGradeCheck", 0))
 					{
@@ -1972,16 +1972,19 @@ namespace KartRider
 						}
 						return;
 					}
-					else if (hash == 1950550337)
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqServerSideUdpBindCheck", 0))
 					{
 						return;
 					}
-					else if (hash == 2788231999)
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqQuestUX2ndForShutDownPacket", 0))
 					{
-						System.Diagnostics.Process[] process = System.Diagnostics.Process.GetProcessesByName("KartRider");
-						foreach (System.Diagnostics.Process p in process)
+						using (OutPacket outPacket = new OutPacket("PrQuestUX2ndForShutDownPacket"))
 						{
-							p.Kill();
+							for (int i = 0; i < 8; i++)
+							{
+								outPacket.WriteInt(0);
+							}
+							this.Parent.Client.Send(outPacket);
 						}
 						return;
 					}
