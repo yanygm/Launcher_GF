@@ -1960,6 +1960,15 @@ namespace KartRider
 					{
 						return;
 					}
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqGetlotteryMileageInfoPacket", 0))
+					{
+						using (OutPacket outPacket = new OutPacket("PrGetlotteryMileageInfoPacket"))
+						{
+							outPacket.WriteInt(0);
+							this.Parent.Client.Send(outPacket);
+						}
+						return;
+					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqTcCashEventUserInfoPacket", 0))
 					{
 						int unk1 = iPacket.ReadInt();
