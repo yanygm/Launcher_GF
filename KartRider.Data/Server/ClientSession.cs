@@ -1989,10 +1989,7 @@ namespace KartRider
 					{
 						using (OutPacket outPacket = new OutPacket("PrQuestUX2ndForShutDownPacket"))
 						{
-							for (int i = 0; i < 8; i++)
-							{
-								outPacket.WriteInt(0);
-							}
+							outPacket.WriteInt(0);
 							this.Parent.Client.Send(outPacket);
 						}
 						return;
