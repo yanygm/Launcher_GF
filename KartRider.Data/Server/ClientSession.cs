@@ -737,12 +737,21 @@ namespace KartRider
 						short KartSN = iPacket.ReadShort();
 						Random random = new Random();
 						List<string> numbers = new List<string>();
-						while (numbers.Count < 3)
+						if (Item_Id == 5)
 						{
-							string number = random.Next(1, 10).ToString() + "03";
-							if (!numbers.Contains(number))
+							numbers.Add("603");
+							numbers.Add("703");
+							numbers.Add("903");
+						}
+						else
+						{
+							while (numbers.Count < 3)
 							{
-								numbers.Add(number);
+								string number = random.Next(1, 10).ToString() + "03";
+								if (!numbers.Contains(number))
+								{
+									numbers.Add(number);
+								}
 							}
 						}
 						KartExcData.AddTuneList(Kart, KartSN, short.Parse(numbers[0]), short.Parse(numbers[1]), short.Parse(numbers[2]));
