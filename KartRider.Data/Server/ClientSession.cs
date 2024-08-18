@@ -737,8 +737,8 @@ namespace KartRider
 						short KartSN = iPacket.ReadShort();
 						Random random = new Random();
 						List<string> numbers = new List<string>();
-						Console.WriteLine(Item_Id);
-						if (Item_Id == 5)
+						Console.WriteLine(Item);
+						if (Item == 5)
 						{
 							numbers.Add("603");
 							numbers.Add("703");
