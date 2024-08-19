@@ -109,7 +109,7 @@ namespace ExcData
 					oPacket.WriteShort(LevelList[i][5]);
 					oPacket.WriteShort(LevelList[i][6]);
 					oPacket.WriteShort(LevelList[i][7]);
-					oPacket.WriteShort(0); //코팅
+					oPacket.WriteShort(LevelList[i][8]); //코팅
 				}
 				oPacket.WriteInt(0);
 				oPacket.WriteInt(0);
@@ -345,7 +345,7 @@ namespace ExcData
 			}
 		}
 
-		public static void AddLevelList(short id, short sn, short level, short pointleft, short v1, short v2, short v3, short v4)
+		public static void AddLevelList(short id, short sn, short level, short pointleft, short v1, short v2, short v3, short v4， short Effect)
 		{
 			int Add = -1;
 			for (var i = 0; i < LevelList.Count; i++)
@@ -367,6 +367,7 @@ namespace ExcData
 				AddList.Add(v2);
 				AddList.Add(v3);
 				AddList.Add(v4);
+				AddList.Add(Effect);
 				LevelList.Add(AddList);
 				SaveLevelList(LevelList);
 			}
@@ -377,6 +378,7 @@ namespace ExcData
 				LevelList[Add][5] = v2;
 				LevelList[Add][6] = v3;
 				LevelList[Add][7] = v4;
+				LevelList[Add][8] = Effect;
 				SaveLevelList(LevelList);
 			}
 		}
@@ -404,6 +406,7 @@ namespace ExcData
 				xe1.SetAttribute("v2", List[i][5].ToString());
 				xe1.SetAttribute("v3", List[i][6].ToString());
 				xe1.SetAttribute("v4", List[i][7].ToString());
+				xe1.SetAttribute("Effect", List[i][8].ToString());
 				root.AppendChild(xe1);
 				xmlDoc.Save(@"Profile\LevelData.xml");
 			}

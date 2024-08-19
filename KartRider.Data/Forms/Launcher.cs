@@ -371,6 +371,7 @@ namespace KartRider
 						short v2 = short.Parse(xe.GetAttribute("v2"));
 						short v3 = short.Parse(xe.GetAttribute("v3"));
 						short v4 = short.Parse(xe.GetAttribute("v4"));
+						short Effect = short.Parse(xe.GetAttribute("Effect"));
 						List<short> AddList = new List<short>();
 						AddList.Add(i);
 						AddList.Add(sn);
@@ -380,6 +381,7 @@ namespace KartRider
 						AddList.Add(v2);
 						AddList.Add(v3);
 						AddList.Add(v4);
+						AddList.Add(Effect);
 						KartExcData.LevelList.Add(AddList);
 					}
 				}
