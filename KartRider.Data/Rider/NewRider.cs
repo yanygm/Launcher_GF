@@ -96,25 +96,30 @@ namespace RiderData
 				{
 					if (KartExcData.PlantList[i][0] == SetRiderItem.Set_Kart && KartExcData.PlantList[i][1] == SetRiderItem.Set_KartSN)
 					{
-						oPacket.WriteShort(KartExcData.PlantList[Plant][3]);
-						oPacket.WriteShort(KartExcData.PlantList[Plant][5]);
-						oPacket.WriteShort(KartExcData.PlantList[Plant][7]);
-						oPacket.WriteShort(KartExcData.PlantList[Plant][9]);
+						Plant = i;
 						break;
 					}
-					else
-					{
-						oPacket.WriteShort(0);
-						oPacket.WriteShort(0);
-						oPacket.WriteShort(0);
-						oPacket.WriteShort(0);
-					}
+				}
+				if (Plant > -1)
+				{
+					oPacket.WriteShort(KartExcData.PlantList[Plant][3]);
+					oPacket.WriteShort(KartExcData.PlantList[Plant][5]);
+					oPacket.WriteShort(KartExcData.PlantList[Plant][7]);
+					oPacket.WriteShort(KartExcData.PlantList[Plant][9]);
+				}
+				else
+				{
+					oPacket.WriteShort(0);
+					oPacket.WriteShort(0);
+					oPacket.WriteShort(0);
+					oPacket.WriteShort(0);
 				}
 				oPacket.WriteShort(0);
 				oPacket.WriteShort(0);
 				oPacket.WriteShort(SetRiderItem.Set_Tachometer);
 				oPacket.WriteShort(SetRiderItem.Set_Dye);
 				oPacket.WriteShort(SetRiderItem.Set_KartSN);
+				oPacket.WriteByte(0);
 				int Parts = -1;
 				for (var i = 0; i < KartExcData.PartsList.Count; i++)
 				{
@@ -151,7 +156,6 @@ namespace RiderData
 						oPacket.WriteShort(0);
 					}
 				}
-				oPacket.WriteByte(0);
 				oPacket.WriteShort(SetRiderItem.Set_slotBg);
 				oPacket.WriteString("");
 				oPacket.WriteUInt(SetRider.Lucci);
