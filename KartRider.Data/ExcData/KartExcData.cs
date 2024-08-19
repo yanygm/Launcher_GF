@@ -345,7 +345,7 @@ namespace ExcData
 			}
 		}
 
-		public static void AddLevelList(short id, short sn, short level, short pointleft, short v1, short v2, short v3, short v4， short Effect)
+		public static void AddLevelList(short id, short sn, short level, short pointleft, short v1, short v2, short v3, short v4, short Effect)
 		{
 			int Add = -1;
 			for (var i = 0; i < LevelList.Count; i++)
