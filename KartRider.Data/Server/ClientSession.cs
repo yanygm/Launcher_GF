@@ -642,6 +642,7 @@ namespace KartRider
 						short v3 = iPacket.ReadShort();
 						short v4 = iPacket.ReadShort();
 						short pointleft = 0;
+						short Effect = 0;
 						int Add = -1;
 						for (var i = 0; i < KartExcData.LevelList.Count; i++)
 						{
@@ -654,7 +655,7 @@ namespace KartRider
 						if (Add == -1)
 						{
 							pointleft = (short)(35 - v1 - v2 - v3 - v4);
-							KartExcData.AddLevelList(Kart, SN, 5, pointleft, v1, v2, v3, v4, KartExcData.LevelList[Add][8]);
+							KartExcData.AddLevelList(Kart, SN, 5, pointleft, v1, v2, v3, v4, 0);
 						}
 						else if (Add > -1)
 						{
@@ -664,6 +665,7 @@ namespace KartRider
 							v3 = (short)(KartExcData.LevelList[Add][6] + v3);
 							v4 = (short)(KartExcData.LevelList[Add][7] + v4);
 							KartExcData.AddLevelList(Kart, SN, 5, pointleft, v1, v2, v3, v4, KartExcData.LevelList[Add][8]);
+							Effect = KartExcData.LevelList[Add][8];
 						}
 						using (OutPacket outPacket = new OutPacket("PrKartLevelPointUpdate"))
 						{
@@ -676,7 +678,7 @@ namespace KartRider
 							outPacket.WriteShort(v2);
 							outPacket.WriteShort(v3);
 							outPacket.WriteShort(v4);
-							outPacket.WriteShort(0);
+							outPacket.WriteShort(Effect);
 							this.Parent.Client.Send(outPacket);
 						}
 						TuneSpec.Use_KartLevelSpec(Kart, SN);
