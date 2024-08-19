@@ -147,8 +147,8 @@ namespace RiderData
 					}
 					if (Parts > -1)
 					{
-						oPacket.WriteShort(KartExcData.PartsList[Parts][14]);
 						oPacket.WriteShort(KartExcData.PartsList[Parts][15]);
+						oPacket.WriteShort(KartExcData.PartsList[Parts][14]);
 					}
 					else
 					{

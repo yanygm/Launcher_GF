@@ -806,7 +806,7 @@ namespace KartRider
 						{
 							outPacket.WriteByte(1);
 							outPacket.WriteShort(SN);
-							outPacket.WriteShort(2);
+							outPacket.WriteShort(SN);
 							outPacket.WriteShort(Kart_Id);
 							outPacket.WriteShort(Item);
 							outPacket.WriteShort(Item_Id);
