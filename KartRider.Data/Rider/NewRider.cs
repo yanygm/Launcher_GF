@@ -116,19 +116,35 @@ namespace RiderData
 				oPacket.WriteShort(SetRiderItem.Set_Dye);
 				oPacket.WriteShort(SetRiderItem.Set_KartSN);
 				oPacket.WriteByte(0);
-				for (var i = 0; i < KartExcData.LevelList.Count; i++)
+				int Parts = -1;
+				for (var i = 0; i < KartExcData.PartsList.Count; i++)
 				{
 					if (KartExcData.PartsList[i][0] == SetRiderItem.Set_Kart && KartExcData.PartsList[i][1] == SetRiderItem.Set_KartSN)
 					{
-						oPacket.WriteShort(KartExcData.PartsList[i][14]);
-						oPacket.WriteShort(KartExcData.PartsList[i][15]);
+						Parts = i;
 						break;
 					}
-					else if (KartExcData.LevelList[i][0] == SetRiderItem.Set_Kart && KartExcData.LevelList[i][1] == SetRiderItem.Set_KartSN)
+				}
+				if (Parts > -1)
+				{
+					oPacket.WriteShort(KartExcData.PartsList[Parts][14]);
+					oPacket.WriteShort(KartExcData.PartsList[Parts][15]);
+				}
+				else
+				{
+					int Level = -1;
+					for (var i = 0; i < KartExcData.LevelList.Count; i++)
+					{
+						if (KartExcData.LevelList[i][0] == SetRiderItem.Set_Kart && KartExcData.LevelList[i][1] == SetRiderItem.Set_KartSN)
+						{
+							Level = i;
+							break;
+						}
+					}
+					if (Level > -1)
 					{
 						oPacket.WriteShort(7);
 						oPacket.WriteShort(0);
-						break;
 					}
 					else
 					{
