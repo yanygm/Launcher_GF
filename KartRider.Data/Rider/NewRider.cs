@@ -102,10 +102,10 @@ namespace RiderData
 				}
 				if (Plant > -1)
 				{
-					oPacket.WriteShort(23);
-					oPacket.WriteShort(23);
-					oPacket.WriteShort(2);
-					oPacket.WriteShort(1);
+					oPacket.WriteShort(KartExcData.PlantList[Plant][3]);
+					oPacket.WriteShort(KartExcData.PlantList[Plant][5]);
+					oPacket.WriteShort(KartExcData.PlantList[Plant][7]);
+					oPacket.WriteShort(KartExcData.PlantList[Plant][9]);
 				}
 				else
 				{
@@ -146,8 +146,8 @@ namespace RiderData
 					}
 					if (Parts > -1)
 					{
-						oPacket.WriteShort(1536);
-						oPacket.WriteShort(768);
+						oPacket.WriteShort(KartExcData.PartsList[Parts][14]);
+						oPacket.WriteShort(KartExcData.PartsList[Parts][15]);
 					}
 					else
 					{
