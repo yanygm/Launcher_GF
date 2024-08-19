@@ -96,23 +96,19 @@ namespace RiderData
 				{
 					if (KartExcData.PlantList[i][0] == SetRiderItem.Set_Kart && KartExcData.PlantList[i][1] == SetRiderItem.Set_KartSN)
 					{
-						Plant = i;
+						oPacket.WriteShort(KartExcData.PlantList[Plant][3]);
+						oPacket.WriteShort(KartExcData.PlantList[Plant][5]);
+						oPacket.WriteShort(KartExcData.PlantList[Plant][7]);
+						oPacket.WriteShort(KartExcData.PlantList[Plant][9]);
 						break;
 					}
-				}
-				if (Plant > -1)
-				{
-					oPacket.WriteShort(KartExcData.PlantList[Plant][3]);
-					oPacket.WriteShort(KartExcData.PlantList[Plant][5]);
-					oPacket.WriteShort(KartExcData.PlantList[Plant][7]);
-					oPacket.WriteShort(KartExcData.PlantList[Plant][9]);
-				}
-				else
-				{
-					oPacket.WriteShort(0);
-					oPacket.WriteShort(0);
-					oPacket.WriteShort(0);
-					oPacket.WriteShort(0);
+					else
+					{
+						oPacket.WriteShort(0);
+						oPacket.WriteShort(0);
+						oPacket.WriteShort(0);
+						oPacket.WriteShort(0);
+					}
 				}
 				oPacket.WriteShort(0);
 				oPacket.WriteShort(0);
@@ -120,35 +116,19 @@ namespace RiderData
 				oPacket.WriteShort(SetRiderItem.Set_Dye);
 				oPacket.WriteShort(SetRiderItem.Set_KartSN);
 				oPacket.WriteByte(0);
-				int Level = -1;
 				for (var i = 0; i < KartExcData.LevelList.Count; i++)
 				{
-					if (KartExcData.LevelList[i][0] == SetRiderItem.Set_Kart && KartExcData.LevelList[i][1] == SetRiderItem.Set_KartSN)
+					if (KartExcData.PartsList[i][0] == SetRiderItem.Set_Kart && KartExcData.PartsList[i][1] == SetRiderItem.Set_KartSN)
 					{
-						Level = i;
+						oPacket.WriteShort(KartExcData.PartsList[i][14]);
+						oPacket.WriteShort(KartExcData.PartsList[i][15]);
 						break;
 					}
-				}
-				if (Level > -1)
-				{
-					oPacket.WriteShort(7);
-					oPacket.WriteShort(0);
-				}
-				else
-				{
-					int Parts = -1;
-					for (var i = 0; i < KartExcData.PartsList.Count; i++)
+					else if (KartExcData.LevelList[i][0] == SetRiderItem.Set_Kart && KartExcData.LevelList[i][1] == SetRiderItem.Set_KartSN)
 					{
-						if (KartExcData.PartsList[i][2] == 2 || KartExcData.PartsList[i][5] == 2 || KartExcData.PartsList[i][8] == 2 || KartExcData.PartsList[i][11] == 2)
-						{
-							Parts = i;
-							break;
-						}
-					}
-					if (Parts > -1)
-					{
-						oPacket.WriteShort(KartExcData.PartsList[Parts][15]);
-						oPacket.WriteShort(KartExcData.PartsList[Parts][14]);
+						oPacket.WriteShort(7);
+						oPacket.WriteShort(0);
+						break;
 					}
 					else
 					{
