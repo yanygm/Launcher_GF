@@ -814,15 +814,6 @@ namespace KartRider
 						}
 						return;
 					}
-					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqEquipTuningPacket", 0))
-					{
-						using (OutPacket outPacket = new OutPacket("PrEquipTuningPacket"))
-						{
-							outPacket.WriteInt(0);
-							this.Parent.Client.Send(outPacket);
-						}
-						return;
-					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqUnequipXPartsItem", 0))
 					{
 						short Kart = iPacket.ReadShort();
