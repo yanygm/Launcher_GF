@@ -664,8 +664,8 @@ namespace KartRider
 							v2 = (short)(KartExcData.LevelList[Add][5] + v2);
 							v3 = (short)(KartExcData.LevelList[Add][6] + v3);
 							v4 = (short)(KartExcData.LevelList[Add][7] + v4);
-							KartExcData.AddLevelList(Kart, SN, 5, pointleft, v1, v2, v3, v4, KartExcData.LevelList[Add][8]);
 							Effect = KartExcData.LevelList[Add][8];
+							KartExcData.AddLevelList(Kart, SN, 5, pointleft, v1, v2, v3, v4, Effect);
 						}
 						using (OutPacket outPacket = new OutPacket("PrKartLevelPointUpdate"))
 						{
