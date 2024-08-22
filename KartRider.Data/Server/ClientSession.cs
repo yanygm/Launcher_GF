@@ -2019,7 +2019,20 @@ namespace KartRider
 						}
 						return;
 					}
-					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqServerSideUdpBindCheck", 0))
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqServerSideUdpBindCheck", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqMissionAttendUserStatePacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqMissionAttendNRUserStatePacket", 0))
+					{
+						return;
+					}
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqBoomhillExchangeInfo", 0))
+					{
+						using (OutPacket outPacket = new OutPacket("PrBoomhillExchangeInfo"))
+						{
+							outPacket.WriteBytes(new byte[8]);
+							this.Parent.Client.Send(outPacket);
+						}
+						return;
+					}
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqBoomhillExchangeNeedNotice", 0))
 					{
 						return;
 					}
