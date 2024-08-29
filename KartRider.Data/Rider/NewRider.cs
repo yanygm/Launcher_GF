@@ -103,8 +103,8 @@ namespace RiderData
 				if (Plant > -1)
 				{
 					oPacket.WriteShort(KartExcData.PlantList[Plant][3]);
-					oPacket.WriteShort(KartExcData.PlantList[Plant][5]);
 					oPacket.WriteShort(KartExcData.PlantList[Plant][7]);
+					oPacket.WriteShort(KartExcData.PlantList[Plant][5]);
 					oPacket.WriteShort(KartExcData.PlantList[Plant][9]);
 				}
 				else
