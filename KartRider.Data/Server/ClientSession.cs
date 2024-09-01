@@ -361,6 +361,11 @@ namespace KartRider
 							outPacket.WriteInt(0);
 							this.Parent.Client.Send(outPacket);
 						}
+						using (OutPacket outPacket = new OutPacket("PcSlaveNotice"))
+						{
+							outPacket.WriteString("单机版完全免费，跑跑資訊站：https://kartinfo.me/thread-9369-1-1.html");
+							this.Parent.Client.Send(outPacket);
+						}
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("ChReRqEnterMyRoomPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("ChRqEnterRandomMyRoomPacket", 0))
@@ -585,6 +590,10 @@ namespace KartRider
 						KartExcData.AddPartsList(Kart, SN, 64, 0, 0, 0);
 						KartExcData.AddPartsList(Kart, SN, 65, 0, 0, 0);
 						KartExcData.AddPartsList(Kart, SN, 66, 0, 0, 0);
+						KartExcData.AddPlantList(Kart, SN, 43, 0);
+						KartExcData.AddPlantList(Kart, SN, 44, 0);
+						KartExcData.AddPlantList(Kart, SN, 45, 0);
+						KartExcData.AddPlantList(Kart, SN, 46, 0);
 						TuneSpec.Use_PartsSpec(Kart, SN);
 						GameSupport.OnDisconnect();
 						MessageBox.Show("已重置该车辆部件，请重新启动游戏！", "重置车辆部件", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -757,6 +766,11 @@ namespace KartRider
 							outPacket.WriteShort(KartSN);
 							outPacket.WriteShort(2);
 							outPacket.WriteHexString("00 00 00 00 FF FF 00 00 00 00 00 00 00 00");
+							this.Parent.Client.Send(outPacket);
+						}
+						using (OutPacket outPacket = new OutPacket("PcSlaveNotice"))
+						{
+							outPacket.WriteString("使用粒子激活器R直接获得启变佳！");
 							this.Parent.Client.Send(outPacket);
 						}
 						return;
@@ -1454,6 +1468,11 @@ namespace KartRider
 						using (OutPacket outPacket = new OutPacket("PrDisassembleFeeInfo"))
 						{
 							outPacket.WriteHexString("00 00 00 00 06 00 00 00 00 00 E8 03 01 00 F4 01 00 00 E8 03 01 00 F4 01 00 00 E8 03 01 00 F4 01");
+							this.Parent.Client.Send(outPacket);
+						}
+						using (OutPacket outPacket = new OutPacket("PcSlaveNotice"))
+						{
+							outPacket.WriteString("分解卡丁车可以重置此车装备的部件！");
 							this.Parent.Client.Send(outPacket);
 						}
 						return;
