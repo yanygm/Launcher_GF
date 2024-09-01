@@ -596,13 +596,8 @@ namespace KartRider
 						KartExcData.AddPlantList(Kart, SN, 46, 0);
 						TuneSpec.Use_PartsSpec(Kart, SN);
 						TuneSpec.Use_PlantSpec(Kart, SN);
-						//GameSupport.OnDisconnect();
+						GameSupport.OnDisconnect();
 						MessageBox.Show("已重置该车辆部件，请重新启动游戏！", "重置车辆部件", MessageBoxButtons.OK, MessageBoxIcon.Information);
-						using (OutPacket outPacket = new OutPacket("PrDisassembleXPartsItem"))
-						{
-							outPacket.WriteInt(0);
-							this.Parent.Client.Send(outPacket);
-						}
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqKartLevelUpProbText", 0))
