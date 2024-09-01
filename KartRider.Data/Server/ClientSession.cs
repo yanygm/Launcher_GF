@@ -595,7 +595,8 @@ namespace KartRider
 						KartExcData.AddPlantList(Kart, SN, 45, 0);
 						KartExcData.AddPlantList(Kart, SN, 46, 0);
 						TuneSpec.Use_PartsSpec(Kart, SN);
-						GameSupport.OnDisconnect();
+						TuneSpec.Use_PlantSpec(Kart, SN);
+						//GameSupport.OnDisconnect();
 						MessageBox.Show("已重置该车辆部件，请重新启动游戏！", "重置车辆部件", MessageBoxButtons.OK, MessageBoxIcon.Information);
 						return;
 					}
