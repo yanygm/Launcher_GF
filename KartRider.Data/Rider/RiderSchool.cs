@@ -12,9 +12,9 @@ namespace RiderData
 			using (OutPacket oPacket = new OutPacket("PrRiderSchoolProPacket"))
 			{
 				oPacket.WriteByte(1);//엠블럼 체크
-				oPacket.WriteByte(35);
+				oPacket.WriteByte(37);
 				oPacket.WriteByte(6);
-				oPacket.WriteByte(36);
+				oPacket.WriteByte(38);
 				oPacket.WriteInt(0);
 				oPacket.WriteInt(0);
 				oPacket.WriteInt(0);
