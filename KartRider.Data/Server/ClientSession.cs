@@ -1297,7 +1297,7 @@ namespace KartRider
 						using (OutPacket outPacket = new OutPacket("PrRiderSchoolDataPacket"))
 						{
 							outPacket.WriteByte(6);//라이센스 등급
-							outPacket.WriteByte(38);//마지막 클리어
+							outPacket.WriteByte(32);//마지막 클리어
 							outPacket.WriteUShort(DataTime()[0]);
 							outPacket.WriteUShort(DataTime()[1]);
 							outPacket.WriteInt(0);
