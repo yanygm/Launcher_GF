@@ -32,13 +32,26 @@ namespace KartRider
 			this.Parent.Client.Disconnect();
 		}
 
-		public ushort[] DataTime()
+		public int[] DataTime()
 		{
 			DateTime dt = DateTime.Now;
+			//DateTime dt = new DateTime(1900, 1, 1, 0, 0, 0);
 			DateTime time = new DateTime(1900, 1, 1, 0, 0, 0);
 			TimeSpan t = dt.Subtract(time);
 			double totalSeconds = dt.TimeOfDay.TotalSeconds / 4;
-			return new ushort[] { (ushort)t.Days, (ushort)totalSeconds };
+			int Month = (dt.Year - 1900) * 12;
+			int MonthCount = Month + dt.Month;
+			double tempResult = (double)MonthCount / 2;
+			int oddMonthCount;
+			if (tempResult % 1 != 0)
+			{
+				oddMonthCount = (int)tempResult + 1;
+			}
+			else
+			{
+				oddMonthCount = (int)tempResult;
+			}
+			return new int[] { t.Days, (int)totalSeconds, oddMonthCount };
 		}
 
 		public override void OnPacket(InPacket iPacket)
@@ -198,8 +211,8 @@ namespace KartRider
 								outPacket.WriteUInt(SetRider.UserNO);
 								outPacket.WriteString(SetRider.UserID);
 								outPacket.WriteString(SetRider.Nickname);
-								outPacket.WriteUShort(DataTime()[0]);
-								outPacket.WriteUShort(DataTime()[1]);
+								outPacket.WriteUShort((ushort)DataTime()[0]);
+								outPacket.WriteUShort((ushort)DataTime()[1]);
 								for (int i = 0; i <= Program.MAX_EQP_P; i++)
 								{
 									outPacket.WriteShort(0);
@@ -209,8 +222,8 @@ namespace KartRider
 								outPacket.WriteInt(SetRider.RP);
 								outPacket.WriteInt(0);
 								outPacket.WriteByte(6);//Licenses
-								outPacket.WriteUShort(DataTime()[0]);
-								outPacket.WriteUShort(DataTime()[1]);
+								outPacket.WriteUShort((ushort)DataTime()[0]);
+								outPacket.WriteUShort((ushort)DataTime()[1]);
 								outPacket.WriteBytes(new byte[17]);
 								outPacket.WriteShort(SetRider.Emblem1);
 								outPacket.WriteShort(SetRider.Emblem2);
@@ -621,8 +634,8 @@ namespace KartRider
 						short SN2 = iPacket.ReadShort();
 						using (OutPacket outPacket = new OutPacket("PrKartLevelUp"))
 						{
-							outPacket.WriteUShort(DataTime()[0]);
-							outPacket.WriteUShort(DataTime()[1]);
+							outPacket.WriteUShort((ushort)DataTime()[0]);
+							outPacket.WriteUShort((ushort)DataTime()[1]);
 							outPacket.WriteInt(1);
 							outPacket.WriteShort(Kart);
 							outPacket.WriteShort(SN);
@@ -931,8 +944,8 @@ namespace KartRider
 						{
 							outPacket.WriteInt(0);
 							outPacket.WriteInt(0);
-							outPacket.WriteUShort(DataTime()[0]);
-							outPacket.WriteUShort(DataTime()[1]);
+							outPacket.WriteUShort((ushort)DataTime()[0]);
+							outPacket.WriteUShort((ushort)DataTime()[1]);
 							outPacket.WriteHexString("0F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
 							this.Parent.Client.Send(outPacket);
 						}
@@ -1297,9 +1310,9 @@ namespace KartRider
 						using (OutPacket outPacket = new OutPacket("PrRiderSchoolDataPacket"))
 						{
 							outPacket.WriteByte(6);//라이센스 등급
-							outPacket.WriteByte(34);//마지막 클리어
-							outPacket.WriteUShort(DataTime()[0]);
-							outPacket.WriteUShort(DataTime()[1]);
+							outPacket.WriteByte(42);//마지막 클리어
+							outPacket.WriteUShort((ushort)DataTime()[0]);
+							outPacket.WriteUShort((ushort)DataTime()[1]);
 							outPacket.WriteInt(0);
 							outPacket.WriteByte(0);
 							RouterListener.MySession.Client.Send(outPacket);
@@ -1308,7 +1321,46 @@ namespace KartRider
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqRiderSchoolProPacket", 0))
 					{
-						RiderSchool.PrRiderSchoolPro();
+						//RiderSchool.PrRiderSchoolPro();
+						int stepcount = 6;
+						int remainder = DataTime()[2] % stepcount;
+						if (remainder == 0) remainder = stepcount;
+						byte step;
+						switch (remainder)
+						{
+							case 1:
+								step = 31;
+								break;
+							case 2:
+								step = 33;
+								break;
+							case 3:
+								step = 35;
+								break;
+							case 4:
+								step = 37;
+								break;
+							case 5:
+								step = 39;
+								break;
+							case 6:
+								step = 41;
+								break;
+							default:
+								step = 31;
+								break;
+						}
+						using (OutPacket oPacket = new OutPacket("PrRiderSchoolProPacket"))
+						{
+							oPacket.WriteByte(1);//엠블럼 체크
+							oPacket.WriteByte(step);
+							oPacket.WriteByte(6);
+							oPacket.WriteByte((byte)((int)step + 1));
+							oPacket.WriteInt(0);
+							oPacket.WriteInt(0);
+							oPacket.WriteInt(0);
+							RouterListener.MySession.Client.Send(oPacket);
+						}
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqStartRiderSchool", 0))
@@ -1958,8 +2010,8 @@ namespace KartRider
 					{
 						using (OutPacket outPacket = new OutPacket("PrServerTime"))
 						{
-							outPacket.WriteUShort(DataTime()[0]);
-							outPacket.WriteUShort(DataTime()[1]);
+							outPacket.WriteUShort((ushort)DataTime()[0]);
+							outPacket.WriteUShort((ushort)DataTime()[1]);
 							this.Parent.Client.Send(outPacket);
 						}
 						return;
@@ -1970,8 +2022,8 @@ namespace KartRider
 						using (OutPacket outPacket = new OutPacket("PrLogin"))
 						{
 							outPacket.WriteInt(0);
-							outPacket.WriteUShort(DataTime()[0]);
-							outPacket.WriteUShort(DataTime()[1]);
+							outPacket.WriteUShort((ushort)DataTime()[0]);
+							outPacket.WriteUShort((ushort)DataTime()[1]);
 							outPacket.WriteUInt(SetRider.UserNO);
 							outPacket.WriteString(SetRider.UserID);
 							outPacket.WriteByte(2);
