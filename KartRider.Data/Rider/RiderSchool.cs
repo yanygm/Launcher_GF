@@ -5,6 +5,8 @@ using ExcData;
 
 namespace RiderData
 {
+	public static class RiderSchool
+	{
 		public static void PrStartRiderSchool()
 		{
 			using (OutPacket oPacket = new OutPacket("PrStartRiderSchool"))
