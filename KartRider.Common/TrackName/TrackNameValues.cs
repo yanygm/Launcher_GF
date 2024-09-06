@@ -165,6 +165,7 @@ namespace KartRider_TrackName
 		moonhill_I03 = 1065616493,
 		moonhill_I04 = 1065747566,
 		moonhill_I05 = 1065878639,
+		moonhill_I06 = 1066009712,
 		gold_R01 = 461374136,
 		gold_R02 = 461505209,
 		gold_R03 = 461636282,
