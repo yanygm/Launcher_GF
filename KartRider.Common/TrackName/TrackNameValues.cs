@@ -383,6 +383,7 @@ namespace KartRider_TrackName
 		moonhill_I04_rvs = 1800930856,
 		china_R01_rvs = 1127613647,
 		china_R02_rvs = 1128269008,
+		china_R03_rvs = 1128924369,
 		china_R07_rvs = 1131545813,
 		china_I01_rvs = 1119356102,
 		china_I04_rvs = 1121322185,
