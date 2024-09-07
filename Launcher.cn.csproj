@@ -27,15 +27,16 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>.\</OutputPath>
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>false</DebugSymbols>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <Optimize>false</Optimize>
     <WarningLevel>4</WarningLevel>
-    <DebugType>full</DebugType>
-    <ErrorReport>prompt</ErrorReport>
+    <DebugType>none</DebugType>
+    <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>.\</OutputPath>
@@ -43,12 +44,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <WarningLevel>4</WarningLevel>
-    <DebugType>pdbonly</DebugType>
-    <ErrorReport>prompt</ErrorReport>
+    <DebugType>none</DebugType>
+    <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>SecurityRules.ruleset</CodeAnalysisRuleSet>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
