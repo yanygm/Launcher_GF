@@ -22,10 +22,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <WarningLevel>0</WarningLevel>
     <PublishDir>.\</PublishDir>
+    <DebugType>none</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <WarningLevel>0</WarningLevel>
     <PublishDir>.\</PublishDir>
+    <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="1.ico" />
