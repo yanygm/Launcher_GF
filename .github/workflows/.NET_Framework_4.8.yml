@@ -26,6 +26,4 @@ jobs:
         public: true
         name: Launcher
         path: Launcher.exe
-    - run: |
-        artifact_url=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-step.outputs.artifact-id }}
-        echo "## Launcher\n[Download Launcher]($artifact_url)" >> README.md
+    - run: echo "## Launcher\n[Download Launcher](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-step.outputs.artifact-id }})" >> README.md
