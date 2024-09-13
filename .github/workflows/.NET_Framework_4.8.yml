@@ -23,8 +23,9 @@ jobs:
     - uses: actions/upload-artifact@v4
       id: artifact-upload-step
       with:
+        public: true
         name: Launcher
         path: Launcher.exe
     - run: |
-        artifact_url="$(echo 'Artifact URL is ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-step.outputs.artifact-id }}')"
-        echo "## Artifacts\n[Download Artifact]($artifact_url)" >> README.md
+        artifact_url=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-step.outputs.artifact-id }}
+        echo "## Launcher\n[Download Launcher]($artifact_url)" >> README.md
