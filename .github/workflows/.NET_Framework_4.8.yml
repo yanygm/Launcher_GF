@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4.1.2
+      uses: actions/checkout@v4
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
@@ -20,8 +20,8 @@ jobs:
     - name: Build Solution
       run: msbuild Launcher.cn.sln /p:Configuration=Release /p:Appx_Bundle_Platforms="x64"
 
-    - name: Archive Artifacts
-      uses: actions/upload-artifact@v4.3.1
+    - uses: actions/upload-artifact@v4
+      id: artifact-upload-step
       with:
         name: Launcher
         path: Launcher.exe
