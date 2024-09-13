@@ -25,3 +25,4 @@ jobs:
       with:
         name: Launcher
         path: Launcher.exe
+    - run: echo 'Artifact URL is ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.artifact-upload-step.outputs.artifact-id }}'
