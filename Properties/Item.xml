@@ -1965,6 +1965,7 @@
 	<Balloon id='1405' />
 	<Balloon id='1406' />
 	<Balloon id='1407' />
+	<Balloon id='1408' />
 	<!--item itemCatId='8' itemName='护目镜'-->
 	<Goggle id='30000' />
 	<Goggle id='30001' />
@@ -2909,6 +2910,7 @@
 	<slotBg id='3' />
 	<slotBg id='4' />
 	<slotBg id='5' />
+	<slotBg id='6' />
 	<!--item itemCatId='23' itemName='更名卡'-->
 	<RenameRid id='1' />
 	<!--item itemCatId='13' itemName='回放观赏券'-->
