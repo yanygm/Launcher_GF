@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using KartRider.IO;
 using KartRider;
 using ExcData;
@@ -91,21 +92,15 @@ namespace RiderData
 				oPacket.WriteShort(SetRiderItem.Set_RidColor);
 				oPacket.WriteShort(SetRiderItem.Set_BonusCard);
 				oPacket.WriteShort(0);
-				int Plant = -1;
-				for (var i = 0; i < KartExcData.PlantList.Count; i++)
+				var PlantKartAndSN = new { Kart = SetRiderItem.Set_Kart, SN = SetRiderItem.Set_KartSN };
+				var plantList = KartExcData.PlantList;
+				var existingPlant = plantList.FirstOrDefault(list => list[0] == PlantKartAndSN.Kart && list[1] == PlantKartAndSN.SN);
+				if (existingPlant != null)
 				{
-					if (KartExcData.PlantList[i][0] == SetRiderItem.Set_Kart && KartExcData.PlantList[i][1] == SetRiderItem.Set_KartSN)
-					{
-						Plant = i;
-						break;
-					}
-				}
-				if (Plant > -1)
-				{
-					oPacket.WriteShort(KartExcData.PlantList[Plant][3]);
-					oPacket.WriteShort(KartExcData.PlantList[Plant][7]);
-					oPacket.WriteShort(KartExcData.PlantList[Plant][5]);
-					oPacket.WriteShort(KartExcData.PlantList[Plant][9]);
+					oPacket.WriteShort(existingPlant[3]);
+					oPacket.WriteShort(existingPlant[7]);
+					oPacket.WriteShort(existingPlant[5]);
+					oPacket.WriteShort(existingPlant[9]);
 				}
 				else
 				{
@@ -120,32 +115,19 @@ namespace RiderData
 				oPacket.WriteShort(SetRiderItem.Set_Dye);
 				oPacket.WriteShort(SetRiderItem.Set_KartSN);
 				oPacket.WriteByte(0);
-				int Parts = -1;
-				for (var i = 0; i < KartExcData.PartsList.Count; i++)
+				var ExcKartAndSN = new { Kart = SetRiderItem.Set_Kart, SN = SetRiderItem.Set_KartSN };
+				var partsList = KartExcData.PartsList;
+				var existingParts = partsList.FirstOrDefault(list => list[0] == ExcKartAndSN.Kart && list[1] == ExcKartAndSN.SN);
+				if (existingParts != null)
 				{
-					if (KartExcData.PartsList[i][0] == SetRiderItem.Set_Kart && KartExcData.PartsList[i][1] == SetRiderItem.Set_KartSN)
-					{
-						Parts = i;
-						break;
-					}
-				}
-				if (Parts > -1)
-				{
-					oPacket.WriteShort(KartExcData.PartsList[Parts][14]);
-					oPacket.WriteShort(KartExcData.PartsList[Parts][15]);
+					oPacket.WriteShort(existingParts[14]);
+					oPacket.WriteShort(existingParts[15]);
 				}
 				else
 				{
-					int Level = -1;
-					for (var i = 0; i < KartExcData.LevelList.Count; i++)
-					{
-						if (KartExcData.LevelList[i][0] == SetRiderItem.Set_Kart && KartExcData.LevelList[i][1] == SetRiderItem.Set_KartSN)
-						{
-							Level = i;
-							break;
-						}
-					}
-					if (Level > -1)
+					var levelList = KartExcData.LevelList;
+					var existingLevel = levelList.FirstOrDefault(list => list[0] == ExcKartAndSN.Kart && list[1] == ExcKartAndSN.SN);
+					if (existingLevel != null)
 					{
 						oPacket.WriteShort(7);
 						oPacket.WriteShort(0);

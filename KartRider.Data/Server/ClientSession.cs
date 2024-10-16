@@ -2,6 +2,7 @@
 using KartRider.Common.Utilities;
 using KartRider.IO;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
@@ -666,30 +667,6 @@ namespace KartRider
 						short v4 = iPacket.ReadShort();
 						short pointleft = 0;
 						short Effect = 0;
-						int Add = -1;
-						for (var i = 0; i < KartExcData.LevelList.Count; i++)
-						{
-							if (KartExcData.LevelList[i][0] == Kart && KartExcData.LevelList[i][1] == SN)
-							{
-								Add = i;
-								break;
-							}
-						}
-						if (Add == -1)
-						{
-							pointleft = (short)(35 - v1 - v2 - v3 - v4);
-							KartExcData.AddLevelList(Kart, SN, 5, pointleft, v1, v2, v3, v4, 0);
-						}
-						else if (Add > -1)
-						{
-							pointleft = (short)(KartExcData.LevelList[Add][3] - v1 - v2 - v3 - v4);
-							v1 = (short)(KartExcData.LevelList[Add][4] + v1);
-							v2 = (short)(KartExcData.LevelList[Add][5] + v2);
-							v3 = (short)(KartExcData.LevelList[Add][6] + v3);
-							v4 = (short)(KartExcData.LevelList[Add][7] + v4);
-							Effect = KartExcData.LevelList[Add][8];
-							KartExcData.AddLevelList(Kart, SN, 5, pointleft, v1, v2, v3, v4, Effect);
-						}
 						using (OutPacket outPacket = new OutPacket("PrKartLevelPointUpdate"))
 						{
 							outPacket.WriteInt(1);
@@ -705,6 +682,24 @@ namespace KartRider
 							this.Parent.Client.Send(outPacket);
 						}
 						TuneSpec.Use_KartLevelSpec(Kart, SN);
+						var kartLevelList = KartExcData.LevelList;
+						var kartAndSN = new { Kart, SN };
+						var existingLevelList = kartLevelList.FirstOrDefault(list => list[0] == kartAndSN.Kart && list[1] == kartAndSN.SN);
+						if (existingLevelList == null)
+						{
+							pointleft = (short)(35 - v1 - v2 - v3 - v4);
+							KartExcData.AddLevelList(kartAndSN.Kart, kartAndSN.SN, 5, pointleft, v1, v2, v3, v4, 0);
+						}
+						else
+						{
+							pointleft = (short)(existingLevelList[3] - v1 - v2 - v3 - v4);
+							short v1New = (short)(existingLevelList[4] + v1);
+							short v2New = (short)(existingLevelList[5] + v2);
+							short v3New = (short)(existingLevelList[6] + v3);
+							short v4New = (short)(existingLevelList[7] + v4);
+							short effect = existingLevelList[8];
+							KartExcData.AddLevelList(kartAndSN.Kart, kartAndSN.SN, 5, pointleft, v1New, v2New, v3New, v4New, effect);
+						}
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("SpRqGetMaxGiftIdPacket", 0))
@@ -716,40 +711,29 @@ namespace KartRider
 						short Kart = iPacket.ReadShort();
 						short SN = iPacket.ReadShort();
 						short Effect = iPacket.ReadShort();
-						int Level = -1;
-						for (var i = 0; i < KartExcData.LevelList.Count; i++)
+
+						var kartLevelList = KartExcData.LevelList;
+						var kartAndSN = new { Kart, SN };
+						var existingLevelList = kartLevelList.FirstOrDefault(list => list[0] == kartAndSN.Kart && list[1] == kartAndSN.SN);
+
+						using (OutPacket outPacket = new OutPacket("PrKartLevelSpecialSlotUpdate"))
 						{
-							if (KartExcData.LevelList[i][0] == Kart && KartExcData.LevelList[i][1] == SN)
+							outPacket.WriteInt(1);
+							outPacket.WriteShort(kartAndSN.Kart);
+							outPacket.WriteShort(kartAndSN.SN);
+							if (existingLevelList != null)
 							{
-								Level = i;
-								break;
-							}
-						}
-						if (Level > -1)
-						{
-							using (OutPacket outPacket = new OutPacket("PrKartLevelSpecialSlotUpdate"))
-							{
-								outPacket.WriteInt(1);
-								outPacket.WriteShort(Kart);
-								outPacket.WriteShort(SN);
-								outPacket.WriteShort(KartExcData.LevelList[Level][2]);
-								outPacket.WriteShort(KartExcData.LevelList[Level][3]);
-								outPacket.WriteShort(KartExcData.LevelList[Level][4]);
-								outPacket.WriteShort(KartExcData.LevelList[Level][5]);
-								outPacket.WriteShort(KartExcData.LevelList[Level][6]);
-								outPacket.WriteShort(KartExcData.LevelList[Level][7]);
+								outPacket.WriteShort(existingLevelList[2]);
+								outPacket.WriteShort(existingLevelList[3]);
+								outPacket.WriteShort(existingLevelList[4]);
+								outPacket.WriteShort(existingLevelList[5]);
+								outPacket.WriteShort(existingLevelList[6]);
+								outPacket.WriteShort(existingLevelList[7]);
 								outPacket.WriteShort(Effect);
-								this.Parent.Client.Send(outPacket);
+								KartExcData.AddLevelList(kartAndSN.Kart, kartAndSN.SN, existingLevelList[2], existingLevelList[3], existingLevelList[4], existingLevelList[5], existingLevelList[6], existingLevelList[7], Effect);
 							}
-							KartExcData.AddLevelList(Kart, SN, KartExcData.LevelList[Level][2], KartExcData.LevelList[Level][3], KartExcData.LevelList[Level][4], KartExcData.LevelList[Level][5], KartExcData.LevelList[Level][6], KartExcData.LevelList[Level][7], Effect);
-						}
-						else
-						{
-							using (OutPacket outPacket = new OutPacket("PrKartLevelSpecialSlotUpdate"))
+							else
 							{
-								outPacket.WriteInt(1);
-								outPacket.WriteShort(Kart);
-								outPacket.WriteShort(SN);
 								outPacket.WriteShort(5);
 								outPacket.WriteShort(0);
 								outPacket.WriteShort(10);
@@ -757,9 +741,36 @@ namespace KartRider
 								outPacket.WriteShort(10);
 								outPacket.WriteShort(5);
 								outPacket.WriteShort(Effect);
-								this.Parent.Client.Send(outPacket);
+
+								KartExcData.AddLevelList(kartAndSN.Kart, kartAndSN.SN, 5, 0, 10, 10, 10, 5, Effect);
 							}
-							KartExcData.AddLevelList(Kart, SN, 5, 0, 10, 10, 10, 5, Effect);
+							this.Parent.Client.Send(outPacket);
+						}
+						return;
+					}
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqUseSocketItem", 0))
+					{
+						short Item = iPacket.ReadShort();
+						short Item_Id = iPacket.ReadShort();
+						short Kart = iPacket.ReadShort();
+						iPacket.ReadShort();
+						short KartSN = iPacket.ReadShort();
+						using (OutPacket outPacket = new OutPacket("PrUseSocketItem"))
+						{
+							outPacket.WriteInt(0);
+							outPacket.WriteShort(Item);
+							outPacket.WriteShort(Item_Id);
+							outPacket.WriteShort(Kart);
+							outPacket.WriteShort(KartSN);
+							outPacket.WriteShort(KartSN);
+							outPacket.WriteShort(2);
+							outPacket.WriteHexString("00 00 00 00 FF FF 00 00 00 00 00 00 00 00");
+							this.Parent.Client.Send(outPacket);
+						}
+						using (OutPacket outPacket = new OutPacket("PcSlaveNotice"))
+						{
+							outPacket.WriteString("使用粒子激活器R直接获得启变佳！");
+							this.Parent.Client.Send(outPacket);
 						}
 						return;
 					}

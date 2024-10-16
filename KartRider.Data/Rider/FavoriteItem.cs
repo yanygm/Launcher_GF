@@ -58,40 +58,21 @@ namespace RiderData
 
 		public static void Favorite_Item_Add(short item, short id, short sn)
 		{
-			int Add = -1;
-			for (var i = 0; i < FavoriteItemList.Count; i++)
+			var existingItem = FavoriteItemList.FirstOrDefault(list => list[0] == item && list[1] == id && list[2] == sn);
+			if (existingItem == null)
 			{
-				if (FavoriteItemList[i][0] == item && FavoriteItemList[i][1] == id && FavoriteItemList[i][2] == sn)
-				{
-					Add = i;
-					break;
-				}
-			}
-			if (Add == -1)
-			{
-				List<short> AddList = new List<short>();
-				AddList.Add(item);
-				AddList.Add(id);
-				AddList.Add(sn);
-				FavoriteItemList.Add(AddList);
+				var newList = new List<short> { item, id, sn };
+				FavoriteItemList.Add(newList);
 				Save_ItemList(FavoriteItemList);
 			}
 		}
 
 		public static void Favorite_Item_Del(short item, short id, short sn)
 		{
-			int Dell = -1;
-			for (var i = 0; i < FavoriteItemList.Count; i++)
+			var itemToRemove = FavoriteItemList.FirstOrDefault(list => list[0] == item && list[1] == id && list[2] == sn);
+			if (itemToRemove != null)
 			{
-				if (FavoriteItemList[i][0] == item && FavoriteItemList[i][1] == id && FavoriteItemList[i][2] == sn)
-				{
-					Dell = i;
-					break;
-				}
-			}
-			if (Dell > -1)
-			{
-				FavoriteItemList.RemoveAt(Dell);
+				FavoriteItemList.Remove(itemToRemove);
 				Save_ItemList(FavoriteItemList);
 			}
 		}
@@ -195,39 +176,21 @@ namespace RiderData
 
 		public static void Favorite_Track_Add(short theme, int track)
 		{
-			int Add = -1;
-			for (var i = 0; i < FavoriteTrackList.Count; i++)
+			var existingTrack = FavoriteTrackList.FirstOrDefault(list => list[0] == "theme" + theme.ToString() && list[1] == track.ToString());
+			if (existingTrack == null)
 			{
-				if (FavoriteTrackList[i][0] == "theme" + theme.ToString() && FavoriteTrackList[i][1] == track.ToString())
-				{
-					Add = i;
-					break;
-				}
-			}
-			if (Add == -1)
-			{
-				List<string> AddList = new List<string>();
-				AddList.Add("theme" + theme.ToString());
-				AddList.Add(track.ToString());
-				FavoriteTrackList.Add(AddList);
+				var newList = new List<string> { "theme" + theme.ToString(), track.ToString() };
+				FavoriteTrackList.Add(newList);
 				Save_TrackList(FavoriteTrackList);
 			}
 		}
 
 		public static void Favorite_Track_Del(short theme, int track)
 		{
-			int Dell = -1;
-			for (var i = 0; i < FavoriteTrackList.Count; i++)
+			var trackToRemove = FavoriteTrackList.FirstOrDefault(list => list[0] == "theme" + theme.ToString() && list[1] == track.ToString());
+			if (trackToRemove != null)
 			{
-				if (FavoriteTrackList[i][0] == "theme" + theme.ToString() && FavoriteTrackList[i][1] == track.ToString())
-				{
-					Dell = i;
-					break;
-				}
-			}
-			if (Dell > -1)
-			{
-				FavoriteTrackList.RemoveAt(Dell);
+				FavoriteTrackList.Remove(trackToRemove);
 				Save_TrackList(FavoriteTrackList);
 			}
 		}

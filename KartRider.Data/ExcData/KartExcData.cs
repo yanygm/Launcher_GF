@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
+using System.Xml.Linq;
 using KartRider;
 using KartRider.IO;
 
@@ -170,51 +172,30 @@ namespace ExcData
 
 		public static void AddTuneList(short id, short sn, short tune1, short tune2, short tune3)
 		{
-			int Add = -1;
-			for (var i = 0; i < TuneList.Count; i++)
+			var existingList = TuneList.FirstOrDefault(list => list[0] == id && list[1] == sn);
+			if (existingList == null)
 			{
-				if (TuneList[i][0] == id && TuneList[i][1] == sn)
-				{
-					Add = i;
-					break;
-				}
-			}
-			if (Add == -1)
-			{
-				List<short> AddList = new List<short>();
-				AddList.Add(id);
-				AddList.Add(sn);
-				AddList.Add(tune1);
-				AddList.Add(tune2);
-				AddList.Add(tune3);
-				TuneList.Add(AddList);
+				var newList = new List<short> { id, sn, tune1, tune2, tune3 };
+				TuneList.Add(newList);
 				SaveTuneList(TuneList);
 			}
-			else if (Add > -1)
+			else
 			{
-				TuneList[Add][2] = tune1;
-				TuneList[Add][3] = tune2;
-				TuneList[Add][4] = tune3;
+				existingList[2] = tune1;
+				existingList[3] = tune2;
+				existingList[4] = tune3;
 				SaveTuneList(TuneList);
 			}
 		}
 
 		public static void DelTuneList(short id, short sn)
 		{
-			int Dell = -1;
-			for (var i = 0; i < TuneList.Count; i++)
+			var itemToRemove = TuneList.FirstOrDefault(list => list[0] == id && list[1] == sn);
+			if (itemToRemove != null)
 			{
-				if (TuneList[i][0] == id && TuneList[i][1] == sn)
-				{
-					Dell = i;
-					break;
-				}
+				TuneList.Remove(itemToRemove);
+				SaveTuneList(TuneList);
 			}
-			if (Dell > -1)
-			{
-				TuneList.RemoveAt(Dell);
-			}
-			SaveTuneList(TuneList);
 		}
 
 		public static void SaveTuneList(List<List<short>> List)
@@ -244,72 +225,52 @@ namespace ExcData
 
 		public static void AddPlantList(short id, short sn, short item, short item_id)
 		{
-			int Add = -1;
-			for (var i = 0; i < PlantList.Count; i++)
+			var existingList = PlantList.FirstOrDefault(list => list[0] == id && list[1] == sn);
+			if (existingList == null)
 			{
-				if (PlantList[i][0] == id && PlantList[i][1] == sn)
+				var newList = new List<short> { id, sn, 0, 0, 0, 0, 0, 0, 0, 0 };
+				switch (item)
 				{
-					Add = i;
-					break;
+					case 43:
+						newList[2] = item;
+						newList[3] = item_id;
+						break;
+					case 44:
+						newList[4] = item;
+						newList[5] = item_id;
+						break;
+					case 45:
+						newList[6] = item;
+						newList[7] = item_id;
+						break;
+					case 46:
+						newList[8] = item;
+						newList[9] = item_id;
+						break;
 				}
-			}
-			if (Add == -1)
-			{
-				List<short> AddList = new List<short>();
-				AddList.Add(id);
-				AddList.Add(sn);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				if (item == 43)
-				{
-					AddList[2] = item;
-					AddList[3] = item_id;
-				}
-				else if (item == 44)
-				{
-					AddList[4] = item;
-					AddList[5] = item_id;
-				}
-				else if (item == 45)
-				{
-					AddList[6] = item;
-					AddList[7] = item_id;
-				}
-				else if (item == 46)
-				{
-					AddList[8] = item;
-					AddList[9] = item_id;
-				}
-				PlantList.Add(AddList);
+				PlantList.Add(newList);
 				SavePlantList(PlantList);
 			}
-			else if (Add > -1)
+			else
 			{
-				if (item == 43)
+				switch (item)
 				{
-					PlantList[Add][2] = item;
-					PlantList[Add][3] = item_id;
-				}
-				else if (item == 44)
-				{
-					PlantList[Add][4] = item;
-					PlantList[Add][5] = item_id;
-				}
-				else if (item == 45)
-				{
-					PlantList[Add][6] = item;
-					PlantList[Add][7] = item_id;
-				}
-				else if (item == 46)
-				{
-					PlantList[Add][8] = item;
-					PlantList[Add][9] = item_id;
+					case 43:
+						existingList[2] = item;
+						existingList[3] = item_id;
+						break;
+					case 44:
+						existingList[4] = item;
+						existingList[5] = item_id;
+						break;
+					case 45:
+						existingList[6] = item;
+						existingList[7] = item_id;
+						break;
+					case 46:
+						existingList[8] = item;
+						existingList[9] = item_id;
+						break;
 				}
 				SavePlantList(PlantList);
 			}
@@ -347,38 +308,21 @@ namespace ExcData
 
 		public static void AddLevelList(short id, short sn, short level, short pointleft, short v1, short v2, short v3, short v4, short Effect)
 		{
-			int Add = -1;
-			for (var i = 0; i < LevelList.Count; i++)
+			var existingList = LevelList.FirstOrDefault(list => list[0] == id && list[1] == sn);
+			if (existingList == null)
 			{
-				if (LevelList[i][0] == id && LevelList[i][1] == sn)
-				{
-					Add = i;
-					break;
-				}
-			}
-			if (Add == -1)
-			{
-				List<short> AddList = new List<short>();
-				AddList.Add(id);
-				AddList.Add(sn);
-				AddList.Add(level);
-				AddList.Add(pointleft);
-				AddList.Add(v1);
-				AddList.Add(v2);
-				AddList.Add(v3);
-				AddList.Add(v4);
-				AddList.Add(Effect);
-				LevelList.Add(AddList);
+				var newList = new List<short> { id, sn, level, pointleft, v1, v2, v3, v4, Effect };
+				LevelList.Add(newList);
 				SaveLevelList(LevelList);
 			}
-			else if (Add > -1)
+			else
 			{
-				LevelList[Add][3] = pointleft;
-				LevelList[Add][4] = v1;
-				LevelList[Add][5] = v2;
-				LevelList[Add][6] = v3;
-				LevelList[Add][7] = v4;
-				LevelList[Add][8] = Effect;
+				existingList[3] = pointleft;
+				existingList[4] = v1;
+				existingList[5] = v2;
+				existingList[6] = v3;
+				existingList[7] = v4;
+				existingList[8] = Effect;
 				SaveLevelList(LevelList);
 			}
 		}
@@ -414,102 +358,72 @@ namespace ExcData
 
 		public static void AddPartsList(short id, short sn, short Item_Cat_Id, short Item_Id, byte Grade, short PartsValue)
 		{
-			int Add = -1;
-			for (var i = 0; i < PartsList.Count; i++)
+			var existingList = PartsList.FirstOrDefault(list => list[0] == id && list[1] == sn);
+			if (existingList == null)
 			{
-				if (PartsList[i][0] == id && PartsList[i][1] == sn)
+				var newList = new List<short> { id, sn, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+				switch (Item_Cat_Id)
 				{
-					Add = i;
-					break;
+					case 63:
+						newList[2] = Item_Id;
+						newList[3] = Grade;
+						newList[4] = PartsValue;
+						break;
+					case 64:
+						newList[5] = Item_Id;
+						newList[6] = Grade;
+						newList[7] = PartsValue;
+						break;
+					case 65:
+						newList[8] = Item_Id;
+						newList[9] = Grade;
+						newList[10] = PartsValue;
+						break;
+					case 66:
+						newList[11] = Item_Id;
+						newList[12] = Grade;
+						newList[13] = PartsValue;
+						break;
+					case 68:
+						newList[14] = Item_Id;
+						break;
+					case 69:
+						newList[15] = Item_Id;
+						break;
 				}
-			}
-			if (Add == -1)
-			{
-				List<short> AddList = new List<short>();
-				AddList.Add(id);
-				AddList.Add(sn);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				AddList.Add(0);
-				if (Item_Cat_Id == 63)
-				{
-					AddList[2] = Item_Id;
-					AddList[3] = Grade;
-					AddList[4] = PartsValue;
-				}
-				else if (Item_Cat_Id == 64)
-				{
-					AddList[5] = Item_Id;
-					AddList[6] = Grade;
-					AddList[7] = PartsValue;
-				}
-				else if (Item_Cat_Id == 65)
-				{
-					AddList[8] = Item_Id;
-					AddList[9] = Grade;
-					AddList[10] = PartsValue;
-				}
-				else if (Item_Cat_Id == 66)
-				{
-					AddList[11] = Item_Id;
-					AddList[12] = Grade;
-					AddList[13] = PartsValue;
-				}
-				else if (Item_Cat_Id == 68)
-				{
-					AddList[14] = Item_Id;
-				}
-				else if (Item_Cat_Id == 69)
-				{
-					AddList[15] = Item_Id;
-				}
-				PartsList.Add(AddList);
+				PartsList.Add(newList);
 				SavePartsList(PartsList);
 			}
-			else if (Add > -1)
+			else
 			{
-				if (Item_Cat_Id == 63)
+				switch (Item_Cat_Id)
 				{
-					PartsList[Add][2] = Item_Id;
-					PartsList[Add][3] = Grade;
-					PartsList[Add][4] = PartsValue;
-				}
-				else if (Item_Cat_Id == 64)
-				{
-					PartsList[Add][5] = Item_Id;
-					PartsList[Add][6] = Grade;
-					PartsList[Add][7] = PartsValue;
-				}
-				else if (Item_Cat_Id == 65)
-				{
-					PartsList[Add][8] = Item_Id;
-					PartsList[Add][9] = Grade;
-					PartsList[Add][10] = PartsValue;
-				}
-				else if (Item_Cat_Id == 66)
-				{
-					PartsList[Add][11] = Item_Id;
-					PartsList[Add][12] = Grade;
-					PartsList[Add][13] = PartsValue;
-				}
-				else if (Item_Cat_Id == 68)
-				{
-					PartsList[Add][14] = Item_Id;
-				}
-				else if (Item_Cat_Id == 69)
-				{
-					PartsList[Add][15] = Item_Id;
+					case 63:
+						existingList[2] = Item_Id;
+						existingList[3] = Grade;
+						existingList[4] = PartsValue;
+						break;
+					case 64:
+						existingList[5] = Item_Id;
+						existingList[6] = Grade;
+						existingList[7] = PartsValue;
+						break;
+					case 65:
+						existingList[8] = Item_Id;
+						existingList[9] = Grade;
+						existingList[10] = PartsValue;
+						break;
+					case 66:
+						existingList[11] = Item_Id;
+						existingList[12] = Grade;
+						existingList[13] = PartsValue;
+						break;
+					case 68:
+						existingList[14] = Item_Id;
+						break;
+					case 69:
+						existingList[15] = Item_Id;
+						break;
 				}
 				SavePartsList(PartsList);
 			}
