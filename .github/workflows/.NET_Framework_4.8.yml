@@ -15,10 +15,10 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Restore the application
-      run: msbuild Launcher.cn.sln /t:Restore /p:Configuration=Release
+      run: msbuild Launcher.cn.csproj /t:Restore /p:Configuration=Release
 
     - name: Build Solution
-      run: msbuild Launcher.cn.sln /p:Configuration=Release /p:Appx_Bundle_Platforms="x64"
+      run: msbuild Launcher.cn.csproj /p:Configuration=Release /p:Appx_Bundle_Platforms="x64"
 
     - name: Archive Artifacts
       uses: actions/upload-artifact@v4.3.1
