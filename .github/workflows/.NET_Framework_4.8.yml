@@ -5,20 +5,20 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 4.8.x
+        dotnet-version: 4.8.1
 
-    - name: Restore dependencies
-      run: dotnet restore Launcher.cn.csproj
+    - name: Install dependencies
+      run: dotnet restore
 
-    - name: Publish
-      run: dotnet publish Launcher.cn.csproj
+    - name: Build
+      run: dotnet build --configuration Release Launcher.cn.csproj
 
     - name: Archive Artifacts
       uses: actions/upload-artifact@v4
