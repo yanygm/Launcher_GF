@@ -5,23 +5,23 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Install.NET Framework 4.8.1 Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y dotnet-sdk-4.8.1
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Build Project
+        run: |
+          cd Launcher_GF
+          dotnet build Launcher.cn.csproj
 
-    - name: Restore the application
-      run: msbuild Launcher.cn.sln /t:Restore /p:Configuration=Release
-
-    - name: Build Solution
-      run: msbuild Launcher.cn.sln /p:Configuration=Release /p:Appx_Bundle_Platforms="x64"
-
-    - uses: actions/upload-artifact@v4
-      id: artifact-upload-step
-      with:
-        name: Launcher
-        path: Launcher.exe
+      - uses: actions/upload-artifact@v4
+        id: artifact-upload-step
+        with:
+          name: Launcher
+          path: Launcher.exe
