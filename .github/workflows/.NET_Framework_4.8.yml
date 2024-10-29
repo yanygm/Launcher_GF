@@ -8,20 +8,20 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 4.8.1
+    - name: Checkout
+      uses: actions/checkout@v4.1.2
 
-    - name: Install dependencies
-      run: dotnet restore
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
 
-    - name: Build
-      run: dotnet build --configuration Release Launcher.cn.csproj
+    - name: Restore the application
+      run: msbuild Launcher.cn.sln /t:Restore /p:Configuration=Release
+
+    - name: Build Solution
+      run: msbuild Launcher.cn.sln /p:Configuration=Release /p:Appx_Bundle_Platforms="x64"
 
     - name: Archive Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.3.1
       with:
         name: Launcher
         path: Launcher.exe
