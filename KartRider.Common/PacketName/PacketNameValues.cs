@@ -1551,5 +1551,16 @@ namespace KartRider_PacketName
 		PrUnLockedItem = 667747686,
 		PqTcCashEventUserInfoPacket = 2415659644,
 		PrTcCashEventUserInfoPacket = 2417363581,
+		PqMissionAttendUserStatePacket = 3103132667,
+		PqMissionAttendNRUserStatePacket = 3477736603,
+		PqQuestUX2ndForShutDownPacket = 2788231999,
+		PrQuestUX2ndForShutDownPacket = 2790067008,
+		PqMixItemExchangeCount = 1636960426,
+		PrMixItemExchangeCount = 1638795435,
+		RqBoomhillExchangeKoin = 1658587309,
+		RpBoomhillExchangeKoin = 1657211052,
+		PqBoomhillExchangeInfo = 1654655142,
+		PrBoomhillExchangeInfo = 1656031399,
+		PqBoomhillExchangeNeedNotice = 2655324920,
 	}
 }

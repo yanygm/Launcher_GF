@@ -7,7 +7,6 @@ namespace KartRider
 	{
 		public static Launcher LauncherDlg;
 		public static GetKart GetKartDlg;
-		public static Options OptionsDlg;
 		public static int MAX_EQP_P;
 		public static bool SpeedPatch;
 		public static bool PreventItem;

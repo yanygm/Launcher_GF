@@ -1,6 +1,7 @@
 using KartRider.Common.Security;
 using KartRider.Common.Utilities;
 using KartRider.IO;
+using KartRider_PacketName;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -367,6 +368,7 @@ namespace KartRider.Common.Network
 				Console.WriteLine("Disconnected session 11 {0}", exception.ToString());
 				this.Disconnect();
 			}
+			Console.WriteLine((PacketName)BitConverter.ToUInt32(pPacket.ToArray(), 0) + "£º" + BitConverter.ToString(pPacket.ToArray()).Replace("-", ""));
 		}
 
 		public void SendRaw(byte[] pBuffer)

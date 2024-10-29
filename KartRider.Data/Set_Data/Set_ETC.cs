@@ -7,7 +7,6 @@ namespace Set_Data
 	public static class Set_ETC
 	{
 		public static byte DataPack_Use = 0;
-		public static bool DataPack = false;
 
 		public static void Load_DataPack()
 		{
@@ -24,7 +23,6 @@ namespace Set_Data
 					streamWriter.Write(Set_ETC.DataPack_Use);
 				}
 			}
-			Set_ETC.Check_DataPack();
 		}
 
 		public static void Load_DataPack2()
@@ -42,14 +40,6 @@ namespace Set_Data
 					streamWriter.Write(Set_ETC.DataPack_Use);
 				}
 			}
-			if (Set_ETC.DataPack_Use == 0)
-			{
-				Program.OptionsDlg.DataPack_CheckBox.Checked = false;
-			}
-			else
-			{
-				Program.OptionsDlg.DataPack_CheckBox.Checked = true;
-			}
 		}
 
 		public static void Save_DataPack()
@@ -58,18 +48,6 @@ namespace Set_Data
 			using (StreamWriter streamWriter = new StreamWriter(LoadFile, false))
 			{
 				streamWriter.Write(Set_ETC.DataPack_Use);
-			}
-		}
-
-		public static void Check_DataPack()
-		{
-			if (Set_ETC.DataPack_Use == 0)
-			{
-				Set_ETC.DataPack = false;
-			}
-			else
-			{
-				Set_ETC.DataPack = true;
 			}
 		}
 
