@@ -8,20 +8,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install.NET Framework 4.8.1 Tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y dotnet-sdk-4.8.1
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 4.8.x
 
-      - name: Checkout Code
-        uses: actions/checkout@v4
-      - name: Build Project
-        run: |
-          cd Launcher_GF
-          dotnet build Launcher.cn.csproj
+    - name: Restore dependencies
+      run: dotnet restore Launcher.cn.csproj
 
-      - uses: actions/upload-artifact@v4
-        id: artifact-upload-step
-        with:
-          name: Launcher
-          path: Launcher.exe
+    - name: Publish
+      run: dotnet publish Launcher.cn.csproj
+
+    - name: Archive Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: Launcher
+        path: Launcher.exe
