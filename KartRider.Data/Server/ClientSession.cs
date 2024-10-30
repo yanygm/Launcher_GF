@@ -56,7 +56,7 @@ namespace KartRider
 					}
 					return;
 				}
-				if ((hash == Adler32Helper.GenerateAdler32(Encoding.ASCII.GetBytes("PcReportRaidOccur"), 0) ? false : hash != 1340475309))//PqGameReportMyBadUdp
+				if (hash == Adler32Helper.GenerateAdler32(Encoding.ASCII.GetBytes("PcReportRaidOccur"), 0) ? false : hash != 1340475309)//PqGameReportMyBadUdp
 				{
 					if (hash == Adler32Helper.GenerateAdler32_ASCII("GrRiderTalkPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqEnterMagicHatPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("LoPingRequestPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqGetRiderQuestUX2ndData", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqAddTimeEventInitPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqCountdownBoxPeriodPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqServerSideUdpBindCheck", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqVipGradeCheck", 0))
 					{
@@ -801,32 +801,6 @@ namespace KartRider
 						}
 						return;
 					}
-					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqUseSocketItem", 0))
-					{
-						short Item = iPacket.ReadShort();
-						short Item_Id = iPacket.ReadShort();
-						short Kart = iPacket.ReadShort();
-						iPacket.ReadShort();
-						short KartSN = iPacket.ReadShort();
-						using (OutPacket outPacket = new OutPacket("PrUseSocketItem"))
-						{
-							outPacket.WriteInt(0);
-							outPacket.WriteShort(Item);
-							outPacket.WriteShort(Item_Id);
-							outPacket.WriteShort(Kart);
-							outPacket.WriteShort(KartSN);
-							outPacket.WriteShort(KartSN);
-							outPacket.WriteShort(2);
-							outPacket.WriteHexString("00 00 00 00 FF FF 00 00 00 00 00 00 00 00");
-							this.Parent.Client.Send(outPacket);
-						}
-						using (OutPacket outPacket = new OutPacket("PcSlaveNotice"))
-						{
-							outPacket.WriteString("使用粒子激活器R直接获得启变佳！");
-							this.Parent.Client.Send(outPacket);
-						}
-						return;
-					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqUseTuneItem", 0))
 					{
 						short Item = iPacket.ReadShort();
@@ -957,7 +931,7 @@ namespace KartRider
 							this.Parent.Client.Send(outPacket);
 						}
 						KartExcData.AddPartsList(Kart, KartSN, Item_Cat_Id, Item_Id, Grade, PartsValue);
-						Console.WriteLine("ClientSession : Kart: {0}, KartSN: {1}, Item: {2}:{3}, Quantity: {4}, Grade: {5}, PartsValue: {6}", Kart, KartSN, Item_Cat_Id,Item_Id, Quantity, Grade, PartsValue);
+						Console.WriteLine("ClientSession : Kart: {0}, KartSN: {1}, Item: {2}:{3}, Quantity: {4}, Grade: {5}, PartsValue: {6}", Kart, KartSN, Item_Cat_Id, Item_Id, Quantity, Grade, PartsValue);
 						TuneSpec.Use_PartsSpec(Kart, KartSN);
 						return;
 					}
@@ -2165,6 +2139,15 @@ namespace KartRider
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqBoomhillExchangeNeedNotice", 0))
 					{
+						return;
+					}
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqMixItemExchangeCount", 0))
+					{
+						using (OutPacket outPacket = new OutPacket("PrMixItemExchangeCount"))
+						{
+							outPacket.WriteInt(0);
+							this.Parent.Client.Send(outPacket);
+						}
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("RqBoomhillExchangeKoin", 0))
