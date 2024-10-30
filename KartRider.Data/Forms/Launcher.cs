@@ -119,23 +119,19 @@ namespace KartRider
 		private void OnLoad(object sender, EventArgs e)
 		{
 			this.kartRiderDirectory = Environment.CurrentDirectory;
-			if (File.Exists(Launcher.KartRider) || File.Exists(@"KartRider.pin"))
+			if (File.Exists(Launcher.KartRider) && File.Exists(@"KartRider.pin"))
 			{
 				string str = Path.Combine(this.kartRiderDirectory, "Profile", SessionGroup.Service);
 				if (!Directory.Exists(str))
 				{
 					Directory.CreateDirectory(str);
 				}
-
 				Load_KartData();
 				StartingLoad_ALL.StartingLoad();
-				if (Program.Developer_Name || pinFile == null)
-				{
-					PINFile PINFile = new PINFile(pinFile);
-					SetGameOption.Version = PINFile.Header.MinorVersion;
-					SetGameOption.Save_SetGameOption();
-					MinorVersion.Text = SetGameOption.Version.ToString();
-				}
+				PINFile PINFile = new PINFile(pinFile);
+				SetGameOption.Version = PINFile.Header.MinorVersion;
+				SetGameOption.Save_SetGameOption();
+				MinorVersion.Text = SetGameOption.Version.ToString();
 				this.profilePath = Path.Combine(str, "launcher.xml");
 				Console.WriteLine("Process: {0}", this.kartRiderDirectory + "\\" + Launcher.KartRider);
 				Console.WriteLine("Profile: {0}", this.profilePath);
