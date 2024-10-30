@@ -2172,7 +2172,6 @@ namespace KartRider
 					else
 					{
 						MultyPlayer.Clientsession(hash, iPacket);
-						return;
 					}
 				}
 			}
