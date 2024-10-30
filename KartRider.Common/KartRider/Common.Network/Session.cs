@@ -352,6 +352,7 @@ namespace KartRider.Common.Network
 
 		public void Send(OutPacket pPacket)
 		{
+			Console.WriteLine((PacketName)BitConverter.ToUInt32(pPacket.ToArray(), 0) + "Â£Âº" + BitConverter.ToString(pPacket.ToArray()).Replace("-", ""));
 			try
 			{
 				if (this.mDisconnected == 0)
@@ -368,7 +369,6 @@ namespace KartRider.Common.Network
 				Console.WriteLine("Disconnected session 11 {0}", exception.ToString());
 				this.Disconnect();
 			}
-			Console.WriteLine((PacketName)BitConverter.ToUInt32(pPacket.ToArray(), 0) + "£º" + BitConverter.ToString(pPacket.ToArray()).Replace("-", ""));
 		}
 
 		public void SendRaw(byte[] pBuffer)
