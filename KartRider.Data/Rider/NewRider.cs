@@ -58,6 +58,7 @@ namespace RiderData
 			NewRider.V1NormalPartsData();
 			NewRider.V1EffectData();
 			NewRider.V1BoosterEffectData();
+			NewRider.partsPiece();
 			NewRider.upgradeKit();
 			NewRider.Kart();
 			NewRider.NewRiderData();//라이더 인식
@@ -831,6 +832,31 @@ namespace RiderData
 				oPacket.WriteByte(0);
 				oPacket.WriteByte(0);
 				oPacket.WriteShort(0);
+				RouterListener.MySession.Client.Send(oPacket);
+			}
+		}
+
+		public static void partsPiece()
+		{
+			using (OutPacket oPacket = new OutPacket("LoRpGetRiderItemPacket"))
+			{
+				oPacket.WriteInt(1);
+				oPacket.WriteInt(1);
+				oPacket.WriteInt(2);
+				for (short i = 1; i <= 2; i++)
+				{
+					oPacket.WriteShort(67);
+					oPacket.WriteShort(i);
+					oPacket.WriteShort(0);
+					oPacket.WriteShort(SetRider.SlotChanger);
+					oPacket.WriteByte(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteShort(-1);
+					oPacket.WriteShort(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteByte(0);
+					oPacket.WriteShort(0);
+				}
 				RouterListener.MySession.Client.Send(oPacket);
 			}
 		}
