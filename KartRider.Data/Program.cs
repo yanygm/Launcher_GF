@@ -7,14 +7,12 @@ namespace KartRider
 	{
 		public static Launcher LauncherDlg;
 		public static GetKart GetKartDlg;
-		public static int MAX_EQP_P;
 		public static bool SpeedPatch;
 		public static bool PreventItem;
 		public static bool Developer_Name;
 
 		static Program()
 		{
-			Program.MAX_EQP_P = 32;
 			Program.Developer_Name = true;
 		}
 

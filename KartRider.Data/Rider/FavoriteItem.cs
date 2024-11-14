@@ -36,7 +36,7 @@ namespace RiderData
 							outPacket.WriteShort(id);
 							outPacket.WriteShort(sn);
 							outPacket.WriteByte(0);
-							List<short> AddList = new List<short>{item, id, sn};
+							List<short> AddList = new List<short>{ item, id, sn };
 							FavoriteItemList.Add(AddList);
 						}
 					}
@@ -113,7 +113,7 @@ namespace RiderData
 						XmlElement xe = node as XmlElement;
 						if (xe != null)
 						{
-							List<string> addList = new List<string>{node.Name, xe.GetAttribute("track")};
+							List<string> addList = new List<string>{ node.Name, xe.GetAttribute("track") };
 							FavoriteTrackList.Add(addList);
 							if (!uniqueNames.Contains(node.Name))
 							{
@@ -121,7 +121,7 @@ namespace RiderData
 							}
 						}
 					}
-					List<string> Name = uniqueNames.ToList<string>();
+					List<string> Name = uniqueNames.ToList();
 					using (OutPacket outPacket = new OutPacket("PrFavoriteTrackMapGet"))
 					{
 						outPacket.WriteInt(Name.Count); //主题数量

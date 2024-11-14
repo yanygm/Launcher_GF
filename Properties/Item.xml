@@ -480,6 +480,8 @@
 	<Character id='464' />
 	<Character id='465' />
 	<Character id='466' />
+	<Character id='468' />
+	<Character id='469' />
 	<!--item itemCatId='21' itemName='宠物'-->
 	<Pet id='30000' />
 	<Pet id='30002' />
@@ -654,6 +656,7 @@
 	<Pet id='180' />
 	<Pet id='181' />
 	<Pet id='182' />
+	<Pet id='183' />
 	<!--item itemCatId='52' itemName='飞行宠物'-->
 	<FlyingPet id='1' />
 	<FlyingPet id='2' />
@@ -744,6 +747,8 @@
 	<FlyingPet id='97' />
 	<FlyingPet id='98' />
 	<FlyingPet id='99' />
+	<FlyingPet id='100' />
+	<FlyingPet id='101' />
 	<!--item itemCatId='18' itemName='服饰'-->
 	<Uniform id='30000' />
 	<Uniform id='12' />
@@ -1966,6 +1971,8 @@
 	<Balloon id='1406' />
 	<Balloon id='1407' />
 	<Balloon id='1408' />
+	<Balloon id='1409' />
+	<Balloon id='1410' />
 	<!--item itemCatId='8' itemName='护目镜'-->
 	<Goggle id='30000' />
 	<Goggle id='30001' />
@@ -2150,6 +2157,7 @@
 	<Goggle id='239' />
 	<Goggle id='240' />
 	<Goggle id='241' />
+	<Goggle id='242' />
 	<!--item itemCatId='11' itemName='头饰'-->
 	<HeadBand id='30000' />
 	<HeadBand id='30001' />
@@ -2911,12 +2919,12 @@
 	<slotBg id='4' />
 	<slotBg id='5' />
 	<slotBg id='6' />
-	<!--item itemCatId='23' itemName='更名卡'-->
-	<RenameRid id='1' />
+	<!--item itemCatId='23' itemName='卡片'-->
+	<Card id='1' />
+	<Card id='3' />
+	<Card id='89' />
 	<!--item itemCatId='13' itemName='回放观赏券'-->
 	<ReplayTicket id='1' />
-	<!--item itemCatId='23' itemName='金币扩充包'-->
-	<LucciBag id='3' />
 	<!--item itemCatId='61' itemName='计程车仪表'-->
 	<Tachometer id='1' />
 	<!--item itemCatId='68' itemName='车膜'-->
@@ -3339,6 +3347,7 @@
 	<emblem id='8827' />
 	<emblem id='8828' />
 	<emblem id='8829' />
+	<emblem id='8830' />
 	<emblem id='30001' />
 	<emblem id='30002' />
 	<emblem id='30004' />

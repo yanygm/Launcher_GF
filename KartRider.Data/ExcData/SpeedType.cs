@@ -1,5 +1,6 @@
 ﻿using System;
 using KartRider;
+using Set_Data;
 
 namespace ExcData
 {
@@ -25,6 +26,10 @@ namespace ExcData
 
 		public static void SpeedTypeData()
 		{
+			if (config.SpeedType != 7)
+			{
+				StartGameData.StartTimeAttack_SpeedType = config.SpeedType;
+			}
 			if (StartGameData.StartTimeAttack_SpeedType == 3)//S0 보통
 			{
 				SpeedType.AddSpec_SteerConstraint = -0.3f;

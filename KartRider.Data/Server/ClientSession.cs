@@ -2,7 +2,6 @@
 using KartRider.Common.Utilities;
 using KartRider.IO;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
@@ -11,7 +10,7 @@ using ExcData;
 using Set_Data;
 using RiderData;
 using System.Xml;
-using KartRider_PacketName;
+using System.Linq;
 
 namespace KartRider
 {
@@ -33,6 +32,27 @@ namespace KartRider
 			this.Parent.Client.Disconnect();
 		}
 
+		public int[] DataTime()
+		{
+			DateTime dt = DateTime.Now;
+			DateTime time = new DateTime(1900, 1, 1, 0, 0, 0);
+			TimeSpan t = dt.Subtract(time);
+			double totalSeconds = dt.TimeOfDay.TotalSeconds / 4;
+			int Month = (dt.Year - 1900) * 12;
+			int MonthCount = Month + dt.Month;
+			double tempResult = (double)MonthCount / 2;
+			int oddMonthCount;
+			if (tempResult % 1 != 0)
+			{
+				oddMonthCount = (int)tempResult + 1;
+			}
+			else
+			{
+				oddMonthCount = (int)tempResult;
+			}
+			return new int[] { t.Days, (int)totalSeconds, oddMonthCount };
+		}
+
 		public override void OnPacket(InPacket iPacket)
 		{
 			int ALLnum;
@@ -40,10 +60,6 @@ namespace KartRider
 			{
 				iPacket.Position = 0;
 				uint hash = iPacket.ReadUInt();
-				if (hash != 1950550337)//PqServerSideUdpBindCheck
-				{
-					Console.WriteLine((PacketName)hash + "：" + BitConverter.ToString(iPacket.ToArray()).Replace("-", ""));
-				}
 				if (hash == Adler32Helper.GenerateAdler32_ASCII("PqCnAuthenLogin", 0))
 				{
 					using (OutPacket outPacket = new OutPacket("PrCnAuthenLogin"))
@@ -56,17 +72,17 @@ namespace KartRider
 					}
 					return;
 				}
-				if (hash == Adler32Helper.GenerateAdler32(Encoding.ASCII.GetBytes("PcReportRaidOccur"), 0) ? false : hash != 1340475309)//PqGameReportMyBadUdp
+				if ((hash == Adler32Helper.GenerateAdler32(Encoding.ASCII.GetBytes("PcReportRaidOccur"), 0) ? false : hash != 1340475309))//PqGameReportMyBadUdp
 				{
 					if (hash == Adler32Helper.GenerateAdler32_ASCII("GrRiderTalkPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqEnterMagicHatPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("LoPingRequestPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqGetRiderQuestUX2ndData", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqAddTimeEventInitPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqCountdownBoxPeriodPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqServerSideUdpBindCheck", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqVipGradeCheck", 0))
 					{
 						return;
 					}
-					else if (hash == Adler32Helper.GenerateAdler32_ASCII("LoRqUpdateRiderSchoolDataPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("RmRiderTalkPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqNeedTimerGiftEvent", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("GameBoosterAddPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("LoRqCheckReplayItemPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqGetRecommandChatServerInfo", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("LoCheckLoginEvent", 0))
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("LoRqUpdateRiderSchoolDataPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("RmRiderTalkPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqNeedTimerGiftEvent", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PcReportStateInGame", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("GameBoosterAddPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("LoRqCheckReplayItemPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqGetRecommandChatServerInfo", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("LoCheckLoginEvent", 0))
 					{
 						return;
 					}
-					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqBlockWordLogPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqWriteActionLogPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqAddTimeEventTimerPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqTimeShopOpenTimePacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqItemPresetSlotDataList", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("VipPlaytimeCheck", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("LoRqEventRewardPacket", 0))
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqBlockWordLogPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqWriteActionLogPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqMissionAttendPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqAddTimeEventTimerPacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqTimeShopOpenTimePacket", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("PqItemPresetSlotDataList", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("VipPlaytimeCheck", 0) || hash == Adler32Helper.GenerateAdler32_ASCII("LoRqEventRewardPacket", 0))
 					{
 						//PqGetRecommandChatServerInfo = 라이더 챗
 						return;
@@ -94,6 +110,10 @@ namespace KartRider
 						this.Parent.SendPlaneCount = (int)key;
 						this.Parent.TotalSendPlaneCount = 0;
 						Console.WriteLine("PlaneCheckMax: {0}", this.Parent.SendPlaneCount);
+						return;
+					}
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("GameSlotPacket", 0))
+					{
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("GameReportPacket", 0))
@@ -158,7 +178,7 @@ namespace KartRider
 						SetRiderItem.Set_HandGearL = iPacket.ReadShort();
 						iPacket.ReadShort();
 						SetRiderItem.Set_Uniform = iPacket.ReadShort();
-						iPacket.ReadShort();
+						SetRiderItem.Set_Decal = iPacket.ReadShort();
 						SetRiderItem.Set_Pet = iPacket.ReadShort();
 						SetRiderItem.Set_FlyingPet = iPacket.ReadShort();
 						SetRiderItem.Set_Aura = iPacket.ReadShort();
@@ -201,19 +221,16 @@ namespace KartRider
 								outPacket.WriteUInt(SetRider.UserNO);
 								outPacket.WriteString(SetRider.UserID);
 								outPacket.WriteString(SetRider.Nickname);
-								outPacket.WriteUShort((ushort)RouterListener.DataTime()[0]);
-								outPacket.WriteUShort((ushort)RouterListener.DataTime()[1]);
-								for (int i = 0; i <= Program.MAX_EQP_P; i++)
-								{
-									outPacket.WriteShort(0);
-								}
+								outPacket.WriteUShort((ushort)DataTime()[0]);
+								outPacket.WriteUShort((ushort)DataTime()[1]);
+								outPacket.WriteBytes(new byte[66]);
 								outPacket.WriteByte(0);
-								outPacket.WriteString("");
-								outPacket.WriteInt(SetRider.RP);
+								outPacket.WriteString("Y|S");
+								outPacket.WriteUInt(SetRider.RP);
 								outPacket.WriteInt(0);
 								outPacket.WriteByte(6);//Licenses
-								outPacket.WriteUShort((ushort)RouterListener.DataTime()[0]);
-								outPacket.WriteUShort((ushort)RouterListener.DataTime()[1]);
+								outPacket.WriteUShort((ushort)DataTime()[0]);
+								outPacket.WriteUShort((ushort)DataTime()[1]);
 								outPacket.WriteBytes(new byte[17]);
 								outPacket.WriteShort(SetRider.Emblem1);
 								outPacket.WriteShort(SetRider.Emblem2);
@@ -406,7 +423,7 @@ namespace KartRider
 							outPacket.WriteBytes(new byte[12]);
 							outPacket.WriteString(SetRider.Nickname);
 							outPacket.WriteBytes(new byte[67]);
-							outPacket.WriteInt(SetRider.RP);
+							outPacket.WriteUInt(SetRider.RP);
 							outPacket.WriteBytes(new byte[910]);
 							this.Parent.Client.Send(outPacket);
 						}
@@ -591,7 +608,6 @@ namespace KartRider
 						short SN = iPacket.ReadShort();
 						iPacket.ReadBytes(6);
 						byte[] data = iPacket.ReadBytes(28);
-						Console.WriteLine("DisassembleXPartsItem: " + Kart + " " + SN);
 						using (OutPacket outPacket = new OutPacket("PrDisassembleXPartsItem"))
 						{
 							outPacket.WriteInt(0);
@@ -613,25 +629,12 @@ namespace KartRider
 							outPacket.WriteUInt(SetRider.Koin);
 							this.Parent.Client.Send(outPacket);
 						}
-						using (OutPacket outPacket = new OutPacket("PrRequestKartInfoPacket"))
-						{
-							outPacket.WriteByte(1);
-							outPacket.WriteInt(1);
-							outPacket.WriteShort(3);
-							outPacket.WriteShort(Kart);
-							outPacket.WriteShort(SN);
-							outPacket.WriteShort(1);//수량
-							outPacket.WriteShort(0);
-							outPacket.WriteShort(-1);
-							outPacket.WriteShort(0);
-							outPacket.WriteShort(0);
-							outPacket.WriteShort(0);
-							this.Parent.Client.Send(outPacket);
-						}
 						KartExcData.AddPartsList(Kart, SN, 63, 0, 0, 0);
 						KartExcData.AddPartsList(Kart, SN, 64, 0, 0, 0);
 						KartExcData.AddPartsList(Kart, SN, 65, 0, 0, 0);
 						KartExcData.AddPartsList(Kart, SN, 66, 0, 0, 0);
+						KartExcData.AddPartsList(Kart, SN, 68, 0, 0, 0);
+						KartExcData.AddPartsList(Kart, SN, 69, 0, 0, 0);
 						KartExcData.AddPlantList(Kart, SN, 43, 0);
 						KartExcData.AddPlantList(Kart, SN, 44, 0);
 						KartExcData.AddPlantList(Kart, SN, 45, 0);
@@ -662,8 +665,8 @@ namespace KartRider
 						short SN2 = iPacket.ReadShort();
 						using (OutPacket outPacket = new OutPacket("PrKartLevelUp"))
 						{
-							outPacket.WriteUShort((ushort)RouterListener.DataTime()[0]);
-							outPacket.WriteUShort((ushort)RouterListener.DataTime()[1]);
+							outPacket.WriteUShort((ushort)DataTime()[0]);
+							outPacket.WriteUShort((ushort)DataTime()[1]);
 							outPacket.WriteInt(1);
 							outPacket.WriteShort(Kart);
 							outPacket.WriteShort(SN);
@@ -768,7 +771,6 @@ namespace KartRider
 								outPacket.WriteShort(10);
 								outPacket.WriteShort(5);
 								outPacket.WriteShort(Effect);
-
 								KartExcData.AddLevelList(kartAndSN.Kart, kartAndSN.SN, 5, 0, 10, 10, 10, 5, Effect);
 							}
 							this.Parent.Client.Send(outPacket);
@@ -799,6 +801,7 @@ namespace KartRider
 							outPacket.WriteString("使用粒子激活器R直接获得启变佳！");
 							this.Parent.Client.Send(outPacket);
 						}
+						KartExcData.AddTuneList(Kart, KartSN, 0, 0, 0, -1, 0, -1, 0);
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqUseTuneItem", 0))
@@ -809,39 +812,170 @@ namespace KartRider
 						iPacket.ReadShort();
 						short KartSN = iPacket.ReadShort();
 						Random random = new Random();
-						List<string> numbers = new List<string>();
-						if (Item == 5)
+						var existingList = KartExcData.TuneList.FirstOrDefault(list => list[0] == Kart && list[1] == KartSN);
+						if (existingList != null)
 						{
-							numbers.Add("603");
-							numbers.Add("703");
-							numbers.Add("903");
-						}
-						else
-						{
-							while (numbers.Count < 3)
+							if (Item == 5)
 							{
-								string number = random.Next(1, 10).ToString() + "03";
-								if (!numbers.Contains(number))
+								using (OutPacket outPacket = new OutPacket("PrUseTuneItem"))
 								{
-									numbers.Add(number);
+									outPacket.WriteInt(0);
+									outPacket.WriteShort(Item);
+									outPacket.WriteShort(Item_Id);
+									outPacket.WriteShort(Kart);
+									outPacket.WriteShort(KartSN);
+									outPacket.WriteShort(0);
+									outPacket.WriteShort(603);
+									outPacket.WriteShort(703);
+									outPacket.WriteShort(903);
+									outPacket.WriteShort(existingList[5]);
+									outPacket.WriteShort(existingList[6]);
+									outPacket.WriteShort(existingList[7]);
+									outPacket.WriteShort(existingList[8]);
+									this.Parent.Client.Send(outPacket);
 								}
 							}
+							else
+							{
+								List<short> tuneList1 = new List<short> { existingList[2], existingList[3], existingList[4] };
+								List<short> tuneList2 = new List<short>();
+								using (OutPacket outPacket = new OutPacket("PrUseTuneItem"))
+								{
+									outPacket.WriteInt(0);
+									outPacket.WriteShort(Item);
+									outPacket.WriteShort(Item_Id);
+									outPacket.WriteShort(Kart);
+									outPacket.WriteShort(KartSN);
+									outPacket.WriteShort(0);
+									if (existingList[2] != 0)
+									{
+										outPacket.WriteShort(existingList[2]);
+									}
+									else
+									{
+										while (tuneList1.Count < 4)
+										{
+											short number = short.Parse(random.Next(1, 10).ToString() + "03");
+											if (!tuneList1.Contains(number))
+											{
+												outPacket.WriteShort(number);
+												existingList[2] = number;
+												tuneList1.Add(number);
+												tuneList2.Add(number);
+											}
+										}
+										tuneList1.RemoveAt(3);
+									}
+									if (existingList[3] != 0)
+									{
+										outPacket.WriteShort(existingList[3]);
+									}
+									else
+									{
+										while (tuneList1.Count < 4)
+										{
+											short number = short.Parse(random.Next(1, 10).ToString() + "03");
+											if (!tuneList1.Contains(number))
+											{
+												if (!tuneList2.Contains(number))
+												{
+													outPacket.WriteShort(number);
+													existingList[3] = number;
+													tuneList1.Add(number);
+													tuneList2.Add(number);
+												}
+											}
+										}
+										tuneList1.RemoveAt(3);
+									}
+									if (existingList[4] != 0)
+									{
+										outPacket.WriteShort(existingList[4]);
+									}
+									else
+									{
+										while (tuneList1.Count < 4)
+										{
+											short number = short.Parse(random.Next(1, 10).ToString() + "03");
+											if (!tuneList1.Contains(number))
+											{
+												if (!tuneList2.Contains(number))
+												{
+													outPacket.WriteShort(number);
+													existingList[4] = number;
+													tuneList1.Add(number);
+													tuneList2.Add(number);
+												}
+											}
+										}
+										tuneList1.RemoveAt(3);
+									}
+									outPacket.WriteShort(existingList[5]);
+									outPacket.WriteShort(existingList[6]);
+									outPacket.WriteShort(existingList[7]);
+									outPacket.WriteShort(existingList[8]);
+									this.Parent.Client.Send(outPacket);
+								}
+							}
+							KartExcData.SaveTuneList(KartExcData.TuneList);
+							TuneSpec.Use_TuneSpec(Kart, KartSN);
 						}
-						KartExcData.AddTuneList(Kart, KartSN, short.Parse(numbers[0]), short.Parse(numbers[1]), short.Parse(numbers[2]));
-						TuneSpec.Use_TuneSpec(Kart, KartSN);
-						using (OutPacket outPacket = new OutPacket("PrUseTuneItem"))
+						return;
+					}
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqUseProtectSpannerItem", 0))
+					{
+						short Protect = iPacket.ReadShort();
+						short v2 = iPacket.ReadShort();
+						short Item_Id = iPacket.ReadShort();
+						short Kart = iPacket.ReadShort();
+						short KartSN = iPacket.ReadShort();
+						iPacket.ReadShort();
+						short slot = iPacket.ReadShort();
+						var existingList = KartExcData.TuneList.FirstOrDefault(list => list[0] == Kart && list[1] == KartSN);
+						if (existingList != null)
 						{
-							outPacket.WriteInt(0);
-							outPacket.WriteShort(Item);
-							outPacket.WriteShort(Item_Id);
-							outPacket.WriteShort(Kart);
-							outPacket.WriteShort(KartSN);
-							outPacket.WriteShort(0);
-							outPacket.WriteShort(short.Parse(numbers[0]));
-							outPacket.WriteShort(short.Parse(numbers[1]));
-							outPacket.WriteShort(short.Parse(numbers[2]));
-							outPacket.WriteHexString("00 00 00 00 00 00 00 00");
-							this.Parent.Client.Send(outPacket);
+							using (OutPacket outPacket = new OutPacket("PrUseProtectSpannerItem"))
+							{
+								outPacket.WriteInt(0);
+								outPacket.WriteShort(Protect);
+								outPacket.WriteShort(v2);
+								outPacket.WriteShort(Item_Id);
+								outPacket.WriteShort(Kart);
+								outPacket.WriteShort(KartSN);
+								outPacket.WriteShort(0);
+								outPacket.WriteShort(0);
+								outPacket.WriteShort(0);
+								outPacket.WriteShort(existingList[2]);
+								outPacket.WriteShort(existingList[3]);
+								outPacket.WriteShort(existingList[4]);
+								if (Protect == 49)
+								{
+									outPacket.WriteShort(slot);
+									outPacket.WriteShort(4);
+									outPacket.WriteShort(existingList[7]);
+									outPacket.WriteShort(existingList[8]);
+									existingList[5] = slot;
+									existingList[6] = 4;
+								}
+								else if (Protect == 53)
+								{
+									outPacket.WriteShort(existingList[5]);
+									outPacket.WriteShort(existingList[6]);
+									outPacket.WriteShort(slot);
+									outPacket.WriteShort(3);
+									existingList[7] = slot;
+									existingList[8] = 3;
+								}
+								else
+								{
+									outPacket.WriteShort(existingList[5]);
+									outPacket.WriteShort(existingList[6]);
+									outPacket.WriteShort(existingList[7]);
+									outPacket.WriteShort(existingList[8]);
+								}
+								this.Parent.Client.Send(outPacket);
+								KartExcData.SaveTuneList(KartExcData.TuneList);
+							}
 						}
 						return;
 					}
@@ -852,17 +986,64 @@ namespace KartRider
 						short Kart = iPacket.ReadShort();
 						iPacket.ReadShort();
 						short KartSN = iPacket.ReadShort();
-						KartExcData.DelTuneList(Kart, KartSN);
-						TuneSpec.Use_TuneSpec(Kart, KartSN);
-						using (OutPacket outPacket = new OutPacket("PrUseResetSocketItem"))
+						var existingList = KartExcData.TuneList.FirstOrDefault(list => list[0] == Kart && list[1] == KartSN);
+						if (existingList != null)
 						{
-							outPacket.WriteInt(0);
-							outPacket.WriteShort(Item);
-							outPacket.WriteShort(Item_Id);
-							outPacket.WriteShort(Kart);
-							outPacket.WriteShort(KartSN);
-							outPacket.WriteHexString("22 00 4C 00 01 00 01 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00");
-							this.Parent.Client.Send(outPacket);
+							using (OutPacket outPacket = new OutPacket("PrUseResetSocketItem"))
+							{
+								outPacket.WriteInt(0);
+								outPacket.WriteShort(Item);
+								outPacket.WriteShort(Item_Id);
+								outPacket.WriteShort(Kart);
+								outPacket.WriteShort(KartSN);
+								outPacket.WriteShort(34);
+								outPacket.WriteShort(76);
+								outPacket.WriteShort(1);
+								outPacket.WriteShort(1);
+								outPacket.WriteShort(existingList[2]);
+								outPacket.WriteShort(existingList[3]);
+								outPacket.WriteShort(existingList[4]);
+								outPacket.WriteShort(existingList[5]);
+								outPacket.WriteShort(existingList[6]);
+								outPacket.WriteShort(existingList[7]);
+								outPacket.WriteShort(existingList[8]);
+								this.Parent.Client.Send(outPacket);
+							}
+							List<short> secure = new List<short>();
+							if (existingList[6] == 0)
+							{
+								existingList[5] = -1;
+							}
+							else
+							{
+								existingList[6] = (short)((int)existingList[6] - 1);
+							}
+							if (existingList[8] == 0)
+							{
+								existingList[7] = -1;
+							}
+							else
+							{
+								existingList[8] = (short)((int)existingList[8] - 1);
+							}
+							Console.WriteLine("TuneProtect: " + existingList[5] + ", " + existingList[7]);
+							Console.WriteLine("TuneProtectCount: " + existingList[6] + ", " + existingList[8]);
+							for (int i = 2; i <= 4; i++)
+							{
+								if (existingList[5] != -1 && (int)(existingList[5]) + 2 == i)
+								{
+								}
+								else if (existingList[7] != -1 && (int)(existingList[7]) + 2 == i)
+								{
+								}
+								else
+								{
+									existingList[i] = 0;
+								}
+							}
+							Console.WriteLine("TuneList: " + existingList[2] + ", " + existingList[3] + ", " + existingList[4]);
+							KartExcData.SaveTuneList(KartExcData.TuneList);
+							TuneSpec.Use_TuneSpec(Kart, KartSN);
 						}
 						return;
 					}
@@ -956,8 +1137,8 @@ namespace KartRider
 						{
 							outPacket.WriteInt(0);
 							outPacket.WriteInt(0);
-							outPacket.WriteUShort((ushort)RouterListener.DataTime()[0]);
-							outPacket.WriteUShort((ushort)RouterListener.DataTime()[1]);
+							outPacket.WriteUShort((ushort)DataTime()[0]);
+							outPacket.WriteUShort((ushort)DataTime()[1]);
 							outPacket.WriteHexString("0F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
 							this.Parent.Client.Send(outPacket);
 						}
@@ -1090,7 +1271,7 @@ namespace KartRider
 						{
 							outPacket.WriteInt(type);
 							outPacket.WriteHexString("00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF 00 00 00 00 00");
-							outPacket.WriteInt(GameType.TimeAttack_RP);//RP
+							outPacket.WriteUInt(GameType.TimeAttack_RP);//RP
 							outPacket.WriteUInt(GameType.TimeAttack_Lucci);//LUCCI
 							this.Parent.Client.Send(outPacket);
 						}
@@ -1323,8 +1504,8 @@ namespace KartRider
 						{
 							outPacket.WriteByte(6);//라이센스 등급
 							outPacket.WriteByte(42);//마지막 클리어
-							outPacket.WriteUShort((ushort)RouterListener.DataTime()[0]);
-							outPacket.WriteUShort((ushort)RouterListener.DataTime()[1]);
+							outPacket.WriteUShort((ushort)DataTime()[0]);
+							outPacket.WriteUShort((ushort)DataTime()[1]);
 							outPacket.WriteInt(0);
 							outPacket.WriteByte(0);
 							RouterListener.MySession.Client.Send(outPacket);
@@ -1335,7 +1516,7 @@ namespace KartRider
 					{
 						//RiderSchool.PrRiderSchoolPro();
 						int stepcount = 6;
-						int remainder = RouterListener.DataTime()[2] % stepcount;
+						int remainder = DataTime()[2] % stepcount;
 						if (remainder == 0) remainder = stepcount;
 						byte step;
 						switch (remainder)
@@ -1662,16 +1843,131 @@ namespace KartRider
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqSyncDictionaryInfoPacket", 0))
 					{
-						int Dictionary = iPacket.ReadInt();
+						List<List<short>> dictionary = new List<List<short>>();
+						XmlDocument Item = new XmlDocument();
+						Item.Load(@"Profile\Item.xml");
+						if (Item.GetElementsByTagName("Character") != null)
+						{
+							XmlNodeList lis = Item.GetElementsByTagName("Character");
+							foreach (XmlNode xn in lis)
+							{
+								XmlElement xe = (XmlElement)xn;
+								short i = short.Parse(xe.GetAttribute("id"));
+								List<short> add = new List<short> { 1, i };
+								dictionary.Add(add);
+							}
+						}
+						if (Item.GetElementsByTagName("Paint") != null)
+						{
+							XmlNodeList lis = Item.GetElementsByTagName("Paint");
+							foreach (XmlNode xn in lis)
+							{
+								XmlElement xe = (XmlElement)xn;
+								short i = short.Parse(xe.GetAttribute("id"));
+								List<short> add = new List<short> { 2, i };
+								dictionary.Add(add);
+							}
+						}
+						if (Item.GetElementsByTagName("Goggle") != null)
+						{
+							XmlNodeList lis = Item.GetElementsByTagName("Goggle");
+							foreach (XmlNode xn in lis)
+							{
+								XmlElement xe = (XmlElement)xn;
+								short i = short.Parse(xe.GetAttribute("id"));
+								List<short> add = new List<short> { 8, i };
+								dictionary.Add(add);
+							}
+						}
+						if (Item.GetElementsByTagName("Balloon") != null)
+						{
+							XmlNodeList lis = Item.GetElementsByTagName("Balloon");
+							foreach (XmlNode xn in lis)
+							{
+								XmlElement xe = (XmlElement)xn;
+								short i = short.Parse(xe.GetAttribute("id"));
+								List<short> add = new List<short> { 9, i };
+								dictionary.Add(add);
+							}
+						}
+						if (Item.GetElementsByTagName("HeadBand") != null)
+						{
+							XmlNodeList lis = Item.GetElementsByTagName("HeadBand");
+							foreach (XmlNode xn in lis)
+							{
+								XmlElement xe = (XmlElement)xn;
+								short i = short.Parse(xe.GetAttribute("id"));
+								List<short> add = new List<short> { 11, i };
+								dictionary.Add(add);
+							}
+						}
+						if (Item.GetElementsByTagName("Pet") != null)
+						{
+							XmlNodeList lis = Item.GetElementsByTagName("Pet");
+							foreach (XmlNode xn in lis)
+							{
+								XmlElement xe = (XmlElement)xn;
+								short i = short.Parse(xe.GetAttribute("id"));
+								List<short> add = new List<short> { 21, i };
+								dictionary.Add(add);
+							}
+						}
+						if (Item.GetElementsByTagName("Aura") != null)
+						{
+							XmlNodeList lis = Item.GetElementsByTagName("Aura");
+							foreach (XmlNode xn in lis)
+							{
+								XmlElement xe = (XmlElement)xn;
+								short i = short.Parse(xe.GetAttribute("id"));
+								List<short> add = new List<short> { 26, i };
+								dictionary.Add(add);
+							}
+						}
+						if (Item.GetElementsByTagName("SkidMark") != null)
+						{
+							XmlNodeList lis = Item.GetElementsByTagName("SkidMark");
+							foreach (XmlNode xn in lis)
+							{
+								XmlElement xe = (XmlElement)xn;
+								short i = short.Parse(xe.GetAttribute("id"));
+								List<short> add = new List<short> { 27, i };
+								dictionary.Add(add);
+							}
+						}
+						if (Item.GetElementsByTagName("FlyingPet") != null)
+						{
+							XmlNodeList lis = Item.GetElementsByTagName("FlyingPet");
+							foreach (XmlNode xn in lis)
+							{
+								XmlElement xe = (XmlElement)xn;
+								short i = short.Parse(xe.GetAttribute("id"));
+								List<short> add = new List<short> { 52, i };
+								dictionary.Add(add);
+							}
+						}
+						XmlDocument NewKart = new XmlDocument();
+						NewKart.Load(@"Profile\NewKart.xml");
+						if (!(NewKart.GetElementsByTagName("Kart") == null))
+						{
+							XmlNodeList lis = NewKart.GetElementsByTagName("Kart");
+							foreach (XmlNode xn in lis)
+							{
+								XmlElement xe = (XmlElement)xn;
+								short i = short.Parse(xe.GetAttribute("id"));
+								List<short> add = new List<short> { 3, i };
+								dictionary.Add(add);
+							}
+						}
 						using (OutPacket outPacket = new OutPacket("PrSyncDictionaryInfoPacket"))
 						{
 							outPacket.WriteInt(1);
 							outPacket.WriteInt(1);
-							outPacket.WriteInt(0);
-							outPacket.WriteInt(0);
-							outPacket.WriteInt(0);
-							outPacket.WriteInt(0);
-							outPacket.WriteInt(0);
+							outPacket.WriteInt(dictionary.Count);
+							foreach (var item in dictionary)
+							{
+								outPacket.WriteShort(item[0]);
+								outPacket.WriteShort(item[1]);
+							}
 							outPacket.WriteInt(0);
 							this.Parent.Client.Send(outPacket);
 						}
@@ -1898,6 +2194,54 @@ namespace KartRider
 						}
 						return;
 					}
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqExchangeXPartsItem", 0))
+					{
+						short KartType = iPacket.ReadShort();
+						iPacket.ReadShort();
+						byte Grade = iPacket.ReadByte();
+						Random random = new Random();
+						short[] numbers = { 63, 64, 65, 66 };
+						int randomIndex = random.Next(0, numbers.Length);
+						short randomNumber = numbers[randomIndex];
+						using (OutPacket outPacket = new OutPacket("PrExchangeXPartsItem"))
+						{
+							outPacket.WriteInt(0);
+							outPacket.WriteInt(SetRider.SlotChanger);
+							outPacket.WriteShort(randomNumber);
+							outPacket.WriteShort(KartType);
+							outPacket.WriteShort(1);
+							outPacket.WriteShort(0);
+							outPacket.WriteByte(Grade);
+							outPacket.WriteByte(1);
+							outPacket.WriteShort(1180);
+							outPacket.WriteShort(0);
+							this.Parent.Client.Send(outPacket);
+						}
+						return;
+					}
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqChannelSwitch", 0))
+					{
+						using (OutPacket outPacket = new OutPacket("ChGetCurrentGpReplyPacket"))
+						{
+							outPacket.WriteInt(0);
+							outPacket.WriteInt(0);
+							outPacket.WriteInt(0);
+							outPacket.WriteInt(0);
+							outPacket.WriteInt(0);
+							outPacket.WriteByte(0);
+							this.Parent.Client.Send(outPacket);
+						}
+						return;
+					}
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("ChCreateRoomRequestPacket", 0))
+					{
+						using (OutPacket outPacket = new OutPacket("ChCreateRoomReplyPacket"))
+						{
+							outPacket.WriteInt(0);
+							this.Parent.Client.Send(outPacket);
+						}
+						return;
+					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("SpRqTimeShopPacket", 0))
 					{
 						using (OutPacket outPacket = new OutPacket("SpRpTimeShopPacket"))
@@ -1999,8 +2343,8 @@ namespace KartRider
 					{
 						using (OutPacket outPacket = new OutPacket("PrServerTime"))
 						{
-							outPacket.WriteUShort((ushort)RouterListener.DataTime()[0]);
-							outPacket.WriteUShort((ushort)RouterListener.DataTime()[1]);
+							outPacket.WriteUShort((ushort)DataTime()[0]);
+							outPacket.WriteUShort((ushort)DataTime()[1]);
 							this.Parent.Client.Send(outPacket);
 						}
 						return;
@@ -2011,8 +2355,8 @@ namespace KartRider
 						using (OutPacket outPacket = new OutPacket("PrLogin"))
 						{
 							outPacket.WriteInt(0);
-							outPacket.WriteUShort((ushort)RouterListener.DataTime()[0]);
-							outPacket.WriteUShort((ushort)RouterListener.DataTime()[1]);
+							outPacket.WriteUShort((ushort)DataTime()[0]);
+							outPacket.WriteUShort((ushort)DataTime()[1]);
 							outPacket.WriteUInt(SetRider.UserNO);
 							outPacket.WriteString(SetRider.UserID);
 							outPacket.WriteByte(2);

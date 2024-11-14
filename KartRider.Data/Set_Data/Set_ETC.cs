@@ -55,10 +55,5 @@ namespace Set_Data
 		{
 			Set_ETC.Load_DataPack();
 		}
-
-		public static void Load_ALL2()
-		{
-			Set_ETC.Load_DataPack2();
-		}
 	}
 }

@@ -14,14 +14,14 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Restore
-      run: msbuild Launcher.cn.csproj /t:Restore /p:Configuration=Release
+    - name: Restore the application
+      run: msbuild Launcher.cn.sln /t:Restore /p:Configuration=Release
 
-    - name: Publish
-      run: msbuild Launcher.cn.csproj /t:publish /p:Configuration=Release /p:PublishDir=".\"
+    - name: Build Solution
+      run: msbuild Launcher.cn.sln /p:Configuration=Release /p:Appx_Bundle_Platforms="x64"
 
-    - name: Archive Artifacts
-      uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v4
+      id: artifact-upload-step
       with:
         name: Launcher
         path: Launcher.exe

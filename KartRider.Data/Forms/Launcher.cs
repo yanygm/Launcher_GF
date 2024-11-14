@@ -7,15 +7,15 @@ using System.Windows.Forms;
 using Set_Data;
 using System.Xml;
 using ExcData;
+using Launcher.Properties;
 using KartRider.Common.Data;
-using Launcher.cn.Properties;
+using static KartRider.Common.Data.PINFile;
 
 namespace KartRider
 {
 	public class Launcher : Form
 	{
 		public static bool GetKart = true;
-		public static bool OpenGetItem = false;
 		public string kartRiderDirectory = null;
 		public string profilePath = null;
 		public static string KartRider = "KartRider.exe";
@@ -23,6 +23,7 @@ namespace KartRider
 		private Button Start_Button;
 		private Button GetKart_Button;
 		private Label label_DeveloperName;
+		private ComboBox comboBox1;
 		private Label MinorVersion;
 
 		public Launcher()
@@ -32,83 +33,102 @@ namespace KartRider
 
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Launcher));
-			this.Start_Button = new System.Windows.Forms.Button();
-			this.GetKart_Button = new System.Windows.Forms.Button();
-			this.label_DeveloperName = new System.Windows.Forms.Label();
-			this.MinorVersion = new System.Windows.Forms.Label();
-			this.SuspendLayout();
+			Start_Button = new Button();
+			GetKart_Button = new Button();
+			label_DeveloperName = new Label();
+			MinorVersion = new Label();
+			comboBox1 = new ComboBox();
+			SuspendLayout();
 			// 
 			// Start_Button
 			// 
-			this.Start_Button.Location = new System.Drawing.Point(19, 20);
-			this.Start_Button.Name = "Start_Button";
-			this.Start_Button.Size = new System.Drawing.Size(114, 23);
-			this.Start_Button.TabIndex = 364;
-			this.Start_Button.Text = "启动游戏";
-			this.Start_Button.UseVisualStyleBackColor = true;
-			this.Start_Button.Click += new System.EventHandler(this.Start_Button_Click);
+			Start_Button.Location = new System.Drawing.Point(19, 20);
+			Start_Button.Name = "Start_Button";
+			Start_Button.Size = new System.Drawing.Size(114, 23);
+			Start_Button.TabIndex = 364;
+			Start_Button.Text = "启动游戏";
+			Start_Button.UseVisualStyleBackColor = true;
+			Start_Button.Click += Start_Button_Click;
 			// 
 			// GetKart_Button
 			// 
-			this.GetKart_Button.Location = new System.Drawing.Point(19, 49);
-			this.GetKart_Button.Name = "GetKart_Button";
-			this.GetKart_Button.Size = new System.Drawing.Size(114, 23);
-			this.GetKart_Button.TabIndex = 365;
-			this.GetKart_Button.Text = "添加道具";
-			this.GetKart_Button.UseVisualStyleBackColor = true;
-			this.GetKart_Button.Click += new System.EventHandler(this.GetKart_Button_Click);
+			GetKart_Button.Location = new System.Drawing.Point(19, 49);
+			GetKart_Button.Name = "GetKart_Button";
+			GetKart_Button.Size = new System.Drawing.Size(114, 23);
+			GetKart_Button.TabIndex = 365;
+			GetKart_Button.Text = "添加道具";
+			GetKart_Button.UseVisualStyleBackColor = true;
+			GetKart_Button.Click += GetKart_Button_Click;
 			// 
 			// label_DeveloperName
 			// 
-			this.label_DeveloperName.AutoSize = true;
-			this.label_DeveloperName.BackColor = System.Drawing.SystemColors.Control;
-			this.label_DeveloperName.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label_DeveloperName.ForeColor = System.Drawing.Color.Blue;
-			this.label_DeveloperName.Location = new System.Drawing.Point(2, 160);
-			this.label_DeveloperName.Name = "label_DeveloperName";
-			this.label_DeveloperName.Size = new System.Drawing.Size(53, 12);
-			this.label_DeveloperName.TabIndex = 367;
-			this.label_DeveloperName.Text = "Version:";
+			label_DeveloperName.AutoSize = true;
+			label_DeveloperName.BackColor = System.Drawing.SystemColors.Control;
+			label_DeveloperName.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			label_DeveloperName.ForeColor = System.Drawing.Color.Blue;
+			label_DeveloperName.Location = new System.Drawing.Point(2, 160);
+			label_DeveloperName.Name = "label_DeveloperName";
+			label_DeveloperName.Size = new System.Drawing.Size(53, 12);
+			label_DeveloperName.TabIndex = 367;
+			label_DeveloperName.Text = "Version:";
 			// 
 			// MinorVersion
 			// 
-			this.MinorVersion.AutoSize = true;
-			this.MinorVersion.BackColor = System.Drawing.SystemColors.Control;
-			this.MinorVersion.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.MinorVersion.ForeColor = System.Drawing.Color.Red;
-			this.MinorVersion.Location = new System.Drawing.Point(55, 160);
-			this.MinorVersion.Name = "MinorVersion";
-			this.MinorVersion.Size = new System.Drawing.Size(10, 12);
-			this.MinorVersion.TabIndex = 367;
+			MinorVersion.AutoSize = true;
+			MinorVersion.BackColor = System.Drawing.SystemColors.Control;
+			MinorVersion.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			MinorVersion.ForeColor = System.Drawing.Color.Red;
+			MinorVersion.Location = new System.Drawing.Point(55, 160);
+			MinorVersion.Name = "MinorVersion";
+			MinorVersion.Size = new System.Drawing.Size(0, 12);
+			MinorVersion.TabIndex = 367;
+			// 
+			// comboBox1
+			// 
+			comboBox1.FormattingEnabled = true;
+			comboBox1.Location = new System.Drawing.Point(19, 78);
+			comboBox1.Name = "comboBox1";
+			comboBox1.Size = new System.Drawing.Size(114, 20);
+			comboBox1.TabIndex = 368;
+			comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+			comboBox1.Items.Add("Integration");
+			comboBox1.Items.Add("S0");
+			comboBox1.Items.Add("S1");
+			comboBox1.Items.Add("S2");
+			comboBox1.Items.Add("S3");
+			comboBox1.Text = "Integration";
 			// 
 			// Launcher
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.SystemColors.Control;
-			this.ClientSize = new System.Drawing.Size(257, 180);
-			this.Controls.Add(this.MinorVersion);
-			this.Controls.Add(this.label_DeveloperName);
-			this.Controls.Add(this.GetKart_Button);
-			this.Controls.Add(this.Start_Button);
-			this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-			this.Icon = Resources.icon;
-			this.MaximizeBox = false;
-			this.Name = "Launcher";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Launcher";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
-			this.Load += new System.EventHandler(this.OnLoad);
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = System.Drawing.SystemColors.Control;
+			ClientSize = new System.Drawing.Size(257, 180);
+			Controls.Add(comboBox1);
+			Controls.Add(MinorVersion);
+			Controls.Add(label_DeveloperName);
+			Controls.Add(GetKart_Button);
+			Controls.Add(Start_Button);
+			Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+			FormBorderStyle = FormBorderStyle.FixedSingle;
+			MaximizeBox = false;
+			Icon = Resources.Icon;
+			Name = "Launcher";
+			StartPosition = FormStartPosition.CenterScreen;
+			Text = "Launcher";
+			FormClosing += OnFormClosing;
+			Load += OnLoad;
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		private void OnFormClosing(object sender, FormClosingEventArgs e)
 		{
-			File.Delete(@"KartRider.xml");
+			if (File.Exists(this.kartRiderDirectory + "KartRider-bak.pin"))
+			{
+				File.Delete(this.kartRiderDirectory + "KartRider.pin");
+				File.Move(this.kartRiderDirectory + "KartRider-bak.pin", this.kartRiderDirectory + "KartRider.pin");
+			}
 			if (Process.GetProcessesByName("KartRider").Length != 0)
 			{
 				LauncherSystem.MessageBoxType1();
@@ -118,22 +138,22 @@ namespace KartRider
 
 		private void OnLoad(object sender, EventArgs e)
 		{
-			this.kartRiderDirectory = Environment.CurrentDirectory;
-			if (File.Exists(Launcher.KartRider) && File.Exists(@"KartRider.pin"))
+			this.kartRiderDirectory = Environment.CurrentDirectory + "\\";
+			string str = Path.Combine(this.kartRiderDirectory, "Profile", SessionGroup.Service);
+			if (!Directory.Exists(str))
 			{
-				string str = Path.Combine(this.kartRiderDirectory, "Profile", SessionGroup.Service);
-				if (!Directory.Exists(str))
-				{
-					Directory.CreateDirectory(str);
-				}
-				Load_KartData();
+				Directory.CreateDirectory(str);
+			}
+			if (File.Exists(Launcher.KartRider) || File.Exists(@"KartRider.pin"))
+			{
+				Load_KartExcData();
 				StartingLoad_ALL.StartingLoad();
 				PINFile PINFile = new PINFile(pinFile);
-				SetGameOption.Version = PINFile.Header.MinorVersion;
+				MinorVersion.Text = Convert.ToString(PINFile.Header.MinorVersion);
+				SetGameOption.Version = ushort.Parse(MinorVersion.Text);
 				SetGameOption.Save_SetGameOption();
-				MinorVersion.Text = SetGameOption.Version.ToString();
 				this.profilePath = Path.Combine(str, "launcher.xml");
-				Console.WriteLine("Process: {0}", this.kartRiderDirectory + "\\" + Launcher.KartRider);
+				Console.WriteLine("Process: {0}", this.kartRiderDirectory + Launcher.KartRider);
 				Console.WriteLine("Profile: {0}", this.profilePath);
 				RouterListener.Start();
 			}
@@ -153,14 +173,46 @@ namespace KartRider
 			{
 				(new Thread(() =>
 				{
+					Console.WriteLine("Backing up old PinFile...");
+					Console.WriteLine(this.kartRiderDirectory + "KartRider-bak.pin");
+					if (File.Exists(this.kartRiderDirectory + "KartRider-bak.pin"))
+					{
+						File.Delete(this.kartRiderDirectory + "KartRider.pin");
+						File.Move(this.kartRiderDirectory + "KartRider-bak.pin", this.kartRiderDirectory + "KartRider.pin");
+					}
+					File.Copy(this.kartRiderDirectory + "KartRider.pin", this.kartRiderDirectory + "KartRider-bak.pin");
+					PINFile val = new PINFile(this.kartRiderDirectory + "KartRider.pin");
+					foreach (AuthMethod authMethod in val.AuthMethods)
+					{
+						Console.WriteLine("Changing IP Addr to local... {0}", authMethod.Name);
+						authMethod.LoginServers.Clear();
+						authMethod.LoginServers.Add(new IPEndPoint
+						{
+							IP = RouterListener.sIP,
+							Port = (ushort)RouterListener.port
+						});
+					}
+					foreach (BmlObject bml in val.BmlObjects)
+					{
+						if (bml.Name == "extra")
+						{
+							for (int i = bml.SubObjects.Count - 1; i >= 0; i--)
+							{
+								Console.WriteLine("Removing {0}", bml.SubObjects[i].Item1);
+								if (bml.SubObjects[i].Item1 == "NgsOn")
+								{
+									bml.SubObjects.RemoveAt(i);
+									break;
+								}
+							}
+						}
+					}
+					File.WriteAllBytes(this.kartRiderDirectory + "KartRider.pin", val.GetEncryptedData());
 					Start_Button.Enabled = true;
 					Launcher.GetKart = false;
-					File.Delete("KartRider.xml");
-					string[] text1 = new string[] { "<?xml version='1.0' encoding='UTF-16'?>\r\n<config>\r\n\t<server addr='", RouterListener.sIP, ":", RouterListener.port.ToString(), "'/>\r\n</config>" };
-					File.WriteAllText(@"KartRider.xml", string.Concat(text1));
 					string str = this.profilePath;
-					string[] text2 = new string[] { "<?xml version='1.0' encoding='UTF-16'?>\r\n<profile>\r\n<username>", SetRider.UserID, "</username>\r\n</profile>" };
-					File.WriteAllText(str, string.Concat(text2));
+					string[] text = new string[] { "<?xml version='1.0' encoding='UTF-16'?>\r\n<profile>\r\n<username>", SetRider.UserID, "</username>\r\n</profile>" };
+					File.WriteAllText(str, string.Concat(text));
 					ProcessStartInfo startInfo = new ProcessStartInfo(Launcher.KartRider, "TGC -region:3 -passport:556O5Yeg5oqK55yL5ZWl")
 					{
 						WorkingDirectory = this.kartRiderDirectory,
@@ -194,7 +246,7 @@ namespace KartRider
 			}
 		}
 
-		public static void Load_KartData()
+		public void Load_KartExcData()
 		{
 			if (!(File.Exists(@"Profile\KartSpec.xml")))
 			{
@@ -260,7 +312,11 @@ namespace KartRider
 						short tune1 = short.Parse(xe.GetAttribute("tune1"));
 						short tune2 = short.Parse(xe.GetAttribute("tune2"));
 						short tune3 = short.Parse(xe.GetAttribute("tune3"));
-						List<short> AddList = new List<short>{i, sn, tune1, tune2, tune3};
+						short slot1 = short.Parse(xe.GetAttribute("slot1"));
+						short count1 = short.Parse(xe.GetAttribute("count1"));
+						short slot2 = short.Parse(xe.GetAttribute("slot2"));
+						short count2 = short.Parse(xe.GetAttribute("count2"));
+						List<short> AddList = new List<short> { i, sn, tune1, tune2, tune3, slot1, count1, slot2, count2 };
 						KartExcData.TuneList.Add(AddList);
 					}
 				}
@@ -286,7 +342,7 @@ namespace KartRider
 						short item_id3 = short.Parse(xe.GetAttribute("item_id3"));
 						short item4 = short.Parse(xe.GetAttribute("item4"));
 						short item_id4 = short.Parse(xe.GetAttribute("item_id4"));
-						List<short> AddList = new List<short>{i, sn, item1, item_id1, item2, item_id2, item3, item_id3, item4, item_id4};
+						List<short> AddList = new List<short> { i, sn, item1, item_id1, item2, item_id2, item3, item_id3, item4, item_id4 };
 						KartExcData.PlantList.Add(AddList);
 					}
 				}
@@ -305,13 +361,13 @@ namespace KartRider
 						short i = short.Parse(xe.GetAttribute("id"));
 						short sn = short.Parse(xe.GetAttribute("sn"));
 						short level = short.Parse(xe.GetAttribute("level"));
-						short pointleft = short.Parse(xe.GetAttribute("pointleft"));
+						short point = short.Parse(xe.GetAttribute("point"));
 						short v1 = short.Parse(xe.GetAttribute("v1"));
 						short v2 = short.Parse(xe.GetAttribute("v2"));
 						short v3 = short.Parse(xe.GetAttribute("v3"));
 						short v4 = short.Parse(xe.GetAttribute("v4"));
 						short Effect = short.Parse(xe.GetAttribute("Effect"));
-						List<short> AddList = new List<short>{i, sn, level, pointleft, v1, v2, v3, v4, Effect};
+						List<short> AddList = new List<short> { i, sn, level, point, v1, v2, v3, v4, Effect };
 						KartExcData.LevelList.Add(AddList);
 					}
 				}
@@ -320,7 +376,7 @@ namespace KartRider
 			{
 				XmlDocument doc = new XmlDocument();
 				doc.Load(@"Profile\PartsData.xml");
-				if (!(doc.GetElementsByTagName("Parts") == null))
+				if (!(doc.GetElementsByTagName("Kart") == null))
 				{
 					XmlNodeList lis = doc.GetElementsByTagName("Kart");
 					KartExcData.PartsList = new List<List<short>>();
@@ -343,9 +399,37 @@ namespace KartRider
 						short PartsValue4 = short.Parse(xe.GetAttribute("PartsValue4"));
 						short partsCoating = byte.Parse(xe.GetAttribute("partsCoating"));
 						short partsTailLamp = short.Parse(xe.GetAttribute("partsTailLamp"));
-						List<short> AddList = new List<short>{i, sn, Item_Id1, Grade1, PartsValue1, Item_Id2, Grade2, PartsValue2, Item_Id3, Grade3, PartsValue3, Item_Id4, Grade4, PartsValue4, partsCoating, partsTailLamp};
+						List<short> AddList = new List<short> { i, sn, Item_Id1, Grade1, PartsValue1, Item_Id2, Grade2, PartsValue2, Item_Id3, Grade3, PartsValue3, Item_Id4, Grade4, PartsValue4, partsCoating, partsTailLamp };
 						KartExcData.PartsList.Add(AddList);
 					}
+				}
+			}
+		}
+
+		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (comboBox1.SelectedItem != null)
+			{
+				Console.WriteLine(comboBox1.SelectedItem.ToString());
+				if (comboBox1.SelectedItem.ToString() == "Integration")
+				{
+					config.SpeedType = 7;
+				}
+				else if (comboBox1.SelectedItem.ToString() == "S0")
+				{
+					config.SpeedType = 3;
+				}
+				else if (comboBox1.SelectedItem.ToString() == "S1")
+				{
+					config.SpeedType = 0;
+				}
+				else if (comboBox1.SelectedItem.ToString() == "S2")
+				{
+					config.SpeedType = 1;
+				}
+				else if (comboBox1.SelectedItem.ToString() == "S3")
+				{
+					config.SpeedType = 2;
 				}
 			}
 		}

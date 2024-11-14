@@ -156,7 +156,6 @@ namespace KartRider
 
 		public static void DataReset()
 		{
-			Launcher.OpenGetItem = false;
 			if (SetRider.Lucci > SessionGroup.LucciMax)
 			{
 				SetRider.Lucci = SessionGroup.LucciMax;
