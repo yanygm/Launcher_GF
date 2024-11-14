@@ -26,7 +26,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\PopKart_Client_P3229\</OutputPath>
+    <OutputPath>.\</OutputPath>
     <DebugSymbols>false</DebugSymbols>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <Optimize>false</Optimize>
@@ -116,7 +116,6 @@
     <Compile Include="KartRider.Data\Rider\RiderSchool.cs" />
     <Compile Include="KartRider.Data\Rider\FavoriteItem.cs" />
     <Compile Include="KartRider.Data\Rider\NewRider.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
