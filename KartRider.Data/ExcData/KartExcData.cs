@@ -189,7 +189,9 @@ namespace ExcData
 					{
 						oPacket.WriteShort(tempList[f][0]);
 						oPacket.WriteShort(tempList[f][1]);
-						oPacket.WriteHexString("00 00 FF FF 00 00");
+						oPacket.WriteShort(0);
+						oPacket.WriteShort(-1);
+						oPacket.WriteShort(0);
 						oPacket.WriteShort(tempList[f][2]);
 						oPacket.WriteByte((byte)tempList[f][3]);
 						oPacket.WriteShort(tempList[f][4]);
