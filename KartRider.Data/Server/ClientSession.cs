@@ -1716,11 +1716,6 @@ namespace KartRider
 							outPacket.WriteHexString("00 00 00 00 06 00 00 00 00 00 E8 03 01 00 F4 01 00 00 E8 03 01 00 F4 01 00 00 E8 03 01 00 F4 01");
 							this.Parent.Client.Send(outPacket);
 						}
-						using (OutPacket outPacket = new OutPacket("PcSlaveNotice"))
-						{
-							outPacket.WriteString("分解卡丁车可以重置此车装备的部件！");
-							this.Parent.Client.Send(outPacket);
-						}
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqRequestExchangeInitPacket", 0))
