@@ -56,7 +56,8 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>1.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>Launcher</RootNamespace>
@@ -116,9 +117,6 @@
     <Compile Include="KartRider.Data\Rider\RiderSchool.cs" />
     <Compile Include="KartRider.Data\Rider\FavoriteItem.cs" />
     <Compile Include="KartRider.Data\Rider\NewRider.cs" />
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="KartRider.Data\ExcData\TuneSpec.cs" />
     <Compile Include="KartRider.Data\Set_Data\SetGameOption.cs" />
     <Compile Include="KartRider.Data\Set_Data\SetGameData.cs" />
@@ -174,7 +172,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="1.ico" />
+    <Content Include="Properties\1.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
