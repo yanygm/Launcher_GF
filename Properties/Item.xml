@@ -788,6 +788,13 @@
 	<Uniform id='110' />
 	<Uniform id='111' />
 	<Uniform id='112' />
+	<!--item itemCatId='20' itemName='贴花'-->
+	<Decal id='6' />
+	<Decal id='8' />
+	<Decal id='10' />
+	<Decal id='20' />
+	<Decal id='21' />
+	<Decal id='24' />
 	<!--item itemCatId='26' itemName='炫光'-->
 	<Aura id='30000' />
 	<Aura id='1' />
