@@ -33,6 +33,7 @@ namespace RiderData
 			NewRider.Card();
 			NewRider.ReplayTicket();
 			NewRider.Uniform();
+			NewRider.Decal();
 			NewRider.Plate();
 			NewRider.RidColor();
 			NewRider.SkidMark();
@@ -299,6 +300,27 @@ namespace RiderData
 					item.Add(add);
 				}
 				LoRpGetRiderItemPacket(18, item);
+			}
+		}
+
+		public static void Decal()
+		{
+			XmlDocument doc = new XmlDocument();
+			doc.Load(@"Profile\Item.xml");
+			if (!(doc.GetElementsByTagName("Decal") == null))
+			{
+				XmlNodeList lis = doc.GetElementsByTagName("Decal");
+				List<List<short>> item = new List<List<short>>();
+				foreach (XmlNode xn in lis)
+				{
+					XmlElement xe = (XmlElement)xn;
+					short i = short.Parse(xe.GetAttribute("id"));
+					short sn = 0;
+					short num = 1;
+					List<short> add = new List<short> { i, sn, num };
+					item.Add(add);
+				}
+				LoRpGetRiderItemPacket(20, item);
 			}
 		}
 
