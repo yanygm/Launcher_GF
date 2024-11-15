@@ -2377,7 +2377,7 @@ namespace KartRider
 							outPacket.WriteInt(1);
 							outPacket.WriteString("cc");
 							outPacket.WriteString(SessionGroup.Service);
-							outPacket.WriteInt(4);
+							outPacket.WriteInt(5);
 							outPacket.WriteString("content");
 							outPacket.WriteInt(0);
 							outPacket.WriteInt(2);
@@ -2421,6 +2421,14 @@ namespace KartRider
 							outPacket.WriteString("true");
 							outPacket.WriteString("visible");
 							outPacket.WriteString("true");
+							outPacket.WriteInt(0);
+							outPacket.WriteString("content");
+							outPacket.WriteInt(0);
+							outPacket.WriteInt(2);
+							outPacket.WriteString("name");
+							outPacket.WriteString("timeAttack");
+							outPacket.WriteString("value");
+							outPacket.WriteString("china_R11");
 							outPacket.WriteInt(0);
 							outPacket.WriteByte(0);
 							outPacket.WriteByte(SetGameOption.Set_screen);
