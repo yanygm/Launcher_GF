@@ -2424,11 +2424,17 @@ namespace KartRider
 							outPacket.WriteInt(0);
 							outPacket.WriteString("content");
 							outPacket.WriteInt(0);
-							outPacket.WriteInt(2);
+							outPacket.WriteInt(5);
 							outPacket.WriteString("name");
 							outPacket.WriteString("timeAttack");
+							outPacket.WriteString("enable");
+							outPacket.WriteString("true");
+							outPacket.WriteString("visible");
+							outPacket.WriteString("true");
 							outPacket.WriteString("value");
 							outPacket.WriteString("china_R11");
+							outPacket.WriteString("maxReplayFileCount");
+							outPacket.WriteString("250");
 							outPacket.WriteInt(0);
 							outPacket.WriteByte(0);
 							outPacket.WriteByte(SetGameOption.Set_screen);
